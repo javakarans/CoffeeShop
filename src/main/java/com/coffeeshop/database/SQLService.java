@@ -1,6 +1,7 @@
 package com.coffeeshop.database;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -10,39 +11,47 @@ import java.util.List;
  */
 public class SQLService {
 
-    public <T> void create(T object) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(object);
-        session.getTransaction().commit();
-        session.flush();
-        session.close();
+    public <T> boolean create(T object) {
+        try{
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().save(object);
+            HibernateUtil.commitTransaction();
+            return true;
+        }catch (HibernateException e){
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
     }
 
-    public <T> void update(T object) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.update(object);
-        session.getTransaction().commit();
-        session.flush();
-        session.close();
+    public <T> boolean update(T object) {
+        try{
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().update(object);
+            HibernateUtil.commitTransaction();
+            return true;
+        }catch (HibernateException e){
+            HibernateUtil.rollbackTransaction();
+            return false;
+        }
     }
 
-    public <T> void delete(T object) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.delete(object);
-        session.getTransaction().commit();
-        session.flush();
-        session.close();
+    public <T> boolean delete(T object) {
+        try{
+            HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().delete(object);
+            HibernateUtil.commitTransaction();
+            return true;
+        }catch (HibernateException e){
+            return false;
+        }
+
     }
 
     public <T> List getAllObjects(T object) {
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        Criteria criteria = session.createCriteria(object.getClass());
+        HibernateUtil.beginTransaction();
+        Criteria criteria = HibernateUtil.getSession().createCriteria(object.getClass());
         List list = criteria.list();
-        session.close();
+        HibernateUtil.commitTransaction();
         return list;
     }
 }

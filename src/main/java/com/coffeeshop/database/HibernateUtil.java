@@ -29,8 +29,24 @@ public class HibernateUtil {
     }
 
     public static Session getSession(){
-        Session session = HibernateUtil.getInstance().sessionFactory.openSession();
-        return session;
+        Session currentSession = HibernateUtil.getInstance().sessionFactory.getCurrentSession();
+        return currentSession;
+    }
+
+    public static void beginTransaction(){
+        HibernateUtil.getSession().beginTransaction();
+    }
+
+    public static void commitTransaction(){
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+
+    public static void closeSession(){
+        HibernateUtil.getSession().close();
+    }
+
+    public static void rollbackTransaction(){
+        HibernateUtil.getSession().getTransaction().rollback();
     }
 
 }
