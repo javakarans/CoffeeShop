@@ -1,5 +1,7 @@
 package com.coffeeshop.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,6 +16,7 @@ public class Food implements Serializable{
     private long subCategoryId;
     private String name;
     private double price;
+    private String ingredients;
     private String imageUrl;
 
 
@@ -64,4 +67,13 @@ public class Food implements Serializable{
         this.imageUrl = imageUrl;
     }
 
+    @Column
+    @Type(type = "text")
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 }
