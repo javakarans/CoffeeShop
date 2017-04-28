@@ -14,7 +14,8 @@ public class Food implements Serializable{
     private long subCategoryId;
     private String name;
     private double price;
-    private String immageUrl;
+    private String imageUrl;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,11 +56,12 @@ public class Food implements Serializable{
     }
 
     @Column
-    public String getImmageUrl() {
-        return immageUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImmageUrl(String immageUrl) {
-        this.immageUrl = immageUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
 }
