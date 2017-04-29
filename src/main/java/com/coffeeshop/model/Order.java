@@ -2,6 +2,7 @@ package com.coffeeshop.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Created by Amirhossein on 4/28/2017.
@@ -11,8 +12,10 @@ import java.io.Serializable;
 public class Order implements Serializable{
 
     private long orderId;
-    private long recieptId;
+    private int trackingNumber;
     private String status;
+    private double totalPrice;
+    private Date date;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +29,12 @@ public class Order implements Serializable{
     }
 
     @Column
-    public long getRecieptId() {
-        return recieptId;
+    public int getTrackingNumber() {
+        return trackingNumber;
     }
 
-    public void setRecieptId(long recieptId) {
-        this.recieptId = recieptId;
+    public void setTrackingNumber(int trackingNumber) {
+        this.trackingNumber = trackingNumber;
     }
 
     @Column
@@ -41,5 +44,23 @@ public class Order implements Serializable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Column
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    @Column
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
