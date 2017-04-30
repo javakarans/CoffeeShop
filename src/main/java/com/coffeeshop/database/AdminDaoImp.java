@@ -31,9 +31,12 @@ public class AdminDaoImp implements AdminDao {
     }
 
     public Admin getAdminByUsernameAndPassword(String username, String password) {
-        Admin admin = (Admin) sqlService.getObjectsByTwoSpecialColumns
-                (new Admin(), "username", username, "password", password).get(0);
-        return admin;
+        List result = sqlService.getObjectsByTwoSpecialColumns
+                (new Admin(), "username", username, "password", password);
+        if(!result.isEmpty()){
+            return (Admin) result.get(0);
+        }
+        return new Admin();
     }
 
     public Admin getAdminByUsername(String username) {

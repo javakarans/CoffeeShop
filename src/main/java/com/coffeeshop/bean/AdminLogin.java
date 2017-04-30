@@ -18,6 +18,7 @@ public class AdminLogin {
     private Admin admin;
     private String username;
     private String password;
+    private String validatorMessage;
 
 
     @PostConstruct
@@ -26,14 +27,16 @@ public class AdminLogin {
         adminDaoImp = new AdminDaoImp();
     }
 
-    public void login(){
+    public String login() {
         admin = adminDaoImp.getAdminByUsername(username);
-//        if (admin != null){
-//            System.out.println("salam");
-//        }
-//        else {
-//            System.out.println("khodafez");
-//        }
+        if (admin.getUsername() == null) {
+            validatorMessage = ".نام کاربری یا کلمه عبور نادرست است";
+            return "AdminLogin.xhtml";
+        }else if(!admin.getPassword().equals(password)){
+            validatorMessage = ".نام کاربری یا کلمه عبور نادرست است";
+            return "AdminLogin.xhtml";
+        }
+        return "mainAdmin.xhtml?faces-redirect=true";
     }
 
     public AdminDaoImp getAdminDaoImp() {
@@ -68,6 +71,12 @@ public class AdminLogin {
         this.password = password;
     }
 
+    public String getValidatorMessage() {
+        return validatorMessage;
+    }
 
+    public void setValidatorMessage(String validatorMessage) {
+        this.validatorMessage = validatorMessage;
+    }
 
 }

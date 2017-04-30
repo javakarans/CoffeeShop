@@ -2,6 +2,8 @@ package com.coffeeshop.database;
 
 import com.coffeeshop.model.Kitchen;
 
+import java.util.List;
+
 /**
  * Created by Amirhossein on 4/28/2017.
  */
@@ -26,7 +28,10 @@ public class KitchenDaoImp implements KitchenDao{
     }
 
     public Kitchen getKitchenByName(String kitchenName) {
-        Kitchen kitchen = (Kitchen) sqlService.getObjectsBySpecialColumn(new Kitchen(), "name", kitchenName).get(0);
-        return kitchen;
+        List result = sqlService.getObjectsBySpecialColumn(new Kitchen(), "name", kitchenName);
+        if(!result.isEmpty()){
+            return (Kitchen) result.get(0);
+        }
+        return new Kitchen();
     }
 }

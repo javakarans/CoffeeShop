@@ -31,8 +31,11 @@ public class CategoryDaoImp implements CategoryDao {
     }
 
     public Category getCategoryById(long categoryId) {
-        Category category = (Category) sqlService.getObjectsBySpecialColumn(new Category(), "categoryId", categoryId).get(0);
-        return category;
+        List result = sqlService.getObjectsBySpecialColumn(new Category(), "categoryId", categoryId);
+        if(!result.isEmpty()){
+            return (Category) result.get(0);
+        }
+        return new Category();
     }
 
     public List<Category> getAllCategories() {
