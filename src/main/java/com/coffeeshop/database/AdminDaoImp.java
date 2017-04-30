@@ -2,6 +2,8 @@ package com.coffeeshop.database;
 
 import com.coffeeshop.model.Admin;
 
+import java.util.List;
+
 /**
  * Created by Mohammad on 4/28/2017.
  */
@@ -32,5 +34,13 @@ public class AdminDaoImp implements AdminDao {
         Admin admin = (Admin) sqlService.getObjectsByTwoSpecialColumns
                 (new Admin(), "username", username, "password", password).get(0);
         return admin;
+    }
+
+    public Admin getAdminByUsername(String username) {
+        List result = sqlService.getObjectsBySpecialColumn(new Admin(), "username", username);
+        if(!result.isEmpty()){
+            return (Admin) result.get(0);
+        }
+        return new Admin();
     }
 }
