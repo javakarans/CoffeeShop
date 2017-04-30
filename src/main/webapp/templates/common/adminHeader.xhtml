@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://java.sun.com/jsf/html">
  
 <h:head>
@@ -14,7 +15,13 @@
 
 <h:body>
     <ui:composition>
-
+        <b:container fluid="true">
+            <b:navBar brand="Coffee Shop" brandHref="#">
+                <b:navbarLinks>
+                    <b:navLink value="افزودن داده ها" href="../../admin/menuEdit.xhtml"/>
+                </b:navbarLinks>
+            </b:navBar>
+        </b:container>
     </ui:composition>
 </h:body>
 </html>
