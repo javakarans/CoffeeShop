@@ -1,6 +1,6 @@
 package com.coffeeshop.database;
 
-import com.coffeeshop.model.Order;
+import com.coffeeshop.model.OrderDetail;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface OrderDao {
 
-    public boolean createOrder(Order order);
-    public boolean updateOrder(Order order);
-    public boolean deleteOrder(Order order);
-    public List<Order> getAllOrders();
-    public List<Order> getOrderByOrderId(String orderId);
+    public boolean createOrder(OrderDetail orderDetail);
+    public boolean updateOrder(OrderDetail orderDetail);
+    public boolean deleteOrder(OrderDetail orderDetail);
+    public List<OrderDetail> getAllOrders();
+    public List<OrderDetail> getOrderDetailById(long orderDetailId);
 }

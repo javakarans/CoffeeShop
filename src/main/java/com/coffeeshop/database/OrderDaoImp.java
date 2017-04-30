@@ -1,6 +1,6 @@
 package com.coffeeshop.database;
 
-import com.coffeeshop.model.Order;
+import com.coffeeshop.model.OrderDetail;
 
 import java.util.List;
 
@@ -15,25 +15,25 @@ public class OrderDaoImp implements OrderDao{
         sqlService = new SQLService();
     }
 
-    public boolean createOrder(Order order) {
-        return sqlService.create(order);
+    public boolean createOrder(OrderDetail orderDetail) {
+        return sqlService.create(orderDetail);
     }
 
-    public boolean updateOrder(Order order) {
-        return sqlService.update(order);
+    public boolean updateOrder(OrderDetail orderDetail) {
+        return sqlService.update(orderDetail);
     }
 
-    public boolean deleteOrder(Order order) {
-        return sqlService.delete(order);
+    public boolean deleteOrder(OrderDetail orderDetail) {
+        return sqlService.delete(orderDetail);
     }
 
-    public List<Order> getAllOrders() {
-        List orders = sqlService.getAllObjects(new Order());
+    public List<OrderDetail> getAllOrders() {
+        List orders = sqlService.getAllObjects(new OrderDetail());
         return orders;
     }
 
-    public List<Order> getOrderByOrderId(String orderId) {
-        List orders = sqlService.getObjectsBySpecialColumn(new Order(), "orderId", orderId);
+    public List<OrderDetail> getOrderDetailById(long orderDetailId) {
+        List orders = sqlService.getObjectsBySpecialColumn(new OrderDetail(), "orderDetailId", orderDetailId);
         return orders;
     }
 }

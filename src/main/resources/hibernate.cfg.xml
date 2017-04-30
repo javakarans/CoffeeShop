@@ -30,7 +30,7 @@
         <mapping class="com.coffeeshop.model.Food"/>
         <mapping class="com.coffeeshop.model.FoodOrder"/>
         <mapping class="com.coffeeshop.model.Kitchen"/>
-        <mapping class="com.coffeeshop.model.Order"/>
+        <mapping class="com.coffeeshop.model.OrderDetail"/>
         <mapping class="com.coffeeshop.model.Subcategory"/>
 
 

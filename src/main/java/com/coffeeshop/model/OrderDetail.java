@@ -9,9 +9,9 @@ import java.sql.Date;
  */
 @Entity
 @Table
-public class Order implements Serializable{
+public class OrderDetail implements Serializable{
 
-    private long orderId;
+    private long orderDetailId;
     private int trackingNumber;
     private String status;
     private double totalPrice;
@@ -20,12 +20,12 @@ public class Order implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true , nullable = false)
-    public long getOrderId() {
-        return orderId;
+    public long getOrderDetailId() {
+        return orderDetailId;
     }
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
+    public void setOrderDetailId(long orderDetailId) {
+        this.orderDetailId = orderDetailId;
     }
 
     @Column
