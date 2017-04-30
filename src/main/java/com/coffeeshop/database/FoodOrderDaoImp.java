@@ -13,17 +13,17 @@ public class FoodOrderDaoImp implements FoodOrderDao{
         sqlService=new SQLService();
     }
 
-    public boolean createAdmin(FoodOrder foodOrder) {
+    public boolean createFoodOrder(FoodOrder foodOrder) {
         boolean done = sqlService.create(foodOrder);
         return done;
     }
 
-    public boolean updateAdmin(FoodOrder foodOrder) {
+    public boolean updateFoodOrder(FoodOrder foodOrder) {
         boolean done = sqlService.update(foodOrder);
         return done;
     }
 
-    public boolean deleteAdmin(FoodOrder foodOrder) {
+    public boolean deleteFoodOrder(FoodOrder foodOrder) {
         boolean done = sqlService.delete(foodOrder);
         return done;
     }

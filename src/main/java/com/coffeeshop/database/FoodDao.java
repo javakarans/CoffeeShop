@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface FoodDao {
 
-    public boolean createAdmin(Food food);
-    public boolean updateAdmin(Food food);
-    public boolean deleteAdmin(Food food);
+    public boolean createFood(Food food);
+    public boolean updateFood(Food food);
+    public boolean deleteFood(Food food);
     public List<Food> getFoodsBySubCategoryId(long subCategoryId);
     public List<Food> getAllFoods();
 }

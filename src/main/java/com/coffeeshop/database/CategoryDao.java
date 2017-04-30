@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface CategoryDao {
 
-    public boolean createAdmin(Category category);
-    public boolean updateAdmin(Category category);
-    public boolean deleteAdmin(Category category);
+    public boolean createCategory(Category category);
+    public boolean updateCategory(Category category);
+    public boolean deleteCategory(Category category);
     public Category getCategoryById(long categoryId);
     public List<Category> getAllCategories();
 }

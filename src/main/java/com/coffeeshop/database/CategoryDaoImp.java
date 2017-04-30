@@ -15,17 +15,17 @@ public class CategoryDaoImp implements CategoryDao {
         sqlService=new SQLService();
     }
 
-    public boolean createAdmin(Category category) {
+    public boolean createCategory(Category category) {
         boolean done = sqlService.create(category);
         return done;
     }
 
-    public boolean updateAdmin(Category category) {
+    public boolean updateCategory(Category category) {
         boolean done = sqlService.update(category);
         return done;
     }
 
-    public boolean deleteAdmin(Category category) {
+    public boolean deleteCategory(Category category) {
         boolean done = sqlService.delete(category);
         return done;
     }

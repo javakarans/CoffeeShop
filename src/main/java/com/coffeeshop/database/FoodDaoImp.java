@@ -15,17 +15,17 @@ public class FoodDaoImp implements FoodDao{
         sqlService=new SQLService();
     }
 
-    public boolean createAdmin(Food food) {
+    public boolean createFood(Food food) {
         boolean done = sqlService.create(food);
         return done;
     }
 
-    public boolean updateAdmin(Food food) {
+    public boolean updateFood(Food food) {
         boolean done = sqlService.update(food);
         return done;
     }
 
-    public boolean deleteAdmin(Food food) {
+    public boolean deleteFood(Food food) {
         boolean done = sqlService.delete(food);
         return done;
     }

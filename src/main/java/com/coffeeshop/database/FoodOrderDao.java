@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface FoodOrderDao {
 
-    public boolean createAdmin(FoodOrder foodOrder);
-    public boolean updateAdmin(FoodOrder foodOrder);
-    public boolean deleteAdmin(FoodOrder foodOrder);
+    public boolean createFoodOrder(FoodOrder foodOrder);
+    public boolean updateFoodOrder(FoodOrder foodOrder);
+    public boolean deleteFoodOrder(FoodOrder foodOrder);
 }
