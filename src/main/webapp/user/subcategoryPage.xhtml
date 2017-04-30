@@ -15,9 +15,11 @@
 
     <ui:define name="content">
 
-        <ui:repeat value="#{subCategoryPage.subcategories}" var="a">
-            <h:commandButton value = "#{a.name}" action="#{subCategoryPage.onClick(a.subCategoryId)}" />
-        </ui:repeat>
+        <h:form>
+            <ui:repeat value="#{subCategoryPage.subcategories}" var="a">
+                <h:commandButton value = "#{a.name}" action="#{subCategoryPage.redirectToFoodPage(a.subCategoryId)}" />
+            </ui:repeat>
+        </h:form>
 
     </ui:define>
 

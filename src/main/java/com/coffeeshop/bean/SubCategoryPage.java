@@ -35,7 +35,7 @@ public class SubCategoryPage {
     }
 
 
-    public void onClick(long SubCategoryId) {
+    public void redirectToFoodPage(long SubCategoryId) {
         userSessionBean.setSelectedSubCategory(SubCategoryId);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("foodPage.xhtml");
