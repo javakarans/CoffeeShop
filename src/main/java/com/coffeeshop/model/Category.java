@@ -13,6 +13,7 @@ public class Category implements Serializable{
 
     private long categoryId;
     private String name;
+    private String buttonColor;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +33,13 @@ public class Category implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getButtonColor() {
+        return buttonColor;
+    }
+
+    public void setButtonColor(String buttonColor) {
+        this.buttonColor = buttonColor;
     }
 }
