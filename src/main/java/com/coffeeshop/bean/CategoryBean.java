@@ -17,7 +17,7 @@ import java.util.List;
 public class CategoryBean {
     private CategoryDaoImp categoryDaoImp;
     private List<Category> categoryList;
-    @ManagedProperty(value = "dtUserSessionBean")
+    @ManagedProperty(value = "#{dtUserSessionBean}")
     private UserSessionBean userSessionBean;
 
 
@@ -29,9 +29,10 @@ public class CategoryBean {
         System.out.println( categoryDaoImp.getAllCategories().size());
     }
 
-    public void redirectToSubCtegoryPage()
+    public void redirectToSubCtegoryPage(long categoryId)
     {
         try {
+            userSessionBean.setSelectedCategory(categoryId);
             FacesContext.getCurrentInstance().getExternalContext().redirect("subcategoryPage.xhtml");
         } catch (IOException e) {
             System.out.println("can not redirect");

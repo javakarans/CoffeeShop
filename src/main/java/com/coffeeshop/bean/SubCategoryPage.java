@@ -26,9 +26,10 @@ public class SubCategoryPage {
 
     @PostConstruct
     private void init() {
-        long CategoryId = userSessionBean.getSelectedCategory();
+        long categoryId = userSessionBean.getSelectedCategory();
+        System.out.println(categoryId+"salammmmmmmmmmmmmmm");
         SubcategoryDaoImp subcategoryDaoImp = new SubcategoryDaoImp();
-        setSubcategories(subcategoryDaoImp.getSubCategoriesByCategoryId(CategoryId));
+        subcategories = subcategoryDaoImp.getSubCategoriesByCategoryId(categoryId);
 
 
     }

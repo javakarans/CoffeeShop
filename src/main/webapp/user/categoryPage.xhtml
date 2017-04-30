@@ -13,8 +13,7 @@
         <ui:define name="content">
             <h:form>
                 <ui:repeat value="#{dtCategoryBean.categoryList}" var="category">
-                    <h:commandButton action="#{dtCategoryBean.redirectToSubCtegoryPage()}"  value="#{category.name}" >
-                        <f:setPropertyActionListener target="#{category.categoryId}" value="#{dtUserSessionBean.selectedCategory}" />
+                    <h:commandButton action="#{dtCategoryBean.redirectToSubCtegoryPage(category.categoryId)}"  value="#{category.name}" >
                     </h:commandButton>
                 </ui:repeat>
             </h:form>

@@ -17,8 +17,7 @@
         
         <h:form>
             <ui:repeat value="#{foodPage.foodList}" var="food">
-                <h:commandButton value="#{food.name}" action="">
-                    <f:setPropertyActionListener value="#{food.foodId}" target="#{dtUserSessionBean.selectedFood}"/>
+                <h:commandButton value="#{food.name}" action="#">
                 </h:commandButton>
             </ui:repeat>
         </h:form>
