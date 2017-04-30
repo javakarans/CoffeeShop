@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 public class UserSessionBean {
     private long selectedCategory;
     private long selectedSubCategory;
+    private long selectedFood;
 
     @PostConstruct
     private void init()
@@ -30,5 +31,13 @@ public class UserSessionBean {
 
     public void setSelectedSubCategory(long selectedSubCategory) {
         this.selectedSubCategory = selectedSubCategory;
+    }
+
+    public long getSelectedFood() {
+        return selectedFood;
+    }
+
+    public void setSelectedFood(long selectedFood) {
+        this.selectedFood = selectedFood;
     }
 }

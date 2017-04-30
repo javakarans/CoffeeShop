@@ -10,10 +10,18 @@
 
 </h:head>
 
-<ui:composition>
+<ui:composition template="../templates/common/userTemplate.xhtml">
 
     <ui:define name="content">
-
+        
+        <h:form>
+            <ui:repeat value="#{foodPage.foodList}" var="food">
+                <h:commandButton value="#{food.name}" action="">
+                    <f:setPropertyActionListener value="#{food.foodId}" target="#{dtUserSessionBean.selectedFood}"/>
+                </h:commandButton>
+            </ui:repeat>
+        </h:form>
+        
     </ui:define>
 
 </ui:composition>
