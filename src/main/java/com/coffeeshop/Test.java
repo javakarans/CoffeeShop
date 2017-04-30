@@ -9,6 +9,7 @@ import org.hibernate.Session;
 public class Test {
 
     public static void main(String[] args) {
+        ////////
 
         HibernateUtil.beginTransaction();
         Session session = HibernateUtil.getSession();
