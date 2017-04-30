@@ -1,6 +1,8 @@
 package com.coffeeshop;
 
+import com.coffeeshop.database.AdminDaoImp;
 import com.coffeeshop.database.HibernateUtil;
+import com.coffeeshop.model.Admin;
 import org.hibernate.Session;
 
 /**
@@ -9,10 +11,9 @@ import org.hibernate.Session;
 public class Test {
 
     public static void main(String[] args) {
-        ////////
 
-        HibernateUtil.beginTransaction();
-        Session session = HibernateUtil.getSession();
-//        session.save()
+        AdminDaoImp adminDaoImp=new AdminDaoImp();
+        Admin adminByUsernameAndPassword = adminDaoImp.getAdminByUsernameAndPassword("asd", "asd");
+        System.out.println(adminByUsernameAndPassword.getUsername());
     }
 }

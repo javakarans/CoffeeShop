@@ -11,13 +11,16 @@
 
     <ui:composition template="../templates/common/userTemplate.xhtml">
         <ui:define name="content">
-            <h:form>
-                <ui:repeat value="#{dtCategoryBean.categoryList}" var="category">
-                    <h:commandButton action="#{dtCategoryBean.redirectToSubCtegoryPage(category.categoryId)}"  value="#{category.name}" >
-                    </h:commandButton>
+            <link rel="stylesheet" href="../lib/css/categoryPage.css"></link>
+
+            <div style="margin: 0 auto;width: 500px;">
+                <ui:repeat value="" var="">
+                    <img alt="img" src="../lib/img/category/blueButton.png" width="500" style="margin: 0 auto"></img>
                 </ui:repeat>
-            </h:form>
+            </div>
+
         </ui:define>
+
     </ui:composition>
 
 </html>
