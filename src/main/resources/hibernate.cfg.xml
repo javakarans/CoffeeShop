@@ -25,7 +25,13 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
 
          <!--Annotated entity classes-->
-        <!--<mapping class="ir.comet.model.Comment"/>-->
+        <mapping class="com.coffeeshop.model.Admin"/>
+        <mapping class="com.coffeeshop.model.Category"/>
+        <mapping class="com.coffeeshop.model.Food"/>
+        <mapping class="com.coffeeshop.model.FoodOrder"/>
+        <mapping class="com.coffeeshop.model.Kitchen"/>
+        <mapping class="com.coffeeshop.model.Order"/>
+        <mapping class="com.coffeeshop.model.Subcategory"/>
 
 
     </session-factory>
