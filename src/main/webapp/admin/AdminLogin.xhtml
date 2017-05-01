@@ -13,21 +13,44 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
 
-        <h:form>
+        <!-- Head Style -->
+        <link rel="stylesheet" href="../lib/css/adminLogin.css"></link>
 
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputLabel for="username" value="Username:" />
-                    <b:inputText id="username" value="#{adminLogin.username}" required="true" label="username" />
+        <b:container>
 
-                    <h:outputLabel for="password" value="Password:" />
-                    <b:inputSecret id="password" value="#{adminLogin.password}" required="true" label="password" />
+            <b:row>
+                <b:column colSm="12">
+                    <b:growl id="messages" showDetail="true" />
+                    <b:form>
+                        <b:panelGrid colSpans="2,10" size="xs" styleClass="panelGridCenter">
+                            <h:outputText value="Username :"/>
+                            <b:inputText span="5" value="#{adminLogin.username}" required="true"  requiredMessage="Username is required">
+                                <f:facet name="prepend">
+                                    <b:icon name="user"/>
+                                </f:facet>
+                            </b:inputText>
+                            <h:outputText value="Password :"/>
+                            <b:inputSecret span="5" value="#{adminLogin.password}"
+                                           required="true" requiredMessage="Password is required">
+                                <f:facet name="prepend">
+                                    <b:icon name="asterisk"/>
+                                </f:facet>
+                            </b:inputSecret>
+                            <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
+                                      <!--value="Login" ajax="true" update="message"-->
+                                      <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
+                            <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
 
-                    <f:facet name="footer">
-                        <b:commandButton value="Login" action="#{adminLogin.login()}"/>
-                    </f:facet>
-                </h:panelGrid>
+                            <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
+                                             actionListener="#{adminLogin.login()}">Login</b:commandButton>
 
-        </h:form>
+                        </b:panelGrid>
+                    </b:form>
+
+                </b:column>
+            </b:row>
+        </b:container>
+
 
     </ui:define>
 </ui:composition>
