@@ -1,4 +1,72 @@
-body{
+body {
     background: url("../img/background.png") no-repeat;
     background-size: cover;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome and Opera */
+}
+
+.container {
+    margin: 0 auto;
+    width: 1400px;
+}
+.center-content{
+    margin-top: 150px;
+}
+.scroll-panel {
+    width: 850px;
+    position: relative;
+    top: 90px;
+    left: 50%;
+    transform: TranslateX(-50%);
+    height: 210px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.img-panel {
+    border: 2px solid black;
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    display: inline-flex;
+    margin: 13px;
+    box-shadow: 0px 0px 9px #292929;
+    background-color: rgba(214, 214, 214, 0.44);
+}
+
+.scrollable {
+    text-align: center;
+    width: 850px;
+    height: 230px;
+    overflow-x: scroll;
+}
+
+.container:hover {
+    cursor: pointer;
+}
+
+.left-scroll-panel {
+    position: absolute;
+    left: 200px;
+}
+.left-scroll-panel img{
+    display: block;
+    margin-top: 10px;
+}
+#img1{
+    margin-top: 50px;
+    margin-left: 100px;
+}
+#img2{
+    margin-left: -30px;
+}
+.right-scroll-panel{
+    position: absolute;
+    right: 20px;
 }
