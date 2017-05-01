@@ -13,7 +13,8 @@ public class Category implements Serializable{
 
     private long categoryId;
     private String name;
-    private String buttonColor;
+    private String largeDeviceImageUrl;
+    private String smallDeviceImageUrl;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +36,19 @@ public class Category implements Serializable{
         this.name = name;
     }
 
-    public String getButtonColor() {
-        return buttonColor;
+    public String getLargeDeviceImageUrl() {
+        return largeDeviceImageUrl;
     }
 
-    public void setButtonColor(String buttonColor) {
-        this.buttonColor = buttonColor;
+    public void setLargeDeviceImageUrl(String largeDeviceImageUrl) {
+        this.largeDeviceImageUrl = largeDeviceImageUrl;
+    }
+
+    public String getSmallDeviceImageUrl() {
+        return smallDeviceImageUrl;
+    }
+
+    public void setSmallDeviceImageUrl(String smallDeviceImageUrl) {
+        this.smallDeviceImageUrl = smallDeviceImageUrl;
     }
 }

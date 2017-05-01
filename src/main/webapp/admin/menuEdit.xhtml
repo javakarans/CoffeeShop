@@ -12,46 +12,17 @@
 
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
-        <b:container>
-       <b:row>
-           <b:form>
-           <b:panelGrid colSpans="3,3,6">
-               <h:outputText value="New Category :"/>
-               <b:inputText required="true" value="#{adminEditMenu.category.name}"/>
-               <b:commandButton ajax="true" update="categoryTable" value="save" actionListener="#{adminEditMenu.saveCategory()}"/>
-           </b:panelGrid>
-            </b:form>
-         </b:row>
-
-            <b:row id="categoryTable">
-                <b:panel title="Category List" collapsible="false">
-                    <b:dataTable value="#{adminEditMenu.categoryList}" var="category">
-                        <b:dataTableColumn value="#{category.name}"/>
-                        <b:dataTableColumn label="gholam" >
-                            <!--<b:selectOneMenu-->
-                                         <!--renderLabel="true" required="true"-->
-                                         <!--requiredMessage="Please provide the form of address."-->
-                                         <!--update="" value=""-->
-                                         <!--onchange="">-->
-                            <!--<f:selectItem itemLabel="- please select - " />-->
-                            <!--<f:selectItem itemLabel="Mrs." />-->
-                            <!--<f:selectItem itemLabel="Mr." />-->
-                            <!--</b:selectOneMenu>-->
-
-                            <b:selectOneMenu id="selectedBranchDetails" value="#{dtAddProductBean.selectedBranchDetailsWrapper}"  style="height:auto;">
-                                <f:selectItems value="#{dtAddProductBean.branchDetailsWrapperList}" var="branchDetailsWrapper" itemValue="#{branchDetailsWrapper}" itemLabel="#{branchDetailsWrapper.toString()}"/>
-                            </b:selectOneMenu>
-
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                </b:panel>
-
-
-            </b:row>
-
-
-        </b:container>
-
+            <b:tabView tabPosition="left" >
+                <b:tab  title="Category">
+                    <ui:include src="category.xhtml"/>
+                </b:tab>
+                <b:tab  title="Sub Category">
+                    <ui:include src="subCategory.xhtml"/>
+                </b:tab>
+                <b:tab  title="Add Foods">
+                    <ui:include src="addFoods.xhtml"/>
+                </b:tab>
+            </b:tabView>
     </ui:define>
 </ui:composition>
 
