@@ -9,18 +9,64 @@
  
 
 
-    <ui:composition template="../templates/common/userTemplate.xhtml">
-        <ui:define name="content">
-            <link rel="stylesheet" href="../lib/css/categoryPage.css"></link>
+<ui:composition template="../templates/common/userTemplate.xhtml">
+    <ui:define name="content">
+        <!-- Head Style -->
+        <link rel="stylesheet" href="../lib/css/categoryPage.css"></link>
+        <script type="text/javascript" src="../lib/js/categoryPage.js"></script>
+        <!-- Head Style -->
 
-            <div style="margin: 0 auto;width: 500px;">
-                <ui:repeat value="" var="">
-                    <img alt="img" src="../lib/img/category/blueButton.png" width="500" style="margin: 0 auto"></img>
-                </ui:repeat>
+        <div class="container">
+            <div class="center-content">
+                <div class="left-scroll-panel">
+                    <img id="img1" src="../lib/img/arrow.png" alt="img" width="110"/>
+                    <img id="img2" src="../lib/img/touchToOrder.png" alt="img" width="170px"/>
+                </div>
+
+                <div class="scroll-panel">
+                    <div class="scrollable">
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                        <div class="img-panel">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-scroll-panel">
+                    <img id="img3" src="../lib/img/nutellaPlus.png" alt="img" width="200"/>
+                </div>
             </div>
 
-        </ui:define>
+        </div>
 
-    </ui:composition>
+    </ui:define>
+
+</ui:composition>
 
 </html>
