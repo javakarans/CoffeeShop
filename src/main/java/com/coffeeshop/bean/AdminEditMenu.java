@@ -65,7 +65,6 @@ public class AdminEditMenu {
     public void removeCategory(Category category)
     {
         boolean result = categoryDaoImp.deleteCategory(category);
-        System.out.println("fggfgffg");
         if (result){
             categoryList.remove(category);
             //show message

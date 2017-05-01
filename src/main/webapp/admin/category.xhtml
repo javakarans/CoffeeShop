@@ -37,7 +37,7 @@
             </b:row>
             <b:row>
                 <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
-                    <b:commandButton ajax="true" update="categoryTable,@form,messages" value="save" actionListener="#{adminEditMenu.saveCategory()}"/>
+                    <b:commandButton update="categoryTable,@form,messages" value="save" action="#{adminEditMenu.saveCategory()}"/>
                 </b:panelGrid>
             </b:row>
         </b:form>
@@ -48,7 +48,7 @@
                     <b:dataTable value="#{adminEditMenu.categoryList}" var="category">
                         <b:dataTableColumn value="#{category.name}"/>
                         <b:dataTableColumn label="remove">
-                            <b:commandButton ajax="true" update="@form,messages" value="remove" icon="remove" actionListener="#{adminEditMenu.removeCategory(category)}"/>
+                            <b:commandButton  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
                         </b:dataTableColumn>
                     </b:dataTable>
                 </b:panel>
