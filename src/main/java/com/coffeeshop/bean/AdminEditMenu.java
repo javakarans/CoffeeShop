@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class AdminEditMenu {
 
 
     @PostConstruct
-    private void init(){
+    public void init(){
         System.out.println("zorooooooooooooo");
         categoryDaoImp = new CategoryDaoImp();
         subcategoryDaoImp = new SubcategoryDaoImp();
