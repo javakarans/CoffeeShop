@@ -5,16 +5,12 @@ import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Category;
 import com.coffeeshop.model.Subcategory;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.servlet.http.HttpServlet;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,17 +21,17 @@ import java.util.UUID;
 @ViewScoped
 public class AdminEditMenu {
 
-    private Category category ;
+    private Category category;
     private Subcategory subcategory;
     private List<Category> categoryList;
     private List<Subcategory> subcategories;
     private CategoryDaoImp categoryDaoImp;
     private SubcategoryDaoImp subcategoryDaoImp;
+    private long selectedCategoryid;
 
 
     @PostConstruct
-    public void init(){
-        System.out.println("zorooooooooooooo");
+    public void init() {
         categoryDaoImp = new CategoryDaoImp();
         subcategoryDaoImp = new SubcategoryDaoImp();
         category = new Category();
@@ -44,18 +40,16 @@ public class AdminEditMenu {
 
     }
 
-    public void saveCategory()
-    {
+
+
+    public void saveCategory() {
         boolean result = categoryDaoImp.createCategory(category);
-        if (result)
-        {
+        if (result) {
             categoryList.add(category);
             FacesMessage msg = new FacesMessage("Succesful", category.getName()
                     + " is saves.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        else
-        {
+        } else {
             FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "can not save the category with name : ", category.getName());
             FacesContext.getCurrentInstance().addMessage(null, error);
@@ -63,18 +57,15 @@ public class AdminEditMenu {
         category = new Category();
     }
 
-    public void removeCategory(Category category)
-    {
+    public void removeCategory(Category category) {
         boolean result = categoryDaoImp.deleteCategory(category);
-        if (result){
+        if (result) {
             categoryList.remove(category);
             //show message
             FacesMessage msg = new FacesMessage("Succesful", category.getName()
                     + " is removed.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        else
-        {
+        } else {
             FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "can not remove the category with name : ", category.getName());
             FacesContext.getCurrentInstance().addMessage(null, error);
@@ -82,34 +73,25 @@ public class AdminEditMenu {
         }
     }
 
-    public void saveSubCategory()
-    {
+    public void saveSubCategory() {
         boolean result = subcategoryDaoImp.createSubcategory(subcategory);
         subcategory = new Subcategory();
     }
 
-    public void uploadLargeImage(FileUploadEvent largeImageUploded)
-    {
+    public void uploadLargeImage(FileUploadEvent largeImageUploded) {
         String uniqueID = UUID.randomUUID().toString();
-        if (largeImageUploded!=null)
-        {
+        if (largeImageUploded != null) {
 
-        }
-        else
-        {
+        } else {
             //show message in xhtml
         }
     }
 
-    public void uploadSmallImage(FileUploadEvent smallImageUploded)
-    {
+    public void uploadSmallImage(FileUploadEvent smallImageUploded) {
         String uniqueID = UUID.randomUUID().toString();
-        if (smallImageUploded!=null)
-        {
+        if (smallImageUploded != null) {
 
-        }
-        else
-        {
+        } else {
             //show message in xhtml
         }
     }
@@ -144,5 +126,13 @@ public class AdminEditMenu {
 
     public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public long getSelectedCategoryid() {
+        return selectedCategoryid;
+    }
+
+    public void setSelectedCategoryid(long selectedCategoryid) {
+        selectedCategoryid = selectedCategoryid;
     }
 }

@@ -2,10 +2,61 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+ 
+
+
+<ui:composition>
+    <b:container>
+        <b:growl id="hooman" showDetail="true"/>
+        <b:form>
+            <b:row>
+                <h:outputLabel value="Category"/>
+                <b:selectOneMenu  update="subcategoryTable" value="#{adminSubCategoryEdit.selectedCategoryid}">
+                    <f:selectItems value="#{adminSubCategoryEdit.categories}" var="c" itemValue="#{c.categoryId}"
+                                   itemLabel="#{c.name}"/>
+                </b:selectOneMenu>
+            </b:row>
+            <b:row>
+                <b:panelGrid colSpans="3,9">
+                    <h:outputText value="New SubCategory name :"/>
+                    <b:inputText required="true" value="#{adminSubCategoryEdit.newSubcategory.name}"/>
+                </b:panelGrid>
+            </b:row>
+            <b:row>
+                <b:panelGrid colSpans="3,9">
+                    <h:outputText value="Image :"/>
+                    <p:fileUpload style="width: auto" mode="advanced" dragDropSupport="false"
+                                  multiple="true" sizeLimit="100000" fileLimit="1"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                </b:panelGrid>
+            </b:row>
+            <b:row>
+                <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
+                    <b:commandButton value="save"/>
+                </b:panelGrid>
+            </b:row>
+        </b:form>
+
+        <b:row>
+            <b:form id="subcategoryTable">
+                <b:panel title="Sub Category List" collapsible="false">
+                    <b:dataTable value="#{adminSubCategoryEdit.updateSubCategory()}" var="subcategory" ajax="true">
+                        <b:dataTableColumn value="#{subcategory.name}"/>
+                        <b:dataTableColumn label="remove">
+
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                </b:panel>
+            </b:form>
+        </b:row>
+
+
+    </b:container>
+</ui:composition>
+
 </html>
