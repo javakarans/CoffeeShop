@@ -6,6 +6,8 @@ import com.coffeeshop.model.Admin;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.util.List;
 
 /**
  * Created by H&H on 4/30/2017.
@@ -28,15 +30,24 @@ public class AdminLogin {
     }
 
     public String login() {
-        admin = adminDaoImp.getAdminByUsername(username);
-        if (admin.getUsername() == null) {
-            validatorMessage = ".نام کاربری یا کلمه عبور نادرست است";
-            return "AdminLogin.xhtml";
-        }else if(!admin.getPassword().equals(password)){
-            validatorMessage = ".نام کاربری یا کلمه عبور نادرست است";
-            return "AdminLogin.xhtml";
+        validatorMessage = "";
+        if(username != null){
+            List admins = adminDaoImp.getAdminByUsername(username);
+            if (!admins.isEmpty()){
+                admin = new Admin();
+                admin = (Admin) admins.get(0);
+                if(admin.getPassword().equals(password)){
+                    return "mainAdmin.xhtml?faces-redirect=true";
+                }
+                else {
+                    validatorMessage = "نام کاربری یا کلمه عبور نادرست است";
+                }
+            }
+            else {
+                validatorMessage = "نام کاربری یا کلمه عبور نادرست است";
+            }
         }
-        return "mainAdmin.xhtml?faces-redirect=true";
+        return validatorMessage;
     }
 
     public AdminDaoImp getAdminDaoImp() {

@@ -20,29 +20,32 @@
 
             <b:row>
                 <b:column colSm="12">
-                    <b:growl id="messages" showDetail="true" />
+
                     <b:form>
                         <b:panelGrid colSpans="2,10" size="xs" styleClass="panelGridCenter">
                             <h:outputText value="Username :"/>
-                            <b:inputText span="5" value="#{adminLogin.username}" required="true"  requiredMessage="Username is required">
+                            <b:inputText id="username" span="5" value="#{adminLogin.username}" required="true"  requiredMessage="Username is required">
                                 <f:facet name="prepend">
                                     <b:icon name="user"/>
                                 </f:facet>
                             </b:inputText>
                             <h:outputText value="Password :"/>
-                            <b:inputSecret span="5" value="#{adminLogin.password}"
+                            <b:inputSecret id="password" span="5" value="#{adminLogin.password}"
                                            required="true" requiredMessage="Password is required">
                                 <f:facet name="prepend">
                                     <b:icon name="asterisk"/>
                                 </f:facet>
                             </b:inputSecret>
+                            <h:message for="username"/>
+                            <h:message for="password"/>
+                            <h:outputText value="#{adminLogin.validatorMessage}"/>
                             <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
                                       <!--value="Login" ajax="true" update="message"-->
                                       <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
                             <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
 
                             <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
-                                             actionListener="#{adminLogin.login()}">Login</b:commandButton>
+                                             actionListener="#{adminLogin.login()}" update="@form">Login</b:commandButton>
 
                         </b:panelGrid>
                     </b:form>

@@ -39,11 +39,16 @@ public class AdminDaoImp implements AdminDao {
         return new Admin();
     }
 
-    public Admin getAdminByUsername(String username) {
+//    public Admin getAdminByUsername(String username) {
+//        List result = sqlService.getObjectsBySpecialColumn(new Admin(), "username", username);
+//        if(!result.isEmpty()){
+//            return (Admin) result.get(0);
+//        }
+//        return new Admin();
+//    }
+
+    public List getAdminByUsername(String username) {
         List result = sqlService.getObjectsBySpecialColumn(new Admin(), "username", username);
-        if(!result.isEmpty()){
-            return (Admin) result.get(0);
-        }
-        return new Admin();
+        return result;
     }
 }
