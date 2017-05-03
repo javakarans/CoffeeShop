@@ -9,56 +9,52 @@
       xmlns:b="http://bootsfaces.net/ui">
  
 
+<h:head>
+    <link rel="stylesheet" href="../lib/css/adminLogin.css"></link>
+</h:head>
+<h:body>
+    <!-- Head Style -->
+    <b:container>
 
-<ui:composition template="../templates/common/adminTemplate.xhtml">
-    <ui:define name="content">
+        <b:row>
+            <b:column colSm="12">
 
-        <!-- Head Style -->
-        <link rel="stylesheet" href="../lib/css/adminLogin.css"></link>
+                <b:form>
+                    <h:panelGrid columns="2" columnClasses="alCol1,alCol2" styleClass="panelGridCenter">
+                        <h:outputText value="Username :"/>
+                        <b:inputText id="username" value="#{adminLogin.username}" required="true"
+                                     requiredMessage="Username is required">
+                            <f:facet name="prepend">
+                                <b:icon name="user"/>
+                            </f:facet>
+                        </b:inputText>
+                        <b:column/>
+                        <h:message for="username" style="color: red"/>
+                        <h:outputText value="Password :"/>
+                        <b:inputSecret id="password" value="#{adminLogin.password}"
+                                       required="true" requiredMessage="Password is required">
+                            <f:facet name="prepend">
+                                <b:icon name="asterisk"/>
+                            </f:facet>
+                        </b:inputSecret>
+                        <b:column/>
+                        <h:message for="password" style="color: red"/>
+                        <b:column/>
+                        <h:outputText value="#{adminLogin.validatorMessage}" style="color: red"/>
+                        <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
+                        <!--value="Login" ajax="true" update="message"-->
+                        <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
+                        <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
 
-        <b:container>
+                        <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
+                                         action="#{adminLogin.login()}" update="@form">Login</b:commandButton>
+                    </h:panelGrid>
+                </b:form>
 
-            <b:row>
-                <b:column colSm="12">
+            </b:column>
+        </b:row>
+    </b:container>
 
-                        <b:form>
-                            <h:panelGrid columns="2" columnClasses="alCol1,alCol2" styleClass="panelGridCenter">
-                                <h:outputText value="Username :"/>
-                                <b:inputText id="username" value="#{adminLogin.username}" required="true"
-                                             requiredMessage="Username is required">
-                                    <f:facet name="prepend">
-                                        <b:icon name="user"/>
-                                    </f:facet>
-                                </b:inputText>
-                                <b:column/>
-                                <h:message for="username" style="color: red"/>
-                                <h:outputText value="Password :"/>
-                                <b:inputSecret id="password" value="#{adminLogin.password}"
-                                               required="true" requiredMessage="Password is required">
-                                    <f:facet name="prepend">
-                                        <b:icon name="asterisk"/>
-                                    </f:facet>
-                                </b:inputSecret>
-                                <b:column/>
-                                <h:message for="password" style="color: red"/>
-                                <b:column/>
-                                <h:outputText value="#{adminLogin.validatorMessage}" style="color: red"/>
-                                <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
-                                <!--value="Login" ajax="true" update="message"-->
-                                <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
-                                <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
-
-                                <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
-                                                 action="#{adminLogin.login()}" update="@form">Login</b:commandButton>
-                            </h:panelGrid>
-                        </b:form>
-
-                </b:column>
-            </b:row>
-        </b:container>
-
-
-    </ui:define>
-</ui:composition>
+</h:body>
 
 </html>

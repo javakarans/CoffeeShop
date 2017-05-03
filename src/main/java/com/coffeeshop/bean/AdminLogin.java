@@ -6,6 +6,7 @@ import com.coffeeshop.validator.ValidatorMessage;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.util.List;
@@ -54,6 +55,7 @@ public class AdminLogin {
             if (!admins.isEmpty()){
                 admin = (Admin) admins.get(0);
                 if(admin.getPassword().equals(password)){
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("authority","true");
                     return "onPendingTransaction.xhtml?faces-redirect=true";
                 }
                 else {

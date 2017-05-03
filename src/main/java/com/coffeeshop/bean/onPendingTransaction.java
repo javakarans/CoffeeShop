@@ -6,7 +6,10 @@ import com.coffeeshop.model.OrderDetail;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by amir on 5/3/2017.
@@ -16,12 +19,28 @@ import java.util.List;
 public class onPendingTransaction {
 
     private List<OrderDetail> allOrders;
+    private Map<String, String> urlParam;
 
     @PostConstruct
     public void init(){
         loadOrderDetail();
+        checkAdminIsLogin();
     }
 
+    public String getAuthority(){
+        return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authority");
+    }
+
+    public void checkAdminIsLogin(){
+        String authority = getAuthority();
+        if(authority==null){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/AdminLogin.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void loadOrderDetail(){
         OrderDetailDaoImp orderDetailDaoImp=new OrderDetailDaoImp();
