@@ -5,21 +5,28 @@ import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Category;
 import com.coffeeshop.model.Subcategory;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpServlet;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
 
 /**
  * Created by H&H on 4/30/2017.
  */
 @ManagedBean
-@ViewScoped
-public class AdminEditMenu {
+@SessionScoped
+public class AdminEditMenu  implements Serializable {
 
     private Category category;
     private Subcategory subcategory;
@@ -28,6 +35,8 @@ public class AdminEditMenu {
     private CategoryDaoImp categoryDaoImp;
     private SubcategoryDaoImp subcategoryDaoImp;
     private long selectedCategoryid;
+    private String filePath;
+    private static final String url = "C:\\Users\\amir\\Desktop\\image" ;
 
 
     @PostConstruct
@@ -57,7 +66,50 @@ public class AdminEditMenu {
         category = new Category();
     }
 
-    public void removeCategory(Category category) {
+    private void handleFileUpload(UploadedFile uploaded, String location) throws IOException {
+        location = url;
+        File result = new File(location);
+
+        //file.mkdirs(); //!wrong
+        result.getParentFile().mkdirs();//!correct
+        if (!result.exists()){
+            result.createNewFile();
+        }
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(result);
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            int bulk;
+            InputStream inputStream = uploaded.getInputstream();
+            while (true) {
+                bulk = inputStream.read(buffer);
+                if (bulk < 0) {
+                    break;
+                }
+                fileOutputStream.write(buffer, 0, bulk);
+                fileOutputStream.flush();
+            }
+
+            fileOutputStream.close();
+            inputStream.close();
+
+            FacesMessage msg = new FacesMessage("Succesful", uploaded.getFileName()
+                    + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+
+            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "The files were not uploaded!", "");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+        }
+    }
+
+    public void removeCategory(Category category)
+    {
         boolean result = categoryDaoImp.deleteCategory(category);
         if (result) {
             categoryList.remove(category);
@@ -78,11 +130,15 @@ public class AdminEditMenu {
         subcategory = new Subcategory();
     }
 
-    public void uploadLargeImage(FileUploadEvent largeImageUploded) {
+    public void uploadLargeImage(FileUploadEvent largeImageUploded) throws IOException {
         String uniqueID = UUID.randomUUID().toString();
-        if (largeImageUploded != null) {
-
-        } else {
+        if (largeImageUploded!=null)
+        {
+            System.out.println("gholam");
+            handleFileUpload(largeImageUploded.getFile(),"");
+        }
+        else
+        {
             //show message in xhtml
         }
     }

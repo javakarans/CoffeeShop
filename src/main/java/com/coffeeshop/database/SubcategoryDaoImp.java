@@ -31,4 +31,9 @@ public class SubcategoryDaoImp implements SubcategoryDao{
         List subcategories = sqlService.getObjectsBySpecialColumn(new Subcategory(), "categoryId", categoryId);
         return subcategories;
     }
+
+    public List<Subcategory> getAllSubCategory()
+    {
+        return  sqlService.getAllObjects(new Subcategory());
+    }
 }
