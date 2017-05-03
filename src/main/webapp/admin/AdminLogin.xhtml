@@ -21,34 +21,37 @@
             <b:row>
                 <b:column colSm="12">
 
-                    <b:form>
-                        <b:panelGrid colSpans="2,10" size="xs" styleClass="panelGridCenter">
-                            <h:outputText value="Username :"/>
-                            <b:inputText id="username" span="5" value="#{adminLogin.username}" required="true"  requiredMessage="Username is required">
-                                <f:facet name="prepend">
-                                    <b:icon name="user"/>
-                                </f:facet>
-                            </b:inputText>
-                            <h:outputText value="Password :"/>
-                            <b:inputSecret id="password" span="5" value="#{adminLogin.password}"
-                                           required="true" requiredMessage="Password is required">
-                                <f:facet name="prepend">
-                                    <b:icon name="asterisk"/>
-                                </f:facet>
-                            </b:inputSecret>
-                            <h:message for="username"/>
-                            <h:message for="password"/>
-                            <h:outputText value="#{adminLogin.validatorMessage}"/>
-                            <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
-                                      <!--value="Login" ajax="true" update="message"-->
-                                      <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
-                            <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
+                        <b:form>
+                            <h:panelGrid columns="2" columnClasses="alCol1,alCol2" styleClass="panelGridCenter">
+                                <h:outputText value="Username :"/>
+                                <b:inputText id="username" value="#{adminLogin.username}" required="true"
+                                             requiredMessage="Username is required">
+                                    <f:facet name="prepend">
+                                        <b:icon name="user"/>
+                                    </f:facet>
+                                </b:inputText>
+                                <b:column/>
+                                <h:message for="username" style="color: red"/>
+                                <h:outputText value="Password :"/>
+                                <b:inputSecret id="password" value="#{adminLogin.password}"
+                                               required="true" requiredMessage="Password is required">
+                                    <f:facet name="prepend">
+                                        <b:icon name="asterisk"/>
+                                    </f:facet>
+                                </b:inputSecret>
+                                <b:column/>
+                                <h:message for="password" style="color: red"/>
+                                <b:column/>
+                                <h:outputText value="#{adminLogin.validatorMessage}" style="color: red"/>
+                                <!--<b:commandButton icon-spin="true" icon="cd" icon-size="2x"-->
+                                <!--value="Login" ajax="true" update="message"-->
+                                <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
+                                <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
 
-                            <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
-                                             actionListener="#{adminLogin.login()}" update="@form">Login</b:commandButton>
-
-                        </b:panelGrid>
-                    </b:form>
+                                <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
+                                                 action="#{adminLogin.login()}" update="@form">Login</b:commandButton>
+                            </h:panelGrid>
+                        </b:form>
 
                 </b:column>
             </b:row>

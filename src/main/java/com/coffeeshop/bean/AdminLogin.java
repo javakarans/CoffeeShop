@@ -2,12 +2,14 @@ package com.coffeeshop.bean;
 
 import com.coffeeshop.database.AdminDaoImp;
 import com.coffeeshop.model.Admin;
+import com.coffeeshop.validator.ValidatorMessage;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by H&H on 4/30/2017.
@@ -20,6 +22,7 @@ public class AdminLogin {
     private Admin admin;
     private String username;
     private String password;
+    private Map<String, String> urlParam;
     private String validatorMessage;
 
 
@@ -27,27 +30,41 @@ public class AdminLogin {
     public void init()
     {
         adminDaoImp = new AdminDaoImp();
+        getURLParam();
+        checkLogin();
+    }
+
+    public void getURLParam(){
+        urlParam = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        System.out.println(urlParam.get("login"));
+    }
+
+    public void checkLogin(){
+        if(urlParam.get("login")!=null&&urlParam.get("login").equals("false")){
+            validatorMessage=ValidatorMessage.getInstance().getHashMap().get(1);
+        }else {
+            validatorMessage="";
+        }
     }
 
     public String login() {
-        validatorMessage = "";
+        validatorMessage="";
         if(username != null){
             List admins = adminDaoImp.getAdminByUsername(username);
             if (!admins.isEmpty()){
-                admin = new Admin();
                 admin = (Admin) admins.get(0);
                 if(admin.getPassword().equals(password)){
                     return "mainAdmin.xhtml?faces-redirect=true";
                 }
                 else {
-                    validatorMessage = "نام کاربری یا کلمه عبور نادرست است";
+                    return "AdminLogin.xhtml?faces-redirect=true&login=false";
                 }
             }
             else {
-                validatorMessage = "نام کاربری یا کلمه عبور نادرست است";
+                return "AdminLogin.xhtml?faces-redirect=true&login=false";
             }
         }
-        return validatorMessage;
+        return "";
     }
 
     public AdminDaoImp getAdminDaoImp() {
@@ -89,5 +106,4 @@ public class AdminLogin {
     public void setValidatorMessage(String validatorMessage) {
         this.validatorMessage = validatorMessage;
     }
-
 }
