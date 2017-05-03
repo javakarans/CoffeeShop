@@ -12,8 +12,9 @@
 
 <ui:composition >
     <b:container id="categoryPage">
+
         <b:growl id="messages" showDetail="true" />
-        <b:form >
+        <h:form enctype="multipart/form-data">
             <b:row>
                     <b:panelGrid   colSpans="3,9">
                             <h:outputText value="New Category name :"/>
@@ -25,7 +26,7 @@
                     <b:panelGrid colSpans="3,9">
                         <h:outputText value="Image For Large Device :"/>
                         <p:fileUpload style="width: auto"  fileUploadListener="#{adminEditMenu.uploadLargeImage}" mode="advanced" dragDropSupport="false"
-                                      multiple="true"  sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                      multiple="true"  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                     </b:panelGrid>
             </b:row>
             <b:row>
@@ -40,7 +41,7 @@
                     <b:commandButton update="@(.f)" value="save" ajax="true" actionListener="#{adminEditMenu.saveCategory()}"/>
                 </b:panelGrid>
             </b:row>
-        </b:form>
+        </h:form>
 
             <b:row class="f" id="categoryTable">
                 <b:form>

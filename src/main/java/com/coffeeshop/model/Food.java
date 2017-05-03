@@ -18,6 +18,8 @@ public class Food implements Serializable{
     private double price;
     private String ingredients;
     private String imageUrl;
+    private String status;
+    private int index;
 
 
     @Id
@@ -75,5 +77,22 @@ public class Food implements Serializable{
 
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
+    }
+
+    @Column
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }
