@@ -54,7 +54,7 @@ public class AdminLogin {
             if (!admins.isEmpty()){
                 admin = (Admin) admins.get(0);
                 if(admin.getPassword().equals(password)){
-                    return "mainAdmin.xhtml?faces-redirect=true";
+                    return "onPendingTransaction.xhtml?faces-redirect=true";
                 }
                 else {
                     return "AdminLogin.xhtml?faces-redirect=true&login=false";
