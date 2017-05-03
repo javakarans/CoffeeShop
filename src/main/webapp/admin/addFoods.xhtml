@@ -10,27 +10,62 @@
  
 
 
-<ui:composition template="../templates/common/adminTemplate.xhtml">
-    <ui:define name="content">
+<ui:composition>
 
 
+        <b:container>
+            <b:form>
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panel title="Select Sub Category" collapsible="false">
+                        <b:panelGrid colSpans="3,9">
+                            <h:outputText value="Select The SubCategory"/>
+                            <b:selectOneMenu update="m,AddFood" onchange="ajax:addFoodsBean.onChange()" value="#{addFoodsBean.selectedSubCategoryWrapper}">
 
-        <b:form>
-                    <b:selectOneMenu update="m" onchange="ajax:addFoodsBean.onChange()" value="#{addFoodsBean.selectedSubCategoryWrapper}">
+                                <f:selectItems value="#{addFoodsBean.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
+                                               itemLabel="#{selecteSubCategory.toString()}"/>
+                            </b:selectOneMenu>
+                        </b:panelGrid>
+                        </b:panel>
+                    </b:column>
 
-                        <f:selectItems value="#{addFoodsBean.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
-                                       itemLabel="#{selecteSubCategory.toString()}"/>
-                    </b:selectOneMenu>
-        </b:form>
+                </b:row>
+            </b:form>
 
 
+            <h:form id="AddFood" enctype="multipart/form-data">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panel title="Add Food Sub Category List" collapsible="false">
+                            <b:panelGrid colSpans="3,9">
+                                <h:outputText value="Food name"/>
+                                <b:inputText value="#{addFoodsBean.food.name}"/>
+                                <h:outputText value="Sub Category Of Food"/>
+                                <h:outputText value="#{addFoodsBean.selectedSubCategoryWrapper.toString()}"/>
+                                <h:outputText value="Food Price"/>
+                                <b:inputText value="#{addFoodsBean.food.price}"/>
+                                <h:outputText value="Food Image"/>
+                                <p:fileUpload style="width: auto"  fileUploadListener="#{addFoodsBean.processFileUpload}" mode="advanced" dragDropSupport="false"
+                                              multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            </b:panelGrid>
+                        </b:panel>
+                    </b:column>
+                </b:row>
+            </h:form>
 
-            <b:row id="m">
-                <b:dataTable value="#{addFoodsBean.foodList}" var="food">
-                    <b:dataTableColumn value="#{food.name}"/>
-                </b:dataTable>
-            </b:row>
-    </ui:define>
+            <b:form id="m">
+                <b:row >
+                    <b:column colSm="12">
+                        <b:panel title="Foods List Of #{addFoodsBean.selectedSubCategoryWrapper}" collapsible="false">
+                    <b:dataTable value="#{addFoodsBean.foodList}" var="food">
+                        <b:dataTableColumn value="#{food.name}"/>
+                        <b:dataTableColumn value="#{food.price}"/>
+                    </b:dataTable>
+                        </b:panel>
+                    </b:column>
+                </b:row>
+            </b:form>
+        </b:container>
 </ui:composition>
 
 </html>
