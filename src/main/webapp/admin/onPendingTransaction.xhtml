@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+ 
+
+
+<ui:composition template="../templates/common/adminTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <b:container>
+
+            <b:row>
+                <b:column colSm="12">
+                    <b:form>
+                    <b:dataTable value="#{onPendingTransaction.allOrders}" var="orderItem">
+                        <b:dataTableColumn value="#{orderItem.orderDetailId}">
+
+                        </b:dataTableColumn>
+                        <b:dataTableColumn value="#{orderItem.trackingNumber}"/>
+                        <b:dataTableColumn value="#{orderItem.date}"/>
+                        <b:dataTableColumn value="#{orderItem.totalPrice}"/>
+                        <b:dataTableColumn value="#{orderItem.status}"/>
+                        <b:dataTableColumn label="Paid">
+                            <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="edit">
+                            <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove fgfggfgf" icon="edit" action="#{adminEditMenu.removeCategory(category)}"/>
+                        </b:dataTableColumn>
+                    </b:dataTable>
+                    </b:form>
+                </b:column>
+            </b:row>
+
+        </b:container>
+    </ui:define>
+
+
+</ui:composition>
+
+</html>

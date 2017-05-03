@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by Amirhossein on 4/28/2017.
  */
-public class OrderDaoImp implements OrderDao{
+public class OrderDetailDaoImp implements OrderDetailDao {
 
     private SQLService sqlService;
 
-    public OrderDaoImp(){
+    public OrderDetailDaoImp(){
         sqlService = new SQLService();
     }
 

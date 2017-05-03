@@ -44,11 +44,13 @@ public class AddFoodsBean implements Serializable{
     private List<SubCategoryWrapper> subCategoryWrapperList;
     private UploadedFile uploadedFile;
     private List<Food> foodList;
+    private boolean editTable;
 
 
     @PostConstruct
     public void init()
     {
+        editTable=false;
         foodDaoImp = new FoodDaoImp();
         food = new Food();
         subCategoryWrapperList = new ArrayList<SubCategoryWrapper>();
@@ -79,6 +81,10 @@ public class AddFoodsBean implements Serializable{
         System.out.println("gholam");
         foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper
                 .getSubCategoryId());
+    }
+
+    public void editTable(){
+        editTable=!editTable;
     }
 
     public void onChange()
@@ -130,5 +136,13 @@ public class AddFoodsBean implements Serializable{
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public boolean isEditTable() {
+        return editTable;
+    }
+
+    public void setEditTable(boolean editTable) {
+        this.editTable = editTable;
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Amirhossein on 4/28/2017.
  */
-public interface OrderDao {
+public interface OrderDetailDao {
 
     public boolean createOrder(OrderDetail orderDetail);
     public boolean updateOrder(OrderDetail orderDetail);

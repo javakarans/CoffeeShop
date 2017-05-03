@@ -57,9 +57,18 @@
                 <b:row >
                     <b:column colSm="12">
                         <b:panel title="Foods List Of #{addFoodsBean.selectedSubCategoryWrapper}" collapsible="false">
-                    <b:dataTable value="#{addFoodsBean.foodList}" var="food">
-                        <b:dataTableColumn value="#{food.name}"/>
-                        <b:dataTableColumn value="#{food.price}"/>
+                    <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
+                        <b:dataTableColumn>
+                            <b:inputText value="#{food.name}" rendered="#{addFoodsBean.editTable}" />
+                            <h:outputText value="#{food.name}" rendered="#{!addFoodsBean.editTable}" />
+                        </b:dataTableColumn>
+                        <b:dataTableColumn>
+                            <b:inputText value="#{food.price}" rendered="#{addFoodsBean.editTable}" />
+                            <h:outputText value="#{food.price}" rendered="#{!addFoodsBean.editTable}" />
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="edit">
+                            <b:commandButton value="" icon="edit" ajax="true" update="@(.editableFoodTable)" onclick="ajax:addFoodsBean.editTable()"></b:commandButton>
+                        </b:dataTableColumn>
                     </b:dataTable>
                         </b:panel>
                     </b:column>
