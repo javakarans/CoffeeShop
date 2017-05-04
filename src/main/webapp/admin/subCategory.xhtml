@@ -3,59 +3,68 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
  
 
 
 <ui:composition>
+
+
     <b:container>
-        <b:growl id="hooman" showDetail="true"/>
+        <b:growl id="growl" showDetail="true"/>
         <b:form>
             <b:row>
-                <h:outputLabel value="Category"/>
-                <b:selectOneMenu  update="subcategoryTable" value="#{adminSubCategoryEdit.selectedCategoryid}">
-                    <f:selectItems value="#{adminSubCategoryEdit.categories}" var="c" itemValue="#{c.categoryId}"
-                                   itemLabel="#{c.name}"/>
-                </b:selectOneMenu>
-            </b:row>
-            <b:row>
-                <b:panelGrid colSpans="3,9">
-                    <h:outputText value="New SubCategory name :"/>
-                    <b:inputText required="true" value="#{adminSubCategoryEdit.newSubcategory.name}"/>
-                </b:panelGrid>
-            </b:row>
-            <b:row>
-                <b:panelGrid colSpans="3,9">
-                    <h:outputText value="Image :"/>
-                    <p:fileUpload style="width: auto" mode="advanced" dragDropSupport="false"
-                                  multiple="true" sizeLimit="100000" fileLimit="1"
-                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                </b:panelGrid>
-            </b:row>
-            <b:row>
-                <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
-                    <b:commandButton value="save"/>
-                </b:panelGrid>
+                <b:column colSm="12">
+                    <b:panel title="Add New Sub Category" collapsible="false">
+                        <b:panelGrid colSpans="3,9">
+                            <h:outputText value="Select The Category"/>
+                            <b:selectOneMenu update="subcattable,addSubCategory" onchange="ajax:adminSubCategoryEdit.onChange()" value="#{adminSubCategoryEdit.selectedCategory}">
+                                <f:selectItems value="#{adminSubCategoryEdit.categories}" itemValue="#{categoty}" var="categoty"
+                                               itemLabel="#{categoty.name}"/>
+                            </b:selectOneMenu>
+                        </b:panelGrid>
+                    </b:panel>
+                </b:column>
             </b:row>
         </b:form>
 
-        <b:row>
-            <b:form id="subcategoryTable">
-                <b:panel title="Sub Category List" collapsible="false">
-                    <b:dataTable value="#{adminSubCategoryEdit.updateSubCategory()}" var="subcategory" ajax="true">
-                        <b:dataTableColumn value="#{subcategory.name}"/>
-                        <b:dataTableColumn label="remove">
 
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                </b:panel>
-            </b:form>
-        </b:row>
+        <h:form id="addSubCategory" enctype="multipart/form-data">
 
+            <b:row>
+                <b:column colSm="12">
+                    <b:panel title="New Sub Category " collapsible="false">
+                        <b:panelGrid colSpans="3,9">
+                            <h:outputText value="New Subcategory name"/>
+                            <b:inputText value="#{adminSubCategoryEdit.newSubcategory.name}"/>
+                            <h:outputText value="Category Name"/>
+                            <h:outputText value="#{adminSubCategoryEdit.selectedCategory.name}"/>
+                            <h:outputText value="SubCat Image"/>
+                            <p:fileUpload id="hg" style="width: auto" fileUploadListener="#{adminSubCategoryEdit.uploadImageHandler}"
+                                          mode="advanced" dragDropSupport="true"
+                                          multiple="false" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                        </b:panelGrid>
+                        <b:panelGrid colSpans="12">
+                            <b:commandButton ajax="true" value="save" actionListener="#{adminSubCategoryEdit.save}" update="growl,subcattable"/>
 
+                        </b:panelGrid>
+                    </b:panel>
+                </b:column>
+            </b:row>
+        </h:form>
+
+            <b:row id="subcattable">
+                <b:column colSm="12">
+                    <b:panel title="Sub Category list Of #{adminSubCategoryEdit.selectedCategory.name}" collapsible="false">
+                        <b:dataTable value="#{adminSubCategoryEdit.subcategories}" var="subcat">
+                            <b:dataTableColumn value="#{subcat.name}"/>
+                        </b:dataTable>
+                    </b:panel>
+                </b:column>
+            </b:row>
     </b:container>
 </ui:composition>
 
