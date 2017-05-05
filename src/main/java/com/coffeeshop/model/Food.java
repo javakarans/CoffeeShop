@@ -20,6 +20,7 @@ public class Food implements Serializable{
     private String imageUrl;
     private String status;
     private int index;
+    private long kitchenId;
 
 
     @Id
@@ -88,11 +89,21 @@ public class Food implements Serializable{
         this.status = status;
     }
 
+    @Column
     public int getIndex() {
         return index;
     }
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    @Column
+    public long getKitchenId() {
+        return kitchenId;
+    }
+
+    public void setKitchenId(long kitchenId) {
+        this.kitchenId = kitchenId;
     }
 }

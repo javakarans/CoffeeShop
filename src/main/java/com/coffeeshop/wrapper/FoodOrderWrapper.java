@@ -1,14 +1,13 @@
-package com.coffeeshop.model;
+package com.coffeeshop.wrapper;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.coffeeshop.database.FoodDaoImp;
+import com.coffeeshop.model.Food;
+import com.coffeeshop.model.FoodOrder;
 
 /**
- * Created by Amirhossein on 4/28/2017.
+ * Created by Amirhossein on 5/4/2017.
  */
-@Entity
-@Table
-public class FoodOrder implements Serializable{
+public class FoodOrderWrapper {
 
     private long foodOrderId;
     private long foodId;
@@ -16,11 +15,25 @@ public class FoodOrder implements Serializable{
     private int quantity;
     private double totalPrice;
     private String status;
+    private String foodName;
 
+    public FoodOrderWrapper(FoodOrder foodOrder){
+        this.foodOrderId = foodOrder.getFoodOrderId();
+        this.foodId = foodOrder.getFoodId();
+        this.orderId = foodOrder.getOrderId();
+        this.quantity = foodOrder.getQuantity();
+        this.totalPrice = foodOrder.getTotalPrice();
+        this.status = foodOrder.getStatus();
+        fill();
+    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true , nullable = false)
+    public void fill(){
+        Food food = new Food();
+        FoodDaoImp foodDaoImp = new FoodDaoImp();
+        food = foodDaoImp.getFoodByFoodId(this.foodId);
+        this.foodName = food.getName();
+    }
+
     public long getFoodOrderId() {
         return foodOrderId;
     }
@@ -29,7 +42,6 @@ public class FoodOrder implements Serializable{
         this.foodOrderId = foodOrderId;
     }
 
-    @Column
     public long getFoodId() {
         return foodId;
     }
@@ -38,7 +50,6 @@ public class FoodOrder implements Serializable{
         this.foodId = foodId;
     }
 
-    @Column
     public long getOrderId() {
         return orderId;
     }
@@ -47,7 +58,6 @@ public class FoodOrder implements Serializable{
         this.orderId = orderId;
     }
 
-    @Column
     public int getQuantity() {
         return quantity;
     }
@@ -56,7 +66,6 @@ public class FoodOrder implements Serializable{
         this.quantity = quantity;
     }
 
-    @Column
     public double getTotalPrice() {
         return totalPrice;
     }
@@ -65,7 +74,6 @@ public class FoodOrder implements Serializable{
         this.totalPrice = totalPrice;
     }
 
-    @Column
     public String getStatus() {
         return status;
     }
@@ -73,4 +81,13 @@ public class FoodOrder implements Serializable{
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
+
 }
