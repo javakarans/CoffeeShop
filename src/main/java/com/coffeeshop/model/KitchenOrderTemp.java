@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class KitchenOrderTemp {
     private long kitchenId;
-    private long kitchenOrderId;
+    private long kitchenOrderTempId;
     private long trackNumber;
     private long foodOrderId;
 
@@ -17,11 +17,11 @@ public class KitchenOrderTemp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true , nullable = false)
     public long getKitchenOrderId() {
-        return kitchenOrderId;
+        return kitchenOrderTempId;
     }
 
     public void setKitchenOrderId(long kitchenOrderId) {
-        this.kitchenOrderId = kitchenOrderId;
+        this.kitchenOrderTempId = kitchenOrderId;
     }
 
     @Column

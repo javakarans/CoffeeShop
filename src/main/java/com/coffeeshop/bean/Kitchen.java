@@ -1,7 +1,6 @@
 package com.coffeeshop.bean;
 
 import com.coffeeshop.database.KitchenDaoImp;
-import com.coffeeshop.wrapper.FoodOrderWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
