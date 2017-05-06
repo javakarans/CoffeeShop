@@ -27,21 +27,13 @@
 
                 <div class="slide-panel">
                     <div class="scrollable">
-                        <a href="#openModal">
-                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
-                        </a>
-                        <a href="#openModal">
-                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
-                        </a>
-                        <a href="#openModal">
-                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
-                        </a>
-                        <a href="#openModal">
-                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
-                        </a>
-                        <a href="#openModal">
-                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
-                        </a>
+                        <h:form>
+                            <ui:repeat value="#{dtCategoryBean.categoryList}" var="categoryItem">
+                                <h:commandLink action="#{dtCategoryBean.redirectToSubCtegoryPage(categoryItem.categoryId)}">
+                                    <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                                </h:commandLink>
+                            </ui:repeat>
+                        </h:form>
                     </div>
                 </div>
 
