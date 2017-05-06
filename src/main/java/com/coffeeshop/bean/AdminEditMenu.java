@@ -39,6 +39,7 @@ public class AdminEditMenu  implements Serializable {
     private static final String url = "C:\\Users\\amir\\Desktop\\image" ;
 
 
+
     @PostConstruct
     public void init() {
         categoryDaoImp = new CategoryDaoImp();
@@ -126,6 +127,7 @@ public class AdminEditMenu  implements Serializable {
     }
 
     public void saveSubCategory() {
+
         boolean result = subcategoryDaoImp.createSubcategory(subcategory);
         subcategory = new Subcategory();
     }

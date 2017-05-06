@@ -13,6 +13,7 @@ public class Subcategory implements Serializable{
     private long subCategoryId;
     private long categoryId;
     private String name;
+    private String imageLocation;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +42,14 @@ public class Subcategory implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column
+    public String getImageLocation() {
+        return imageLocation;
+    }
+
+    public void setImageLocation(String imageLocation) {
+        this.imageLocation = imageLocation;
     }
 }

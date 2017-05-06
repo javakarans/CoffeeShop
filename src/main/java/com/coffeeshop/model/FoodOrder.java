@@ -15,6 +15,8 @@ public class FoodOrder implements Serializable{
     private long orderId;
     private int quantity;
     private double totalPrice;
+    private String status;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,5 +63,14 @@ public class FoodOrder implements Serializable{
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Column
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
