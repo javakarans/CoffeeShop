@@ -16,4 +16,4 @@ $(function(){
     }).mouseleave(function() {
         down = false;
     });
-})
+});

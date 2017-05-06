@@ -12,55 +12,51 @@
 <ui:composition template="../templates/common/userTemplate.xhtml">
     <ui:define name="content">
         <!-- Head Style -->
-        <link rel="stylesheet" href="../lib/css/categoryPage.css"></link>
-        <script type="text/javascript" src="../lib/js/categoryPage.js"></script>
+        <link href="../lib/css/categoryPage.css" rel="stylesheet" type="text/css"/>
+        <script src="../lib/js/categoryPage.js" type="text/javascript"></script>
         <!-- Head Style -->
 
-        <div class="container">
+        <div class="container-page">
+
             <div class="center-content">
-                <div class="left-scroll-panel">
-                    <img id="img1" src="../lib/img/arrow.png" alt="img" width="110"/>
-                    <img id="img2" src="../lib/img/touchToOrder.png" alt="img" width="170px"/>
+
+                <div class="left-slide-panel">
+                    <img id="img-arrow" src="../lib/img/arrow.png" alt="arrow"/>
+                    <img id="img-touchToOrder" src="../lib/img/touchToOrder.png" alt="touchToOrder"/>
                 </div>
 
-                <div class="scroll-panel">
+                <div class="slide-panel">
                     <div class="scrollable">
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
-                        <div class="img-panel">
-
-                        </div>
+                        <a href="#openModal">
+                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                        </a>
+                        <a href="#openModal">
+                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                        </a>
+                        <a href="#openModal">
+                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                        </a>
+                        <a href="#openModal">
+                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                        </a>
+                        <a href="#openModal">
+                            <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                        </a>
                     </div>
                 </div>
 
-                <div class="right-scroll-panel">
-                    <img id="img3" src="../lib/img/nutellaPlus.png" alt="img" width="200"/>
+                <div class="right-slide-panel">
+                    <img id="img-nutellaPlus" src="../lib/img/nutellaPlus.png" alt="nutellaPlus"/>
                 </div>
+
+            </div>
+
+            <div class="bottom-panel">
+                <img src="../lib/img/happy.png" alt="happy" id="img-happy"/>
+            </div>
+
+            <div class="footer">
+                <img src="../lib/img/logo.png" alt="logo"/>
             </div>
 
         </div>

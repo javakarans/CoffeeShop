@@ -1,8 +1,7 @@
-* {
+*{
     margin: 0;
 }
-
-body {
+body{
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -10,55 +9,47 @@ body {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
 }
-
 /*For Screen 42Inch*/
 @media only screen and (device-width: 1280px) {
-    body {
+    body{
         zoom: 100%;
     }
 }
-
 /*For Screen 17Inch*/
 @media only screen and (device-width: 1536px) {
-    body {
+    body{
         zoom: 120%;
     }
 }
-
-.container-page {
+.container-page{
     background: url("../img/background.png") no-repeat;
     background-size: cover;
     height: 720px;
     width: 1280px;
     position: relative;
 }
-
-.center-content {
+.center-content{
     margin-top: 210px;
     margin-left: 85px;
     width: 1145px;
     height: 245px;
     display: inline-flex;
 }
-
-.slide-panel {
+.slide-panel{
     width: 935px;
     height: 243px;
     white-space: nowrap;
     overflow: hidden;
-    border-left: dashed 2px rgba(0, 0, 0, 0.43);
-    border-right: dashed 2px rgba(0, 0, 0, 0.43);
+    border-left:dashed 2px rgba(0, 0, 0, 0.43);
+    border-right:dashed 2px rgba(0, 0, 0, 0.43);
 }
-
-.scrollable {
+.scrollable{
     text-align: center;
     overflow-x: scroll;
 }
-
-.scrollable:hover {
+.scrollable:hover{
     cursor: pointer;
 }
-
 .img-panel {
     position: relative;
     border: 2px solid black;
@@ -71,53 +62,42 @@ body {
     background-color: rgba(214, 214, 214, 0.44);
     z-index: 0;
 }
-
-.left-slide-panel {
+.left-slide-panel{
     width: 180px;
     height: 100px;
 }
-
-.right-slide-panel {
+.right-slide-panel{
     width: 280px;
     height: 245px;
 }
-
-#img-arrow {
+#img-arrow{
     margin-top: -50px;
     margin-left: 110px;
     width: 130px;
 }
-
-#img-touchToOrder {
+#img-touchToOrder{
     margin-left: 25px;
     margin-top: 5px;
     width: 150px;
 }
-
-#img-nutellaPlus {
+#img-nutellaPlus{
     width: 230px;
     filter: brightness(135%);
 }
-
-.bottom-panel {
+.bottom-panel{
     width: 350px;
     margin-top: -35px;
     margin-left: 50px;
 }
-
-#img-happy {
+#img-happy{
     width: 260px;
 }
-
-.footer {
+.footer{
     text-align: right;
     margin-left: 820px;
-    margin-top: -10px;
+    margin-top:-10px;
     width: 450px;
 }
-
-.footer img {
+.footer img{
     width: 400px;
 }
-
-
