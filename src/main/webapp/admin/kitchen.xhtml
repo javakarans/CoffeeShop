@@ -3,9 +3,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <link rel="stylesheet" href="../lib/css/adminLogin.css"></link>
 </h:head>
@@ -17,7 +18,35 @@
             <b:column colSm="12">
 
                 <b:form>
+                    <p:dataTable var="kitchenOrder" value="#{kitchen.kitchenOrderTempsWrapper}">
+                        <f:facet name="header">
+                            Expand rows to see detailed information
+                        </f:facet>
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{kitchenOrder.kitchenOrderTempId}" />
+                        </p:column>
+                        <p:column headerText="CustomerTrackId">
+                            <h:outputText value="#{kitchenOrder.customerTrackingNumber}" />
+                        </p:column>
+                        <p:column headerText="KitchenTrackId">
+                            <h:outputText value="#{kitchenOrder.trackNumber}" />
+                        </p:column>
 
+                        <p:rowExpansion>
+                            <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+
+                                <h:outputText value="FoodNAme" />
+                                <h:outputText value="#{kitchenOrder.foodName}" />
+                                <h:outputText value="Quantity" />
+                                <h:outputText value="#{kitchenOrder.foodQuantity}" />
+
+                            </p:panelGrid>
+                        </p:rowExpansion>
+
+                    </p:dataTable>
                 </b:form>
 
             </b:column>

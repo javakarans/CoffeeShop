@@ -30,7 +30,7 @@ public class Kitchen implements Serializable{
     @PostConstruct
     public void init() {
         kitchenOrderTempDaoImp = new KitchenOrderTempDaoImp();
-        kitchenId = getUrlParam();
+        kitchenId = 1; //getUrlParam();
         kitchenOrderTemps = kitchenOrderTempDaoImp.getKitchenOrderTempByKitchenId(kitchenId);
         for (int i = 0; i < kitchenOrderTemps.size(); i++){
             KitchenOrderTempWrapper kitchenOrderTempWrapper = new KitchenOrderTempWrapper(kitchenOrderTemps.get(i));
@@ -44,4 +44,39 @@ public class Kitchen implements Serializable{
         return  Long.parseLong(urlParam.get("kitchenId"));
     }
 
+    public KitchenOrderTempDao getKitchenOrderTempDaoImp() {
+        return kitchenOrderTempDaoImp;
+    }
+
+    public void setKitchenOrderTempDaoImp(KitchenOrderTempDao kitchenOrderTempDaoImp) {
+        this.kitchenOrderTempDaoImp = kitchenOrderTempDaoImp;
+    }
+
+    public List<KitchenOrderTemp> getKitchenOrderTemps() {
+        return kitchenOrderTemps;
+    }
+
+    public void setKitchenOrderTemps(List<KitchenOrderTemp> kitchenOrderTemps) {
+        this.kitchenOrderTemps = kitchenOrderTemps;
+    }
+
+    public List<KitchenOrderTempWrapper> getKitchenOrderTempsWrapper() {
+        return kitchenOrderTempsWrapper;
+    }
+
+    public void setKitchenOrderTempsWrapper(List<KitchenOrderTempWrapper> kitchenOrderTempsWrapper) {
+        this.kitchenOrderTempsWrapper = kitchenOrderTempsWrapper;
+    }
+
+    public void setUrlParam(HashMap<String, String> urlParam) {
+        this.urlParam = urlParam;
+    }
+
+    public long getKitchenId() {
+        return kitchenId;
+    }
+
+    public void setKitchenId(long kitchenId) {
+        this.kitchenId = kitchenId;
+    }
 }
