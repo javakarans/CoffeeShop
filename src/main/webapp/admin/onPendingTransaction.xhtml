@@ -15,23 +15,73 @@
     <ui:define name="content">
 
         <b:container>
+            <b:modal id="amodal" title="Edit Order" closable="false" styleClass="modalPseudoClass">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                        <b:panel title="Add Order" collapsible="false">
+                            <b:panelGrid colSpans="6,6">
+                                <b:selectOneMenu label="Select your Sub Category:" update="@form" value="#{onPendingTransaction.selectedSubCategoryWrapper}" onchange="ajax:onPendingTransaction.onChange()">
+                                    <f:selectItem itemLabel="(Please select)" itemValue="" />
+                                    <f:selectItems value="#{onPendingTransaction.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
+                                                   itemLabel="#{selecteSubCategory.toString()}"/>
+                                </b:selectOneMenu>
+                                <b:selectOneMenu label="Select your Food:" value="#{onPendingTransaction.selectedFood}">
+                                    <f:selectItem itemLabel="(Please select)" itemValue="" />
+                                    <f:selectItems value="#{onPendingTransaction.foodList}" itemValue="#{selectedFood}" var="selectedFood"
+                                                   itemLabel="#{selectedFood.name}"/>
+                                </b:selectOneMenu>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="6,6">
+                                <b:inputText value="" placeholder="Write The Quantity Nummber"/>
+                                <b:commandButton value="Add"  icon="plus-sign"/>
+                            </b:panelGrid>
+                        </b:panel>
+                        </b:form>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panelGrid colSpans="12">
+                            <b:form>
+                                <b:dataTable class="editableCarTable" id="table" widgetVar="foodOrderDatataible" value="#{onPendingTransaction.foodOrderList}" var="foodOrder">
+                                    <b:dataTableColumn value="#{foodOrder.foodId}"/>
+                                    <b:dataTableColumn value="#{foodOrder.totalPrice}"/>
+                                    <b:dataTableColumn value="#{foodOrder.quantity}"/>
+                                    <b:dataTableColumn label="Edit">
+                                        <b:commandButton value="Edit" icon="edit"/>
+                                    </b:dataTableColumn>
+                                    <b:dataTableColumn label="Remove">
+                                        <b:commandButton value="Remove" icon="remove"/>
+                                    </b:dataTableColumn>
+                                </b:dataTable>
+                                <f:facet name="footer">
+                                    <b:button value="Ok" look="primary" dismiss="modal" />
+                                </f:facet>
+                            </b:form>
+                        </b:panelGrid>
+                    </b:column>
+                </b:row>
+            </b:modal>
 
             <b:row>
                 <b:column colSm="12">
                     <b:form>
                     <b:dataTable value="#{onPendingTransaction.allOrders}" var="orderItem">
                         <b:dataTableColumn value="#{orderItem.orderDetailId}">
-
                         </b:dataTableColumn>
                         <b:dataTableColumn value="#{orderItem.trackingNumber}"/>
                         <b:dataTableColumn value="#{orderItem.date}"/>
                         <b:dataTableColumn value="#{orderItem.totalPrice}"/>
                         <b:dataTableColumn value="#{orderItem.status}"/>
-                        <b:dataTableColumn label="Paid">
-                            <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
-                        </b:dataTableColumn>
                         <b:dataTableColumn label="edit">
-                            <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove fgfggfgf" icon="edit" action="#{adminEditMenu.removeCategory(category)}"/>
+                            <b:commandButton update="@(.editableCarTable)" icon="edit" actionListener="#{onPendingTransaction.editOrder(orderItem)}" value="edit"  />
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Paid">
+                            <b:commandButton value="Paid" iconAwesome="thumbs-up"/>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Remove">
+                            <b:commandButton value="Remove" iconAwesome="remove"/>
                         </b:dataTableColumn>
                     </b:dataTable>
                     </b:form>

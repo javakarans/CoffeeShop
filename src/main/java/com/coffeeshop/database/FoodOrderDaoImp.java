@@ -37,4 +37,9 @@ public class FoodOrderDaoImp implements FoodOrderDao{
             return (FoodOrder) result.get(0);
         else return new FoodOrder();
     }
+
+    public List<FoodOrder> getFoodOrderWithOrderId(long id)
+    {
+        return sqlService.getObjectsBySpecialColumn(new FoodOrder(),"orderId",id);
+    }
 }

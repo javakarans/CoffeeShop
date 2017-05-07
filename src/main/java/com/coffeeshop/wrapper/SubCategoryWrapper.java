@@ -1,7 +1,13 @@
-package com.coffeeshop.model;
+package com.coffeeshop.wrapper;
 
 
 import com.coffeeshop.database.CategoryDaoImp;
+import com.coffeeshop.database.SubcategoryDaoImp;
+import com.coffeeshop.model.Category;
+import com.coffeeshop.model.Subcategory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubCategoryWrapper {
     private long categoryId;
@@ -43,6 +49,17 @@ public class SubCategoryWrapper {
             this.categoryName=category.getName();
         else
             this.categoryName = "exception";
+    }
+
+    public static List<SubCategoryWrapper> getAll()
+    {
+        SubcategoryDaoImp subcategoryDaoImp = new SubcategoryDaoImp();
+        List<Subcategory> subcategoryList = subcategoryDaoImp.getAllSubCategory();
+        List<SubCategoryWrapper> subCategoryWrappers = new ArrayList<SubCategoryWrapper>(subcategoryList.size());
+        for (Subcategory subcategory : subcategoryList) {
+            subCategoryWrappers.add(new SubCategoryWrapper(subcategory));
+        }
+        return subCategoryWrappers;
     }
 
     public long getCategoryId() {

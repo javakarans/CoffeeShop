@@ -16,6 +16,7 @@ public class KitchenOrderTempWrapper {
     private long kitchenId;
     private long trackNumber;
     private long foodOrderId;
+    private String printerName;
 
     //    private long foodId;
     //    private long orderId;
@@ -134,4 +135,11 @@ public class KitchenOrderTempWrapper {
         this.customerTrackingNumber = customerTrackingNumber;
     }
 
+    public String getPrinterName() {
+        return printerName;
+    }
+
+    public void setPrinterName(String printerName) {
+        this.printerName = printerName;
+    }
 }

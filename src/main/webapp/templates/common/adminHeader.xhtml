@@ -16,10 +16,21 @@
 <h:body>
     <ui:composition>
         <b:container fluid="true">
+            <b:modal id="amodalOrder" styleClass="modalPseudoOrderClass">
+                <b:form>
+                    <p>
+                        Are You sure ?
+                    </p>
+                    <b:commandButton value="yes"  action="../../admin/allOrders.xhtml?faces-redirect=true"/>
+                </b:form>
+            </b:modal>
             <b:navBar brand="Coffee Shop" brandHref="#">
                 <b:navbarLinks>
                     <b:navLink value="Edit Menu" href="../../admin/menuEdit.xhtml"/>
                     <b:navLink value="Order Pending" href="../../admin/onPendingTransaction.xhtml"/>
+                    <b:navLink value="Settings" href="#"/>
+                    <b:navLink value="Kitchens" href="#"/>
+                    <b:navLink onclick="$('.modalPseudoOrderClass').modal()"  value="All Orders" />
                 </b:navbarLinks>
             </b:navBar>
         </b:container>

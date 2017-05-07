@@ -14,6 +14,7 @@ public class Kitchen implements Serializable {
     private String name;
     private String staticIp;
     private String macAddress;
+    private String kitchenPrinterName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,5 +52,14 @@ public class Kitchen implements Serializable {
 
     public void setMacAddress(String macAddress) {
         this.macAddress = macAddress;
+    }
+
+    @Column
+    public String getKitchenPrinterName() {
+        return kitchenPrinterName;
+    }
+
+    public void setKitchenPrinterName(String kitchenPrinterName) {
+        this.kitchenPrinterName = kitchenPrinterName;
     }
 }

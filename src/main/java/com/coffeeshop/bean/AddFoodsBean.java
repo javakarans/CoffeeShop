@@ -1,10 +1,9 @@
 package com.coffeeshop.bean;
 
 import com.coffeeshop.database.FoodDaoImp;
-import com.coffeeshop.database.SubcategoryDao;
 import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Food;
-import com.coffeeshop.model.SubCategoryWrapper;
+import com.coffeeshop.wrapper.SubCategoryWrapper;
 import com.coffeeshop.model.Subcategory;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -16,22 +15,8 @@ import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.primefaces.component.fileupload.FileUpload;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.*;
 
 @ManagedBean
