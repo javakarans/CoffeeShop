@@ -18,6 +18,7 @@ public class AdminSettingPage {
 
     AdminSettingDaoImp adminSettingDaoImp;
     List<AdminSetting> adminSettings;
+
     AdminSetting adminSetting;
 
     @PostConstruct
