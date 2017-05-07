@@ -19,9 +19,15 @@ $(document).ready(function () {
         });
     });
 });
-function imgPanel(id) {
-    $('#id').css("z-index",3);
-};
+function showModal(int) {
+    $('.modalDialog').css('opacity',1);
+    $('.img'.concat(int)).css("z-index",99999);
 
+};
+function closeModal() {
+    $('.img-panel').css('z-index',0);
+    $('.modalDialog').css('opacity',0);
+
+};
 
 

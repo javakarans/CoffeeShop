@@ -1,15 +1,18 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.model.Food;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.util.List;
 
 @ManagedBean(name = "dtUserSessionBean")
 @SessionScoped
 public class UserSessionBean {
     private long selectedCategory;
     private long selectedSubCategory;
-    private long selectedFood;
+    private List<Food> selectedFoods;
 
     @PostConstruct
     public void init()
@@ -33,11 +36,11 @@ public class UserSessionBean {
         this.selectedSubCategory = selectedSubCategory;
     }
 
-    public long getSelectedFood() {
-        return selectedFood;
+    public List<Food> getSelectedFoods() {
+        return selectedFoods;
     }
 
-    public void setSelectedFood(long selectedFood) {
-        this.selectedFood = selectedFood;
+    public void setSelectedFoods(List<Food> selectedFoods) {
+        this.selectedFoods = selectedFoods;
     }
 }

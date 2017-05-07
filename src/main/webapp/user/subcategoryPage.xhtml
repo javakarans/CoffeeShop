@@ -33,10 +33,12 @@
                 <div class="slide-panel">
                     <div class="scrollable">
                         <h:form>
-                            <ui:repeat value="#{subCategoryPage.subcategories}" var="subcategoryItem">
-                                <a href="#openModal">
-                                    <img id="id" alt="coffee" src="../lib/img/coffee.jpg" class="img-panel" onclick="imgPanel(this)"/>
-                                </a>
+                            <ui:repeat value="#{subCategoryPage.subcategories}" var="subcategoryItem" varStatus="statusItem">
+                                <h:commandLink action="#{subCategoryPage
+                                .loadFoodBySubCategory(subcategoryItem.subCategoryId,statusItem.index)}" onclick="showModal('#{statusItem.index}')">
+                                        <img id="id" src="../lib/img/coffee.jpg" alt="img" class="img-panel #{'img'.concat(statusItem.index)}"/>
+                                    <f:ajax render="@form"></f:ajax>
+                                </h:commandLink>
                             </ui:repeat>
                         </h:form>
                     </div>
@@ -57,13 +59,19 @@
             </div>
 
         </div>
-
         <div id="openModal" class="modalDialog">
-            <div><a href="#close" title="Close" class="close">X</a>
-                <h2>Modal Box</h2>
-                <p>This is a sample modal box that can be created using the powers of CSS3.</p>
-                <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a
-                    login/register form for users.</p>
+            <div><a title="Close" class="close" onclick="closeModal()">X</a>
+                <div class="modal-slide-panel">
+                    <div class="modal-scrollable">
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                    </div>
+                </div>
             </div>
         </div>
 
