@@ -11,6 +11,18 @@ public class UserReceipt {
     private int trackNumber;
     private Date date;
     private List<FoodOrderWrapper> foodOrderWrapperList;
+    private double totalprice;
+
+
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
+    }
+
+
 
     public long getOrderDetailIdWrapper() {
         return orderDetailIdWrapper;
