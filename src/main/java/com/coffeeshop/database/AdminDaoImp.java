@@ -30,6 +30,11 @@ public class AdminDaoImp implements AdminDao {
         return done;
     }
 
+    public List<Admin> getAllAdmins() {
+        List admins = sqlService.getAllObjects(new Admin());
+        return admins;
+    }
+
     public Admin getAdminByUsernameAndPassword(String username, String password) {
         List result = sqlService.getObjectsByTwoSpecialColumns
                 (new Admin(), "username", username, "password", password);
