@@ -12,6 +12,10 @@ public class AdminSetting
 
     private long adminSettingId;
     private int trackNumber;
+    private String receiptNumber;
+    private String receiptAddress;
+    private String firstPhoneNumber;
+    private String secondPhoneNumber;
     //for background
     private String imageUrl;
 //    private String password;
@@ -47,6 +51,43 @@ public class AdminSetting
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Column
+    public String getReceiptNumber() {
+        return receiptNumber;
+    }
+
+    public void setReceiptNumber(String receiptNumber) {
+        this.receiptNumber = receiptNumber;
+    }
+
+    @Column
+    public String getReceiptAddress() {
+        return receiptAddress;
+    }
+
+    public void setReceiptAddress(String receiptAddress) {
+        this.receiptAddress = receiptAddress;
+    }
+
+    @Column
+    public String getFirstPhoneNumber() {
+        return firstPhoneNumber;
+    }
+
+    public void setFirstPhoneNumber(String firstPhoneNumber) {
+        this.firstPhoneNumber = firstPhoneNumber;
+    }
+
+    @Column
+    public String getSecondPhoneNumber() {
+        return secondPhoneNumber;
+    }
+
+    public void setSecondPhoneNumber(String secondPhoneNumber) {
+        this.secondPhoneNumber = secondPhoneNumber;
+    }
+
 
 //    @Column
 //    public String getPassword() {
