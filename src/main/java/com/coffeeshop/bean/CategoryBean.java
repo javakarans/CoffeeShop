@@ -26,7 +26,6 @@ public class CategoryBean {
     {
         categoryDaoImp = new CategoryDaoImp();
         categoryList = categoryDaoImp.getAllCategories();
-        System.out.println( categoryDaoImp.getAllCategories().size());
     }
 
     public void redirectToSubCtegoryPage(long categoryId)

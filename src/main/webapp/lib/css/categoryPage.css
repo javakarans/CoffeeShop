@@ -9,38 +9,39 @@ body {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
+    zoom: 150%;
 }
 
-/*For Screen 42Inch*/
-@media only screen and (device-width: 1280px) {
-    body {
-        zoom: 100%;
-    }
-}
+/*!*For Screen 42Inch*!*/
+/*@media only screen and (device-width: 1280px) {*/
+    /*body {*/
+        /*zoom: 130%;*/
+    /*}*/
+/*}*/
 
-/*For Screen 17Inch*/
-@media only screen and (device-width: 1536px) {
-    body {
-        zoom: 120%;
-    }
-}
+/*!*For Screen 17Inch*!*/
+/*@media only screen and (device-width: 1536px) {*/
+    /*body {*/
+        /*zoom: 120%;*/
+    /*}*/
+/*}*/
 
 .container-page{
     background: url("../img/background.png") no-repeat;
     background-size: cover;
-    height: 720px;
+    height: 670px;
     width: 1280px;
     position: relative;
 }
 .center-content{
-    margin-top: 190px;
-    margin-left: 85px;
+    margin-top: 130px;
+    margin-left: 90px;
     width: 1145px;
     height: 231px;
     display: inline-flex;
 }
 .slide-panel{
-    width: 775px;
+    width: 750px;
     height: 231px;
     white-space: nowrap;
     overflow: hidden;
@@ -75,8 +76,8 @@ body {
     height: 245px;
 }
 #img-arrow{
-    margin-top: -50px;
-    margin-left: 110px;
+    margin-top: -70px;
+    margin-left: 130px;
     width: 130px;
 }
 #img-touchToOrder{
@@ -90,20 +91,57 @@ body {
 }
 .bottom-panel{
     width: 260px;
-    margin-top: 5px;
+    margin-top: -40px;
     margin-left: 50px;
 }
 #img-happy{
-    width: 260px;
+    width: 250px;
 }
 .footer{
-    text-align: right;
-    margin-left: 820px;
-    margin-top:-10px;
+    /*text-align: right;*/
+    margin-left: 20px;
+    margin-top:40px;
+    width: 1235px;
+    background-color: red;
+}
+.footer #img-1{
+    position: absolute;
+    left: 800px;
     width: 450px;
 }
-.footer img{
-    width: 400px;
+.up-panel{
+    position: absolute;
+    top: 20px;
+    right: 190px;
+}
+.up-panel img{
+    position: absolute;
+}
+.badge{
+    position: absolute;
+    top: 35px;
+    left: 30px;
+    background-color: green;
+    width: 17px;
+    height: 17px;
+    border-radius: 100%;
+    text-align: center;
+    display: table;
+}
+.badge span{
+    display: table-cell;
+    vertical-align: middle;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    color: #ffffff;
+}
+.up-panel img{
+    border-radius: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.57);
+}
+.up-panel img:hover{
+    cursor: pointer;
+    opacity: 0.95;
 }
 
 

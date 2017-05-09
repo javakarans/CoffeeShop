@@ -23,6 +23,13 @@
 
         <div class="container-page">
 
+            <div class="up-panel">
+                <img src="../lib/img/shopping-cart.png" alt="shopping-cart" width="45"></img>
+                <div class="badge">
+                    <span>0</span>
+                </div>
+            </div>
+
             <div class="center-content">
 
                 <div class="left-slide-panel">
@@ -55,21 +62,26 @@
             </div>
 
             <div class="footer">
-                <img src="../lib/img/logo.png" alt="logo"/>
+                <img src="../lib/img/logo.png" alt="logo" id="img-1"/>
+                <h:form>
+                    <h:commandLink action="categoryPage.xhtml?faces-redirect=true">
+                        <img alt="back" src="../lib/img/Back.png" id="img-2"></img>
+                    </h:commandLink>
+                </h:form>
             </div>
-
         </div>
         <div id="openModal" class="modalDialog">
             <div><a title="Close" class="close" onclick="closeModal()">X</a>
                 <div class="modal-slide-panel">
                     <div class="modal-scrollable">
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
-                        <img alt="img" src="../lib/img/coffee.jpg" class="modal-img"></img>
+                        <h:form>
+                            <ui:repeat value="#{subCategoryPage.foodList}" var="foodItem">
+                                <h:commandLink action="#">
+                                    <img src="../lib/img/coffee.jpg" alt="img" class="img-panel"/>
+                                    <f:ajax render="@form"></f:ajax>
+                                </h:commandLink>
+                            </ui:repeat>
+                        </h:form>
                     </div>
                 </div>
             </div>
