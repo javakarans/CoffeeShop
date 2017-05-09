@@ -14,9 +14,9 @@ public class AdminSetting
     private int trackNumber;
     //for background
     private String imageUrl;
-    private String password;
+//    private String password;
     //for other admins
-    private int role;
+//    private int role;
 
 
     @Id
@@ -48,23 +48,23 @@ public class AdminSetting
         this.imageUrl = imageUrl;
     }
 
-    @Column
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Column
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
+//    @Column
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    @Column
+//    public int getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(int role) {
+//        this.role = role;
+//    }
 
 
 }
