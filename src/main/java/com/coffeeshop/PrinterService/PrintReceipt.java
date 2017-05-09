@@ -18,6 +18,11 @@ import java.util.Map;
  */
 public class PrintReceipt {
 
+    public PrintReceipt()
+    {
+
+    }
+
 public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
 
     PrinterService service = new PrinterService();
@@ -77,28 +82,28 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
         return service.print(jasperPrint,printerName);
     }
 
-    public static void main(String[] args) {
-        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
-
-        FoodOrderWrapper f1 = new FoodOrderWrapper("سالاد",2,1000,2000);
-        FoodOrderWrapper f2 = new FoodOrderWrapper("سالاد",2,1000,2000);
-        FoodOrderWrapper f3 = new FoodOrderWrapper("سالاد",2,1000,2000);
-
-        foodOrderWrappers.add(f1);
-        foodOrderWrappers.add(f2);
-        foodOrderWrappers.add(f3);
-
-        UserReceipt userReceipt = new UserReceipt();
-        userReceipt.setFoodOrderWrapperList(foodOrderWrappers);
-        userReceipt.setTotalprice(6000);
-        userReceipt.setTrackNumber(85);
-
-        KitchenReceipt kitchenReceipt = new KitchenReceipt();
-        kitchenReceipt.setTrackNumber(85);
-        kitchenReceipt.setFoodOrderWrapperList(foodOrderWrappers);
-        PrintReceipt printReceipt = new PrintReceipt();
-        printReceipt.printUserReceipt("AB-88H",userReceipt);
-        printReceipt.printKitchenReceipt("AB-88H",kitchenReceipt);
-
-    }
+//    public static void main(String[] args) {
+//        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
+//
+//        FoodOrderWrapper f1 = new FoodOrderWrapper("سالاد",2,1000,2000);
+//        FoodOrderWrapper f2 = new FoodOrderWrapper("سالاد",2,1000,2000);
+//        FoodOrderWrapper f3 = new FoodOrderWrapper("سالاد",2,1000,2000);
+//
+//        foodOrderWrappers.add(f1);
+//        foodOrderWrappers.add(f2);
+//        foodOrderWrappers.add(f3);
+//
+//        UserReceipt userReceipt = new UserReceipt();
+//        userReceipt.setFoodOrderWrapperList(foodOrderWrappers);
+//        userReceipt.setTotalprice(6000);
+//        userReceipt.setTrackNumber(85);
+//
+//        KitchenReceipt kitchenReceipt = new KitchenReceipt();
+//        kitchenReceipt.setTrackNumber(85);
+//        kitchenReceipt.setFoodOrderWrapperList(foodOrderWrappers);
+//        PrintReceipt printReceipt = new PrintReceipt();
+//        printReceipt.printUserReceipt("AB-88H",userReceipt);
+//        printReceipt.printKitchenReceipt("AB-88H",kitchenReceipt);
+//
+//    }
 }

@@ -7,7 +7,9 @@ import com.coffeeshop.model.Food;
 import com.coffeeshop.model.FoodOrder;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
+import com.coffeeshop.wrapper.FoodOrderWrapper;
 import com.coffeeshop.wrapper.SubCategoryWrapper;
+import com.coffeeshop.wrapper.UserReceipt;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
@@ -16,9 +18,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import com.coffeeshop.PrinterService.*;
 /**
  * Created by amir on 5/3/2017.
  */
@@ -38,11 +41,18 @@ public class onPendingTransaction {
     private List<SubCategoryWrapper> subCategoryWrapperList;
     private List<Food> foodList;
     private FoodDaoImp foodDaoImp;
+    private PrintReceipt printReceipt;
+    //new order data
+    private OrderDetail newOrderDetail;
+    private FoodOrder newFoodOrderForNewOrder;
+    private List<FoodOrder> newFoodOrderList;
+    private int qntForNewFoodOrder;
 
 
     @PostConstruct
     public void init(){
         checkAdminIsLogin();
+        printReceipt = new PrintReceipt();
         foodOrderDaoImp = new FoodOrderDaoImp();
         foodOrderList = new ArrayList<FoodOrder>();
         orderDetailDaoImp=new OrderDetailDaoImp();
@@ -77,8 +87,10 @@ public class onPendingTransaction {
 
     public void onChange()
     {
-        if (selectedSubCategoryWrapper!=null)
+        if (selectedSubCategoryWrapper == null)
             foodList = foodDaoImp.getAllFoods();
+        else
+            foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
     }
 
     public void addFoodOrderToSelectedOrder()
@@ -89,6 +101,52 @@ public class onPendingTransaction {
         boolean result = foodOrderDaoImp.createFoodOrder(newFoodOrder);
         //show message
         newFoodOrder = new FoodOrder();
+    }
+
+    public void newOrder()
+    {
+
+    }
+
+    public void prepareDataForNewOrder()
+    {
+        newOrderDetail = new OrderDetail();
+        newFoodOrderList = new ArrayList<FoodOrder>();
+        newFoodOrderForNewOrder = new FoodOrder();
+
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('.modalNewOrder').modal()");
+    }
+
+    public void addNewFoodOrderToNewOrder()
+    {
+        newFoodOrderForNewOrder.setStatus(Status.FOODORDER_NOT_READY);
+        newFoodOrderForNewOrder.setQuantity(qntForNewFoodOrder);
+        newFoodOrderForNewOrder.setFoodId(selectedFood.getFoodId());
+        newFoodOrderList.add(newFoodOrderForNewOrder);
+        newFoodOrderForNewOrder = new FoodOrder();
+    }
+
+    public void print()
+    {
+        UserReceipt userReceipt = new UserReceipt();
+        userReceipt.setDate(new Date());
+        userReceipt.setOrderDetailIdWrapper(123);
+        userReceipt.setTrackNumber(1234);
+        userReceipt.setTotalprice(1200);
+        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
+        for (int i=0 ; i<12;i++)
+        {
+            FoodOrderWrapper foodOrderWrapper = new FoodOrderWrapper();
+            foodOrderWrapper.setFoodName("غذل".concat(String.valueOf(i)));
+            foodOrderWrapper.setFoodOrderWrapperId(i);
+            foodOrderWrapper.setPrice(i);
+            foodOrderWrapper.setQuantity(i);
+            foodOrderWrapper.setTotalPrice(i*i);
+            foodOrderWrappers.add(foodOrderWrapper);
+        }
+        userReceipt.setFoodOrderWrapperList(foodOrderWrappers);
+         printReceipt.printUserReceipt("noori",userReceipt);
     }
 
     public List<OrderDetail> getAllOrders() {
@@ -153,5 +211,37 @@ public class onPendingTransaction {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public OrderDetail getNewOrderDetail() {
+        return newOrderDetail;
+    }
+
+    public void setNewOrderDetail(OrderDetail newOrderDetail) {
+        this.newOrderDetail = newOrderDetail;
+    }
+
+    public FoodOrder getNewFoodOrderForNewOrder() {
+        return newFoodOrderForNewOrder;
+    }
+
+    public void setNewFoodOrderForNewOrder(FoodOrder newFoodOrderForNewOrder) {
+        this.newFoodOrderForNewOrder = newFoodOrderForNewOrder;
+    }
+
+    public List<FoodOrder> getNewFoodOrderList() {
+        return newFoodOrderList;
+    }
+
+    public void setNewFoodOrderList(List<FoodOrder> newFoodOrderList) {
+        this.newFoodOrderList = newFoodOrderList;
+    }
+
+    public int getQntForNewFoodOrder() {
+        return qntForNewFoodOrder;
+    }
+
+    public void setQntForNewFoodOrder(int qntForNewFoodOrder) {
+        this.qntForNewFoodOrder = qntForNewFoodOrder;
     }
 }
