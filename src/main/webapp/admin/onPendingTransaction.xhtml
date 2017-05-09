@@ -81,24 +81,26 @@
             <b:modal id="newOrder" title="New Order" closable="false" styleClass="modalNewOrder">
                 <b:row>
                     <b:column colSm="12">
-                        <b:panel title="New Food Order">
+                        <b:panel title="New Food Order" collapsible="false">
                             <b:form>
                                 <b:panelGrid colSpans="6,6">
                                     <b:selectOneMenu label="Select your Sub Category:" update="@form" value="#{onPendingTransaction.selectedSubCategoryWrapper}" onchange="ajax:onPendingTransaction.onChange()">
-                                        <f:selectItem itemLabel="(Please select)" itemValue="" />
+                                        <f:selectItem itemLabel="(Please select Sub Category)" itemValue="" />
                                         <f:selectItems value="#{onPendingTransaction.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
                                                        itemLabel="#{selecteSubCategory.toString()}"/>
                                     </b:selectOneMenu>
                                     <b:selectOneMenu label="Select your Food:" value="#{onPendingTransaction.selectedFood}">
-                                        <f:selectItem itemLabel="(Please select)" itemValue="" />
+                                        <f:selectItem itemLabel="(Please select Food)" itemValue="" />
                                         <f:selectItems value="#{onPendingTransaction.foodList}" itemValue="#{selectedFood}" var="selectedFood"
                                                        itemLabel="#{selectedFood.name}"/>
                                     </b:selectOneMenu>
                                 </b:panelGrid>
-                                <b:panelGrid colSpans="6,6">
-                                    <b:inputText value="#{onPendingTransaction.qntForNewFoodOrder}" placeholder="Write The Quantity Nummber"/>
-                                    <b:commandButton value="Add" actionListener="#{onPendingTransaction.addNewFoodOrderToNewOrder()}"
-                                                     update="@form,oredersList" icon="plus-sign"/>
+                                <b:panelGrid colSpans="12">
+                                    <b:inputText label="Write The Quantity Nummber" value="#{onPendingTransaction.qntForNewFoodOrder}" placeholder="Write The Quantity Nummber"/>
+                                </b:panelGrid>
+                                <b:panelGrid colSpans="12" style="text-align:center;">
+                                    <b:commandButton  value="Add" actionListener="#{onPendingTransaction.addNewFoodOrderToNewOrder()}"
+                                                     update="@form,oredersList" icon="plus-sign" />
                                 </b:panelGrid>
                             </b:form>
                         </b:panel>

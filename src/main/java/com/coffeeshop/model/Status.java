@@ -3,7 +3,7 @@ package com.coffeeshop.model;
 /**
  * Created by amir on 5/3/2017.
  */
-public interface Status {
+public class Status {
 
     //for order detail
     public static final String ORDER_ONPENDING="ON_PENDING";

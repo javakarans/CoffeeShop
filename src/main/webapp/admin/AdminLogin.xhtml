@@ -18,11 +18,21 @@
 
         <b:row>
             <b:column colSm="12">
+                <b:panelGrid columns="1">
+                    <b:panelGrid colSpans="12" style="text-align:center;">
+                        <h:graphicImage style="width: 400px" url="../lib/img/logo.png"/>
+                    </b:panelGrid>
+                </b:panelGrid>
+            </b:column>
+        </b:row>
+
+        <b:row>
+            <b:column colSm="12">
 
                 <b:form>
                     <h:panelGrid columns="2" columnClasses="alCol1,alCol2" styleClass="panelGridCenter">
                         <h:outputText value="Username :"/>
-                        <b:inputText id="username" value="#{adminLogin.username}" required="true"
+                        <b:inputText placeholder="please enter username" id="username" value="#{adminLogin.username}" required="true"
                                      requiredMessage="Username is required">
                             <f:facet name="prepend">
                                 <b:icon name="user"/>
@@ -31,7 +41,7 @@
                         <b:column/>
                         <h:message for="username" style="color: red"/>
                         <h:outputText value="Password :"/>
-                        <b:inputSecret id="password" value="#{adminLogin.password}"
+                        <b:inputSecret placeholder="please enter password" id="password" value="#{adminLogin.password}"
                                        required="true" requiredMessage="Password is required">
                             <f:facet name="prepend">
                                 <b:icon name="asterisk"/>
@@ -45,9 +55,11 @@
                         <!--value="Login" ajax="true" update="message"-->
                         <!--look="info" title="icon-spin='true' icon-size='2x'" actionListener="#{adminLogin.login()}"/>-->
                         <!--<h:outputLabel value="#{adminLogin.validatorMessage}"></h:outputLabel>-->
+                        <b:panelGrid colSpans="12" style="text-align:center;">
+                            <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
+                                             action="#{adminLogin.login()}" update="@form">Login</b:commandButton>
+                        </b:panelGrid>
 
-                        <b:commandButton icon-spin="true" icon="cd" icon-size="2x" look="info"
-                                         action="#{adminLogin.login()}" update="@form">Login</b:commandButton>
                     </h:panelGrid>
                 </b:form>
 

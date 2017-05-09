@@ -114,6 +114,7 @@ public class onPendingTransaction {
         newFoodOrderList = new ArrayList<FoodOrder>();
         newFoodOrderForNewOrder = new FoodOrder();
 
+        System.out.println("gholam");
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('.modalNewOrder').modal()");
     }
