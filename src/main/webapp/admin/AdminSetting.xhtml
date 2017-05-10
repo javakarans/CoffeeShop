@@ -8,23 +8,52 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui">
 
-<h:head>
-    <h:body>
+
+<ui:composition template="../templates/common/adminTemplate.xhtml">
+    <ui:define name="content">
         <b:container>
             <b:row>
                 <b:column colSm="12">
                     <b:form>
 
-                        <b:panelGrid colSpans="6,6">
-                            <h:outputText value="Track Number : "/>
-                            <b:inputText value="#{adminSettingPage.trackingNumber}"/>
-                        </b:panelGrid>
-
+                        <b:panel title="AdminSetting" collapsible="false">
+                            <b:panelGrid colSpans="6,6">
+                                <h:outputText value="Track Number : "/>
+                                <b:inputText value="#{adminSettingPage.adminSetting.trackNumber}"/>
+                                <h:outputText value="receiptNumber : "/>
+                                <b:inputText value="#{adminSettingPage.adminSetting.receiptNumber}"/>
+                                <h:outputText value="receiptAddress : "/>
+                                <b:inputText value="#{adminSettingPage.adminSetting.receiptAddress}"/>
+                                <h:outputText value="firstPhoneNumber : "/>
+                                <b:inputText value="#{adminSettingPage.adminSetting.firstPhoneNumber}"/>
+                                <h:outputText value="secondPhoneNumber : "/>
+                                <b:inputText value="#{adminSettingPage.adminSetting.secondPhoneNumber}"/>
+                                <b:button value="Save Changes"/>
+                            </b:panelGrid>
+                        </b:panel>
+                    </b:form>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column colSm="12">
+                    <b:form>
+                        <b:panel title="Staf" collapsible="false">
+                            <b:dataTable value="#{adminSettingPage.staf}" var="staf">
+                                <b:dataTableColumn value="#{staf.adminId}" label="AdminId"/>
+                                <b:dataTableColumn value="#{staf.username}" label="UserName"/>
+                                <b:dataTableColumn value="#{staf.password}" label="Password"/>
+                                <b:dataTableColumn value="#{staf.role}" label="Role"/>
+                                <b:dataTableColumn style="width:150px;">
+                                    <b:button value="Delete" style="margin-right:5px;"/>
+                                    <b:button value="Update"/>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                            <b:button value="Add"/>
+                        </b:panel>
                     </b:form>
                 </b:column>
             </b:row>
         </b:container>
-    </h:body>
-</h:head>
-
+    </ui:define>
+</ui:composition>
 </html>

@@ -2,9 +2,11 @@ package com.coffeeshop;
 
 import com.coffeeshop.PrinterService.PrintReceipt;
 import com.coffeeshop.database.AdminDaoImp;
+import com.coffeeshop.database.AdminSettingDaoImp;
 import com.coffeeshop.database.FoodDaoImp;
 import com.coffeeshop.database.HibernateUtil;
 import com.coffeeshop.model.Admin;
+import com.coffeeshop.model.AdminSetting;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
 import com.coffeeshop.wrapper.UserReceipt;
 import org.hibernate.Session;
@@ -21,8 +23,10 @@ public class Test {
     public static void main(String[] args) {
 
         FoodDaoImp foodDaoImp = new FoodDaoImp();
+        AdminSettingDaoImp adminSettingDaoImp = new AdminSettingDaoImp();
 
         foodDaoImp.getAllFoods();
+        adminSettingDaoImp.getAllAdminSettings();
 
 //        PrintReceipt printReceipt;
 //        printReceipt = new PrintReceipt();

@@ -32,6 +32,7 @@
         <mapping class="com.coffeeshop.model.Kitchen"/>
         <mapping class="com.coffeeshop.model.OrderDetail"/>
         <mapping class="com.coffeeshop.model.Subcategory"/>
+        <mapping class="com.coffeeshop.model.AdminSetting"/>
 
 
     </session-factory>

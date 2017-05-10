@@ -1,13 +1,14 @@
 package com.coffeeshop.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Amirhossein on 5/7/2017.
  */
 @Entity
 @Table
-public class AdminSetting
+public class AdminSetting implements Serializable
 {
 
     private long adminSettingId;

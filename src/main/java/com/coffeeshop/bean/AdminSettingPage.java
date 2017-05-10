@@ -9,6 +9,7 @@ import net.bootsfaces.render.A;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class AdminSettingPage {
     private AdminDaoImp adminDaoImp;
     private List<Admin> admins;
     private List<Admin> staf;
+    private List<AdminSetting> adminSettings;
     private Admin admin;
     private AdminSetting adminSetting;
     private int trackingNumber;
@@ -31,13 +33,13 @@ public class AdminSettingPage {
     public void init(){
         adminSettingDaoImp = new AdminSettingDaoImp();
         adminDaoImp = new AdminDaoImp();
-//        adminSettings = adminSettingDaoImp.getAllAdminSettings();
-        adminSetting = (AdminSetting) adminSettingDaoImp.getAdminSettingById(1);
         admins = adminDaoImp.getAllAdmins();
+        settingData();
         showStaf();
     }
 
     public void showStaf(){
+        staf = new ArrayList<Admin>();
         for(int i = 0; i < admins.size(); i++){
             if(Integer.parseInt(admins.get(i).getRole()) != 1){
                 staf.add(admins.get(i));
@@ -49,6 +51,16 @@ public class AdminSettingPage {
         adminSetting.setTrackNumber(trackingNumber);
         adminSetting.setImageUrl(imageUrl);
         adminSettingDaoImp.updateAdminSetting(adminSetting);
+    }
+
+    public void settingData()
+    {
+//        adminSettingDaoImp = new AdminSettingDaoImp();
+        List<AdminSetting> result = adminSettingDaoImp.getAdminSettingById(1);
+        if (!result.isEmpty())
+            adminSetting=result.get(0);
+        else
+            adminSetting = new AdminSetting();
     }
 
     public boolean CreateAdmin(){
