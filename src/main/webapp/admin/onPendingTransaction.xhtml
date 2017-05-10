@@ -15,6 +15,7 @@
     <ui:define name="content">
 
         <b:container>
+            <p:growl id="messages" showDetail="true" />
             <b:modal id="amodal" title="Edit Order" closable="false" styleClass="modalPseudoClass">
                 <b:row>
                     <b:column colSm="12">
@@ -84,12 +85,12 @@
                         <b:panel title="New Food Order" collapsible="false">
                             <b:form>
                                 <b:panelGrid colSpans="6,6">
-                                    <b:selectOneMenu label="Select your Sub Category:" update="@form" value="#{onPendingTransaction.selectedSubCategoryWrapper}" onchange="ajax:onPendingTransaction.onChange()">
+                                    <b:selectOneMenu ajax="true" label="Select your Sub Category:" update="selectFood" value="#{onPendingTransaction.selectedSubCategoryWrapper}" onchange="ajax:onPendingTransaction.onChange()">
                                         <f:selectItem itemLabel="(Please select Sub Category)" itemValue="" />
                                         <f:selectItems value="#{onPendingTransaction.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
                                                        itemLabel="#{selecteSubCategory.toString()}"/>
                                     </b:selectOneMenu>
-                                    <b:selectOneMenu label="Select your Food:" value="#{onPendingTransaction.selectedFood}">
+                                    <b:selectOneMenu ajax="true" id="selectFood" label="Select your Food:" value="#{onPendingTransaction.selectedFood}">
                                         <f:selectItem itemLabel="(Please select Food)" itemValue="" />
                                         <f:selectItems value="#{onPendingTransaction.foodList}" itemValue="#{selectedFood}" var="selectedFood"
                                                        itemLabel="#{selectedFood.name}"/>
@@ -99,8 +100,8 @@
                                     <b:inputText label="Write The Quantity Nummber" value="#{onPendingTransaction.qntForNewFoodOrder}" placeholder="Write The Quantity Nummber"/>
                                 </b:panelGrid>
                                 <b:panelGrid colSpans="12" style="text-align:center;">
-                                    <b:commandButton  value="Add" actionListener="#{onPendingTransaction.addNewFoodOrderToNewOrder()}"
-                                                     update="@form,oredersList" icon="plus-sign" />
+                                    <b:commandButton ajax="true"  value="Add" actionListener="#{onPendingTransaction.addNewFoodOrderToNewOrder()}"
+                                                     update="@form,oredersList,messages" icon="plus-sign" />
                                 </b:panelGrid>
                             </b:form>
                         </b:panel>
@@ -110,19 +111,24 @@
                     <b:column colSm="12">
                         <b:form id="foodOrderListForNewOrder">
                             <b:panel title="Food Order List For New Order" collapsible="false">
-                                <b:dataTable value="#{onPendingTransaction.newFoodOrderList}" var="newFoodOrder">
+                                <b:dataTable id="table" value="#{onPendingTransaction.newFoodOrderList}" var="newFoodOrder">
                                     <b:dataTableColumn value="#{newFoodOrder.foodId}"/>
                                 </b:dataTable>
+                                <f:facet name="footer">
+                                    <b:panelGrid colSpans="12" style="text-align:center;">
+                                        <b:commandButton actionListener="#{onPendingTransaction.newOrder()}" value="save" icon="save" look="primary" dismiss="modal" />
+                                    </b:panelGrid>
+                                </f:facet>
                             </b:panel>
                         </b:form>
                     </b:column>
                 </b:row>
             </b:modal>
-            <b:row>
+            <b:row id="pendingOrderRow">
                 <b:column colSm="12">
                     <b:panel title="Pending Order" collapsible="false">
                     <b:form>
-                    <b:dataTable value="#{onPendingTransaction.allOrders}" var="orderItem">
+                    <b:dataTable value="#{onPendingTransaction.pendingOrders}" var="orderItem">
                         <b:dataTableColumn value="#{orderItem.orderDetailId}">
                         </b:dataTableColumn>
                         <b:dataTableColumn value="#{orderItem.trackingNumber}"/>

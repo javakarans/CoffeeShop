@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Amirhossein on 5/7/2017.
  */
-public class AdminSettingDaoImp implements AdminSettinDao{
+public class AdminSettingDaoImp implements AdminSettingDao {
 
     private SQLService sqlService;
 

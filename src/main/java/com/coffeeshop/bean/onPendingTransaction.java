@@ -1,5 +1,6 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.data.SettingData;
 import com.coffeeshop.database.FoodDaoImp;
 import com.coffeeshop.database.FoodOrderDaoImp;
 import com.coffeeshop.database.OrderDetailDaoImp;
@@ -13,10 +14,13 @@ import com.coffeeshop.wrapper.UserReceipt;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,10 +30,10 @@ import com.coffeeshop.PrinterService.*;
  * Created by amir on 5/3/2017.
  */
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 public class onPendingTransaction {
 
-    private List<OrderDetail> allOrders;
+    private List<OrderDetail> pendingOrders;
     private Map<String, String> urlParam;
     private OrderDetailDaoImp orderDetailDaoImp;
     private List<FoodOrder> foodOrderList;
@@ -47,7 +51,7 @@ public class onPendingTransaction {
     private FoodOrder newFoodOrderForNewOrder;
     private List<FoodOrder> newFoodOrderList;
     private int qntForNewFoodOrder;
-
+    private SettingData settingData;
 
     @PostConstruct
     public void init(){
@@ -56,11 +60,12 @@ public class onPendingTransaction {
         foodOrderDaoImp = new FoodOrderDaoImp();
         foodOrderList = new ArrayList<FoodOrder>();
         orderDetailDaoImp=new OrderDetailDaoImp();
-        allOrders = orderDetailDaoImp.getAllOrders();
+        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
         newFoodOrder = new FoodOrder();
         foodDaoImp = new FoodDaoImp();
         foodList = new ArrayList<Food>();
         subCategoryWrapperList = SubCategoryWrapper.getAll();
+        settingData = SettingData.getInstance();
     }
 
     public String getAuthority(){
@@ -105,7 +110,25 @@ public class onPendingTransaction {
 
     public void newOrder()
     {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setStatus(Status.ORDER_ONPENDING);
+        Date date = new Date();
+        String string_date = date.toString();
 
+        SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
+        long milliseconds = 0L;
+        try {
+            Date d = f.parse(string_date);
+            milliseconds = d.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        orderDetail.setDate(new java.sql.Date(milliseconds));
+        orderDetail.setTrackingNumber(settingData.getTrackNumber());
+        orderDetailDaoImp.createOrder(orderDetail);
+
+        updatePendingOrderOrderTable();
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("pendingOrderRow");
     }
 
     public void prepareDataForNewOrder()
@@ -113,19 +136,28 @@ public class onPendingTransaction {
         newOrderDetail = new OrderDetail();
         newFoodOrderList = new ArrayList<FoodOrder>();
         newFoodOrderForNewOrder = new FoodOrder();
-
-        System.out.println("gholam");
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("newOrder");
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('.modalNewOrder').modal()");
     }
 
     public void addNewFoodOrderToNewOrder()
     {
-        newFoodOrderForNewOrder.setStatus(Status.FOODORDER_NOT_READY);
-        newFoodOrderForNewOrder.setQuantity(qntForNewFoodOrder);
-        newFoodOrderForNewOrder.setFoodId(selectedFood.getFoodId());
-        newFoodOrderList.add(newFoodOrderForNewOrder);
-        newFoodOrderForNewOrder = new FoodOrder();
+        if (selectedFood!=null)
+        {
+            newFoodOrderForNewOrder = new FoodOrder();
+            newFoodOrderForNewOrder.setStatus(Status.FOODORDER_NOT_READY);
+            newFoodOrderForNewOrder.setQuantity(qntForNewFoodOrder);
+            newFoodOrderForNewOrder.setFoodId(selectedFood.getFoodId());
+            newFoodOrderList.add(newFoodOrderForNewOrder);
+        }
+        else
+        {
+            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Food Not Selected !!!", "");
+            FacesContext.getCurrentInstance().addMessage(null, error);
+        }
+
     }
 
     public void print()
@@ -150,12 +182,17 @@ public class onPendingTransaction {
          printReceipt.printUserReceipt("noori",userReceipt);
     }
 
-    public List<OrderDetail> getAllOrders() {
-        return allOrders;
+    public void updatePendingOrderOrderTable()
+    {
+        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
     }
 
-    public void setAllOrders(List<OrderDetail> allOrders) {
-        this.allOrders = allOrders;
+    public List<OrderDetail> getPendingOrders() {
+        return pendingOrders;
+    }
+
+    public void setPendingOrders(List<OrderDetail> pendingOrders) {
+        this.pendingOrders = pendingOrders;
     }
 
     public OrderDetail getSelectedOrder() {

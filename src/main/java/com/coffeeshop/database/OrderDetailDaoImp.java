@@ -1,6 +1,7 @@
 package com.coffeeshop.database;
 
 import com.coffeeshop.model.OrderDetail;
+import com.coffeeshop.model.Status;
 
 import java.util.List;
 
@@ -36,4 +37,10 @@ public class OrderDetailDaoImp implements OrderDetailDao {
         List orders = sqlService.getObjectsBySpecialColumn(new OrderDetail(), "orderDetailId", orderDetailId);
         return orders;
     }
+
+    public List<OrderDetail> getAllPendingOrder()
+    {
+        return sqlService.getObjectsBySpecialColumn(new OrderDetail(),"status", Status.ORDER_ONPENDING);
+    }
+
 }
