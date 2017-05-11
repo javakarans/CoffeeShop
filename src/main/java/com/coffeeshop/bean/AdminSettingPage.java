@@ -5,6 +5,7 @@ import com.coffeeshop.database.AdminSettingDaoImp;
 import com.coffeeshop.model.Admin;
 import com.coffeeshop.model.AdminSetting;
 import net.bootsfaces.render.A;
+import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -26,14 +27,13 @@ public class AdminSettingPage {
     private List<AdminSetting> adminSettings;
     private Admin admin;
     private AdminSetting adminSetting;
-    private int trackingNumber;
-    private String imageUrl;
 
     @PostConstruct
     public void init(){
         adminSettingDaoImp = new AdminSettingDaoImp();
         adminDaoImp = new AdminDaoImp();
         admins = adminDaoImp.getAllAdmins();
+        admin = new Admin();
         settingData();
         showStaf();
     }
@@ -48,14 +48,17 @@ public class AdminSettingPage {
     }
 
     public void EditAdminSetting(){
-        adminSetting.setTrackNumber(trackingNumber);
-        adminSetting.setImageUrl(imageUrl);
-        adminSettingDaoImp.updateAdminSetting(adminSetting);
+        List<AdminSetting> allAdminSettings = adminSettingDaoImp.getAllAdminSettings();
+        if (!allAdminSettings.isEmpty()){
+            adminSettingDaoImp.updateAdminSetting(adminSetting);
+        }
+        else {
+            adminSettingDaoImp.createAdminSetting(adminSetting);
+        }
     }
 
     public void settingData()
     {
-//        adminSettingDaoImp = new AdminSettingDaoImp();
         List<AdminSetting> result = adminSettingDaoImp.getAdminSettingById(1);
         if (!result.isEmpty())
             adminSetting=result.get(0);
@@ -63,17 +66,35 @@ public class AdminSettingPage {
             adminSetting = new AdminSetting();
     }
 
-    public boolean CreateAdmin(){
-        return adminDaoImp.createAdmin(admin);
+    public void showCreateAdminModal(){
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#addStaff').modal()");
     }
 
-    public boolean updateAmin(){
-        return adminDaoImp.updateAdmin(admin);
+    public String addStaff(){
+        adminDaoImp.createAdmin(admin);
+        return "AdminSetting.xhtml?faces-redirect=true";
+    }
+
+    public void showUpdateAdminModal(){
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#updateStaff').modal()");
+    }
+
+    public String updateAdmin(){
+        adminDaoImp.updateAdmin(admin);
+        return "AdminSetting.xhtml?faces-redirect=true";
+    }
+
+    public void showDeleteAdminModal(){
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('.deleteStaff').modal()");
     }
 
     public boolean deleteAdmin(){
         return adminDaoImp.updateAdmin(admin);
     }
+
 
     public AdminSettingDaoImp getAdminSettingDaoImp() {
         return adminSettingDaoImp;
@@ -123,19 +144,13 @@ public class AdminSettingPage {
         this.adminSetting = adminSetting;
     }
 
-    public int getTrackingNumber() {
-        return trackingNumber;
+
+    public List<AdminSetting> getAdminSettings() {
+        return adminSettings;
     }
 
-    public void setTrackingNumber(int trackingNumber) {
-        this.trackingNumber = trackingNumber;
+    public void setAdminSettings(List<AdminSetting> adminSettings) {
+        this.adminSettings = adminSettings;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

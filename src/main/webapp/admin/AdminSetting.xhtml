@@ -12,10 +12,10 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
+            <p:growl id="messages1" showDetail="fals"/>
             <b:row>
                 <b:column colSm="12">
                     <b:form>
-
                         <b:panel title="AdminSetting" collapsible="false">
                             <b:panelGrid colSpans="6,6">
                                 <h:outputText value="Track Number : "/>
@@ -28,32 +28,94 @@
                                 <b:inputText value="#{adminSettingPage.adminSetting.firstPhoneNumber}"/>
                                 <h:outputText value="secondPhoneNumber : "/>
                                 <b:inputText value="#{adminSettingPage.adminSetting.secondPhoneNumber}"/>
-                                <b:button value="Save Changes"/>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="12" style="text-align:center;">
+                                <b:commandButton value="Save Changes" action="#{adminSettingPage.EditAdminSetting}"/>
                             </b:panelGrid>
                         </b:panel>
                     </b:form>
                 </b:column>
             </b:row>
-            <b:row>
-                <b:column colSm="12">
-                    <b:form>
-                        <b:panel title="Staf" collapsible="false">
+            <b:form id="settingTable">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panel title="Staff" collapsible="false">
                             <b:dataTable value="#{adminSettingPage.staf}" var="staf">
                                 <b:dataTableColumn value="#{staf.adminId}" label="AdminId"/>
                                 <b:dataTableColumn value="#{staf.username}" label="UserName"/>
                                 <b:dataTableColumn value="#{staf.password}" label="Password"/>
                                 <b:dataTableColumn value="#{staf.role}" label="Role"/>
-                                <b:dataTableColumn style="width:150px;">
-                                    <b:button value="Delete" style="margin-right:5px;"/>
-                                    <b:button value="Update"/>
+                                <b:dataTableColumn label="DeleteStaff" style="text-align:center;">
+                                    <b:commandButton value="Delete" actionListener="#{adminSettingPage.showDeleteAdminModal}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="UpdateStaff" style="text-align:center;">
+                                    <b:commandButton value="update" ajax="true"
+                                                     actionListener="#{adminSettingPage.showUpdateAdminModal}"/>
                                 </b:dataTableColumn>
                             </b:dataTable>
-                            <b:button value="Add"/>
+                            <b:commandButton value="Add" ajax="true"
+                                             actionListener="#{adminSettingPage.showCreateAdminModal}"/>
                         </b:panel>
-                    </b:form>
-                </b:column>
-            </b:row>
+                    </b:column>
+                </b:row>
+            </b:form>
+
+            <b:modal id="addStaff" title="Add Staff" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panel title="Add Staff" collapsible="false">
+                                <b:panelGrid colSpans="3,9">
+                                    <h:outputText value="Staff Username : "/>
+                                    <b:inputText required="true" requiredMessage="Username is required"
+                                                 value="#{adminSettingPage.admin.username}"/>
+                                    <h:outputText value="Staff Password : "/>
+                                    <b:inputSecret required="true" requiredMessage="Password is required"
+                                                   value="#{adminSettingPage.admin.password}"/>
+                                    <h:outputText value="Staff Role : "/>
+                                    <b:inputText required="true" requiredMessage="Role is required"
+                                                 value="#{adminSettingPage.admin.role}"/>
+                                </b:panelGrid>
+                                <b:panelGrid colSpans="12" style="text-align:center;">
+                                    <b:commandButton value="Add Staff" action="#{adminSettingPage.addStaff}"/>
+                                </b:panelGrid>
+                            </b:panel>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
+            <b:modal id="updateStaff" title="Update Staff" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panel title="Add Staff" collapsible="false">
+                                <b:panelGrid colSpans="3,9">
+                                    <h:outputText value="Staff Username : "/>
+                                    <b:inputText required="true" requiredMessage="Username is required"
+                                                 value="#{adminSettingPage.admin.username}"/>
+                                    <h:outputText value="Staff Password : "/>
+                                    <b:inputSecret required="true" requiredMessage="Password is required"
+                                                   value="#{adminSettingPage.admin.password}"/>
+                                    <h:outputText value="Staff Role : "/>
+                                    <b:inputText required="true" requiredMessage="Role is required"
+                                                 value="#{adminSettingPage.admin.role}"/>
+                                </b:panelGrid>
+                                <b:panelGrid colSpans="12" style="text-align:center;">
+                                    <b:commandButton value="Add Staff" action="#{adminSettingPage.updateAdmin}"/>
+                                </b:panelGrid>
+                            </b:panel>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
+            <b:modal id="deleteStaff" title="DeleteStaff" closable="false" styleClass="deleteStaff">
+
+            </b:modal>
+
         </b:container>
     </ui:define>
 </ui:composition>
+
 </html>
