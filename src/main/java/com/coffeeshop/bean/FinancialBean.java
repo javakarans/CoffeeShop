@@ -1,8 +1,14 @@
 package com.coffeeshop.bean;
 
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,6 +27,10 @@ public class FinancialBean {
         today = new Date();
         from = new Date();
         to = new Date();
+    }
+
+    public void calculateTodaysSales(){
+
     }
 
     public Date getToday() {
