@@ -19,36 +19,50 @@
                         <b:form>
                             <b:panelGrid colSpans="3,9">
                                 <h:outputText value="Name"/>
-                                <b:inputText value="#{addKitchenBean.kitchen.name}"/>
-                                <h:outputText value="Printer Mac Address"/>
-                                <b:inputText value="#{addKitchenBean.kitchen.macAddress}"/>
-                                <h:outputText value="Printer Static Ip"/>
-                                <b:inputText value="#{addKitchenBean.kitchen.staticIp}"/>
+                                <b:inputText required="true" value="#{addKitchenBean.kitchen.name}"/>
                                 <h:outputText value="Printer Name"/>
                                 <b:selectOneMenu value="#{addKitchenBean.kitchen.kitchenPrinterName}">
                                     <f:selectItem itemLabel="(Please select Printer Name)" itemValue="" />
                                     <f:selectItems value="#{addKitchenBean.printerNameList}" itemValue="#{printerName}" var="printerName"
                                                    itemLabel="#{printerName}"/>
                                 </b:selectOneMenu>
+                                <h:outputText value="Printer Mac Address"/>
+                                <b:inputText disabled="true" value="#{addKitchenBean.kitchen.macAddress}"/>
+                                <h:outputText value="Printer Static Ip"/>
+                                <b:inputText disabled="true" value="#{addKitchenBean.kitchen.staticIp}"/>
                             </b:panelGrid>
-                            <b:panelGrid colSpans="12">
-                                <b:commandButton value="Add" icon="plus-sign" action="#{addKitchenBean.addKitchen()}"/>
+                            <b:panelGrid colSpans="12" style="text-align:center;">
+                                <b:commandButton update="kitchenTable" ajax="true" value="Add" icon="plus-sign" actionListener="#{addKitchenBean.addKitchen()}"/>
                             </b:panelGrid>
                         </b:form>
                     </b:panel>
                 </b:column>
             </b:row>
-            <b:row>
-                <b:column colSm="12">
-                    <b:panel title="Kitchens List" collapsible="false">
-                        <b:form>
-                            <b:dataTable value="#{addKitchenBean.kitchenList}">
-
+            <b:form id="kitchenTable">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panel title="Kitchens List" collapsible="false">
+                            <b:dataTable value="#{addKitchenBean.kitchenList}" var="kitchen">
+                                <b:dataTableColumn label="Kitchen ID">
+                                    <h:outputText value="#{kitchen.kitchenId}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Kitchen Name">
+                                    <h:outputText value="#{kitchen.name}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Printer Name">
+                                    <h:outputText value="#{kitchen.kitchenPrinterName}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="remove">
+                                    <b:commandButton ajax="true" action="#{addKitchenBean.removeKitchen(kitchen)}" value="remove" iconAwesome="remove"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="edit">
+                                    <b:commandButton value="edit" iconAwesome="edit"/>
+                                </b:dataTableColumn>
                             </b:dataTable>
-                        </b:form>
-                    </b:panel>
-                </b:column>
-            </b:row>
+                        </b:panel>
+                    </b:column>
+                </b:row>
+            </b:form>
         </b:container>
     </ui:define>
 </ui:composition>

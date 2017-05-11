@@ -49,6 +49,18 @@ public class AddKitchenBean {
         kitchen = new Kitchen();
     }
 
+    public void removeKitchen(Kitchen kitchen)
+    {
+        boolean result = kitchenDaoImp.deleteKitchen(kitchen);
+        if (result) {
+            kitchenList.remove(kitchen);
+            //show message
+        }
+        else {
+            //show message
+        }
+    }
+
     public com.coffeeshop.model.Kitchen getKitchen() {
         return kitchen;
     }
