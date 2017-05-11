@@ -55,11 +55,11 @@
                     <b:column colSm="12">
                         <b:panel title="Foods List Of #{addFoodsBean.selectedSubCategoryWrapper}" collapsible="false">
                     <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
-                        <b:dataTableColumn>
+                        <b:dataTableColumn label="Food Name">
                             <b:inputText value="#{food.name}" rendered="#{addFoodsBean.editTable}" />
                             <h:outputText value="#{food.name}" rendered="#{!addFoodsBean.editTable}" />
                         </b:dataTableColumn>
-                        <b:dataTableColumn>
+                        <b:dataTableColumn label="Food Price">
                             <b:inputText value="#{food.price}" rendered="#{addFoodsBean.editTable}" />
                             <h:outputText value="#{food.price}" rendered="#{!addFoodsBean.editTable}" />
                         </b:dataTableColumn>

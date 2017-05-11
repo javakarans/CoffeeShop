@@ -52,8 +52,11 @@ public class AdminSubCategoryEdit implements Serializable{
     }
 
     public void onChange() {
-        subcategories = subcategoryDaoImp.getSubCategoriesByCategoryId(selectedCategory.getCategoryId());
-        newSubcategory.setCategoryId(selectedCategory.getCategoryId());
+        if (selectedCategory!=null)
+        {
+            subcategories = subcategoryDaoImp.getSubCategoriesByCategoryId(selectedCategory.getCategoryId());
+            newSubcategory.setCategoryId(selectedCategory.getCategoryId());
+        }
     }
 
     public void save() {

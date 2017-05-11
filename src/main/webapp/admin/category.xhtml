@@ -38,7 +38,7 @@
                         <b:panel title="Category List" collapsible="false">
                             <b:dataTable class="editableCarTable1" value="#{adminEditMenu.categoryList}" var="category">
                                 <b:dataTableColumn value="#{category.name}"/>
-                                <b:dataTableColumn label="remove">
+                                <b:dataTableColumn label="remove" style="text-align:center;">
                                     <b:commandButton ajax="true" value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
                                 </b:dataTableColumn>
                             </b:dataTable>

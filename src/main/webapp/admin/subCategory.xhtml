@@ -23,6 +23,7 @@
                                 <b:selectOneMenu update="subcattable,addSubCategory"
                                                  onchange="ajax:adminSubCategoryEdit.onChange()"
                                                  value="#{adminSubCategoryEdit.selectedCategory}">
+                                    <f:selectItem itemLabel="(Please select Category)" itemValue="" />
                                     <f:selectItems value="#{adminSubCategoryEdit.categories}" itemValue="#{categoty}"
                                                    var="categoty"
                                                    itemLabel="#{categoty.name}"/>
@@ -39,7 +40,7 @@
                 <b:row>
                     <b:column colSm="12">
                         <b:panel title="New Sub Category " collapsible="false">
-                            <b:panelGrid colSpans="3,9">
+                            <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
                                 <h:outputText value="New Subcategory name"/>
                                 <b:inputText value="#{adminSubCategoryEdit.newSubcategory.name}"/>
                                 <h:outputText value="Category Name"/>
@@ -50,7 +51,7 @@
                                               mode="advanced" dragDropSupport="true"
                                               multiple="false" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             </b:panelGrid>
-                            <b:panelGrid colSpans="12">
+                            <b:panelGrid colSpans="12" style="text-align:center;">
                                 <b:commandButton ajax="true" value="save" actionListener="#{adminSubCategoryEdit.save}"
                                                  update="growl,subcattable"/>
 
