@@ -15,6 +15,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpServlet;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,10 +38,8 @@ public class AdminEditMenu  implements Serializable {
     private CategoryDaoImp categoryDaoImp;
     private SubcategoryDaoImp subcategoryDaoImp;
     private long selectedCategoryid;
-    private String filePath;
-    private static final String url = "C:\\Users\\amir\\Desktop\\image" ;
-
-
+    private UploadedFile uploadedFile;
+    private String categoryImageLocation;
 
     @PostConstruct
     public void init() {
@@ -50,9 +51,22 @@ public class AdminEditMenu  implements Serializable {
 
     }
 
-
+    public void processFileUpload(FileUploadEvent event) throws IOException {
+        uploadedFile = event.getFile();
+        InputStream inputStream = uploadedFile.getInputstream();
+        String uniqueID = UUID.randomUUID().toString();
+        categoryImageLocation = uniqueID.concat(uniqueID).concat(uploadedFile.getFileName());
+        Path des = Paths.get(StaticSettings.imageUrl.concat(categoryImageLocation));
+        //if directory exists?
+        try {
+            Files.copy(inputStream,des);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void saveCategory() {
+        category.setLargeDeviceImageUrl(categoryImageLocation);
         boolean result = categoryDaoImp.createCategory(category);
         if (result) {
             categoryList.add(category);
@@ -65,48 +79,6 @@ public class AdminEditMenu  implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, error);
         }
         category = new Category();
-    }
-
-    private void handleFileUpload(UploadedFile uploaded, String location) throws IOException {
-        location = url;
-        File result = new File(location);
-
-        //file.mkdirs(); //!wrong
-        result.getParentFile().mkdirs();//!correct
-        if (!result.exists()){
-            result.createNewFile();
-        }
-
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(result);
-
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            int bulk;
-            InputStream inputStream = uploaded.getInputstream();
-            while (true) {
-                bulk = inputStream.read(buffer);
-                if (bulk < 0) {
-                    break;
-                }
-                fileOutputStream.write(buffer, 0, bulk);
-                fileOutputStream.flush();
-            }
-
-            fileOutputStream.close();
-            inputStream.close();
-
-            FacesMessage msg = new FacesMessage("Succesful", uploaded.getFileName()
-                    + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-
-        } catch (IOException e1) {
-            e1.printStackTrace();
-
-            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "The files were not uploaded!", "");
-            FacesContext.getCurrentInstance().addMessage(null, error);
-        }
     }
 
     public void removeCategory(Category category)
@@ -130,28 +102,6 @@ public class AdminEditMenu  implements Serializable {
 
         boolean result = subcategoryDaoImp.createSubcategory(subcategory);
         subcategory = new Subcategory();
-    }
-
-    public void uploadLargeImage(FileUploadEvent largeImageUploded) throws IOException {
-        String uniqueID = UUID.randomUUID().toString();
-        if (largeImageUploded!=null)
-        {
-            System.out.println("gholam");
-            handleFileUpload(largeImageUploded.getFile(),"");
-        }
-        else
-        {
-            //show message in xhtml
-        }
-    }
-
-    public void uploadSmallImage(FileUploadEvent smallImageUploded) {
-        String uniqueID = UUID.randomUUID().toString();
-        if (smallImageUploded != null) {
-
-        } else {
-            //show message in xhtml
-        }
     }
 
     public Category getCategory() {

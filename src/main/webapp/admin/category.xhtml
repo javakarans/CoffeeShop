@@ -8,49 +8,46 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
  
-
-
-<ui:composition >
-    <b:container id="categoryPage">
-
-        <b:growl id="messages2" showDetail="true" />
-        <b:row>
-            <b:column colSm="12">
-                    <h:form enctype="multipart/form-data">
-                        <b:panel title="Add New Category" collapsible="false">
+<ui:composition template="../templates/common/adminTemplate.xhtml">
+    <ui:define name="content">
+        <b:container id="categoryPage">
+            <b:growl id="messages" showDetail="false" />
+            <b:row>
+                <b:column colSm="12">
+                    <b:panel title="Add New Category" collapsible="false">
+                        <h:form>
                             <b:panelGrid   colSpans="3,9">
                                 <h:outputText value="New Category name :"/>
-                                <b:inputText required="true" value="#{adminEditMenu.category.name}"/>
-
+                                <b:inputText required="true" requiredMessage="Please Write Category Name"  value="#{adminEditMenu.category.name}"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
                                 <h:outputText value="Image For Large Device :"/>
-                                <p:fileUpload style="width: auto"  fileUploadListener="#{adminEditMenu.uploadLargeImage}" mode="advanced" dragDropSupport="false"
-                                              multiple="true"  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                <p:fileUpload update="messages" required="true" requiredMessage="Please Upload Image"  style="width: auto"  fileUploadListener="#{adminEditMenu.processFileUpload}" mode="advanced" dragDropSupport="false"
+                                               sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
-                                <b:commandButton update="@(.f)" value="save" ajax="true" actionListener="#{adminEditMenu.saveCategory()}"/>
+                                <b:commandButton update="categoryTable,messages" value="save" ajax="true" actionListener="#{adminEditMenu.saveCategory()}"/>
                             </b:panelGrid>
-                        </b:panel>
-                    </h:form>
-            </b:column>
-        </b:row>
-
-            <b:row class="f" id="categoryTable">
-                <b:column colSm="12">
-                    <b:form>
+                        </h:form>
+                    </b:panel>
+                </b:column>
+            </b:row>
+            <b:form id="categoryTable">
+                <b:row>
+                    <b:column colSm="12">
                         <b:panel title="Category List" collapsible="false">
                             <b:dataTable class="editableCarTable1" value="#{adminEditMenu.categoryList}" var="category">
                                 <b:dataTableColumn value="#{category.name}"/>
                                 <b:dataTableColumn label="remove">
-                                    <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
+                                    <b:commandButton ajax="true" value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:panel>
-                    </b:form>
-                </b:column>
-            </b:row>
-    </b:container>
+                    </b:column>
+                </b:row>
+            </b:form>
+        </b:container>
+    </ui:define>
 </ui:composition>
 
 </html>
