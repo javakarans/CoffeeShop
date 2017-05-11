@@ -1,10 +1,11 @@
 package com.coffeeshop.bean;
 
 import com.coffeeshop.database.FoodDaoImp;
+import com.coffeeshop.database.KitchenDaoImp;
 import com.coffeeshop.database.SubcategoryDaoImp;
-import com.coffeeshop.model.Food;
+import com.coffeeshop.model.*;
+import com.coffeeshop.model.Kitchen;
 import com.coffeeshop.wrapper.SubCategoryWrapper;
-import com.coffeeshop.model.Subcategory;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -30,11 +31,15 @@ public class AddFoodsBean implements Serializable{
     private UploadedFile uploadedFile;
     private List<Food> foodList;
     private boolean editTable;
+    private KitchenDaoImp kitchenDaoImp;
+    private List<com.coffeeshop.model.Kitchen> kitchenList;
 
 
     @PostConstruct
     public void init()
     {
+        kitchenDaoImp = new KitchenDaoImp();
+        kitchenList = kitchenDaoImp.getAllKitchen();
         editTable=false;
         foodDaoImp = new FoodDaoImp();
         food = new Food();
@@ -58,12 +63,10 @@ public class AddFoodsBean implements Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("done");
     }
 
     public void updateFoodList(ValueChangeEvent event)
     {
-        System.out.println("gholam");
         foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper
                 .getSubCategoryId());
     }
@@ -75,7 +78,6 @@ public class AddFoodsBean implements Serializable{
     public void onChange()
     {
         foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
-        System.out.println("ridiiiiiiiiiiiiiiiiiii");
     }
 
     public void saveFood()
@@ -129,5 +131,13 @@ public class AddFoodsBean implements Serializable{
 
     public void setEditTable(boolean editTable) {
         this.editTable = editTable;
+    }
+
+    public List<Kitchen> getKitchenList() {
+        return kitchenList;
+    }
+
+    public void setKitchenList(List<Kitchen> kitchenList) {
+        this.kitchenList = kitchenList;
     }
 }
