@@ -10,7 +10,8 @@
  
 
 
-<ui:composition>
+<ui:composition template="../templates/common/adminTemplate.xhtml">
+    <ui:define name="content">
         <b:container>
             <b:growl id="messages4" showDetail="true" />
             <b:form>
@@ -71,6 +72,7 @@
                 </b:row>
             </b:form>
         </b:container>
+    </ui:define>
 </ui:composition>
 
 </html>
