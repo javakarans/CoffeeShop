@@ -36,15 +36,20 @@ $(function () {
             down = false;
         });
 });
-function showModal(int) {
-    $('.modalDialog').css('opacity',1);
-    $('.img'.concat(int)).css("z-index",1);
-
-};
-function closeModal() {
+$(function () {
+    $('body').click(function (event) {
+        if($(event.target).is('#foodListModal')){
+            closeFoodListModal();
+        }
+    })
+});
+function openFoodListModal(imgItemIndex) {
+    $('#foodListModal').css('opacity',1)
+        .css('pointer-events','auto');
     $('.img-panel').css('z-index',0);
-    $('.modalDialog').css('opacity',0);
-
+    $('#img'.concat(imgItemIndex)).css('z-index',1);
 };
-
-
+function closeFoodListModal() {
+    $('#foodListModal').css('opacity',0)
+        .css('pointer-events','none');
+};

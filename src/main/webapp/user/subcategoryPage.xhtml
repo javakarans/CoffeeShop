@@ -18,16 +18,19 @@
         <!-- Head Style -->
         <script src="../lib/js/subcategoryPage.js" type="text/javascript"></script>
         <link href="../lib/css/subcategoryPage.css" rel="stylesheet" type="text/css"/>
-        <link href="../lib/css/modalDialog.css" rel="stylesheet" type="text/css"/>
         <!-- Head Style -->
 
         <div class="container-page">
 
             <div class="up-panel">
-                <img src="../lib/img/shopping-cart.png" alt="shopping-cart" width="45"></img>
-                <div class="badge">
-                    <span>0</span>
-                </div>
+                <a href="#orderCartList">
+                    <img src="../lib/img/shopping-cart.png" alt="shopping-cart" width="45"></img>
+                    <h:panelGroup id="badge">
+                        <span class="badge">
+                        <span>#{dtUserSessionBean.selectedFoods.size()}</span>
+                    </span>
+                    </h:panelGroup>
+                </a>
             </div>
 
             <div class="center-content">
@@ -40,12 +43,13 @@
                 <div class="slide-panel">
                     <div class="scrollable">
                         <h:form>
-                            <ui:repeat value="#{subCategoryPage.subcategories}" var="subcategoryItem" varStatus="statusItem">
-                                <h:commandLink action="#{subCategoryPage
-                                .loadFoodBySubCategory(subcategoryItem.subCategoryId,statusItem.index)}" onclick="showModal('#{statusItem.index}')">
-                                        <img id="id" src="../lib/img/coffee.jpg" alt="img" class="img-panel #{'img'.concat(statusItem.index)}"/>
-                                    <f:ajax render="@form"></f:ajax>
-                                </h:commandLink>
+                            <ui:repeat value="#{subCategoryPage.subcategories}" var="subcategoryItem"
+                                       varStatus="statusItem">
+                                <p:commandLink update="foodList" onclick="openFoodListModal('#{statusItem.index}')"
+                                               action="#{subCategoryPage.loadFoodBySubCategory(subcategoryItem.subCategoryId)}">
+                                    <img src="../lib/img/coffee.jpg" alt="img"
+                                         class="img-panel" id="#{'img'.concat(statusItem.index)}"/>
+                                </p:commandLink>
                             </ui:repeat>
                         </h:form>
                     </div>
@@ -69,23 +73,73 @@
                     </h:commandLink>
                 </h:form>
             </div>
+
         </div>
-        <div id="openModal" class="modalDialog">
-            <div><a title="Close" class="close" onclick="closeModal()">X</a>
+
+        <div id="foodListModal" class="modalDialog">
+            <div>
                 <div class="modal-slide-panel">
                     <div class="modal-scrollable">
-                        <h:form>
-                            <ui:repeat value="#{subCategoryPage.foodList}" var="foodItem">
-                                <h:commandLink action="#">
-                                    <img src="../lib/img/coffee.jpg" alt="img" class="img-panel"/>
-                                    <f:ajax render="@form"></f:ajax>
-                                </h:commandLink>
-                            </ui:repeat>
-                        </h:form>
+                        <h:panelGroup layout="block" id="foodList">
+                            <h:form>
+                                <ui:repeat value="#{subCategoryPage.foodList}" var="foodItem">
+                                    <p:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
+                                                   update="orderCart badge foodList"
+                                                   disabled="#{subCategoryPage.checkAddedToCart(foodItem)}">
+                                        <img src="../lib/img/coffee.jpg" alt="img" class="modal-img"/>
+                                    </p:commandLink>
+                                </ui:repeat>
+                            </h:form>
+                        </h:panelGroup>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="orderCartList" class="modalDialog">
+            <div>
+                <a href="#close" class="close">X</a>
+                <h:panelGroup id="orderCart" layout="block">
+                    <table>
+                        <tr>
+                            <th>Food Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                        <ui:repeat value="#{dtUserSessionBean.foodOrderWrapperList}" var="selectedFoodItem">
+                            <tr>
+                                <td>#{selectedFoodItem.foodName}</td>
+                                <td>#{selectedFoodItem.price}</td>
+                                <td>
+                                    <h:selectOneMenu value="#{selectedFoodItem.quantity}">
+                                        <f:selectItem itemValue="1"></f:selectItem>
+                                        <f:selectItem itemValue="2"></f:selectItem>
+                                        <f:selectItem itemValue="3"></f:selectItem>
+                                        <f:selectItem itemValue="4"></f:selectItem>
+                                        <f:selectItem itemValue="5"></f:selectItem>
+                                        <f:selectItem itemValue="6"></f:selectItem>
+                                        <f:selectItem itemValue="7"></f:selectItem>
+                                        <f:selectItem itemValue="8"></f:selectItem>
+                                        <f:selectItem itemValue="9"></f:selectItem>
+                                        <f:selectItem itemValue="10"></f:selectItem>
+                                    </h:selectOneMenu>
+                                </td>
+                                <td>#{subCategoryPage.calTotalPriceForEveryFood(selectedFoodItem)}</td>
+                                <td>
+                                    <p:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}"
+                                                   update="orderCart badge" styleClass="remove">
+                                            <span>x</span>
+                                    </p:commandLink>
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </h:panelGroup>
+            </div>
+        </div>
+
 
     </ui:define>
 

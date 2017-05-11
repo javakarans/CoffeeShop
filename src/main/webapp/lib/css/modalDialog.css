@@ -13,21 +13,18 @@
     transition: opacity 400ms ease-in;
     pointer-events: none;
 }
-/*.modalDialog:target{*/
-    /*opacity:1;*/
-    /*pointer-events: auto;*/
-/*}*/
+.modalDialog:target{
+    opacity: 1;
+    pointer-events: auto;
+}
 .modalDialog > div {
     width: 650px;
     position: relative;
     margin: 380px 275px;
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
-    pointer-events: auto;
-    background-size: cover;
     box-shadow: 0px 0px 10px #131313;
-    background-image: url("../img/foodBackground.jpg");
-    background-size: cover;
+    background-color: whitesmoke;
 }
 .close {
     cursor: pointer;

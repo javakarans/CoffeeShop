@@ -1,10 +1,12 @@
 package com.coffeeshop.bean;
 
 import com.coffeeshop.model.Food;
+import com.coffeeshop.wrapper.FoodOrderWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "dtUserSessionBean")
@@ -12,12 +14,12 @@ import java.util.List;
 public class UserSessionBean {
     private long selectedCategory;
     private long selectedSubCategory;
-    private List<Food> selectedFoods;
+    private List<FoodOrderWrapper> foodOrderWrapperList;
 
     @PostConstruct
     public void init()
     {
-
+        foodOrderWrapperList=new ArrayList<FoodOrderWrapper>();
     }
 
     public long getSelectedCategory() {
@@ -36,11 +38,11 @@ public class UserSessionBean {
         this.selectedSubCategory = selectedSubCategory;
     }
 
-    public List<Food> getSelectedFoods() {
-        return selectedFoods;
+    public List<FoodOrderWrapper> getFoodOrderWrapperList() {
+        return foodOrderWrapperList;
     }
 
-    public void setSelectedFoods(List<Food> selectedFoods) {
-        this.selectedFoods = selectedFoods;
+    public void setFoodOrderWrapperList(List<FoodOrderWrapper> foodOrderWrapperList) {
+        this.foodOrderWrapperList = foodOrderWrapperList;
     }
 }

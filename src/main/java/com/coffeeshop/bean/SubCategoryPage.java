@@ -4,6 +4,7 @@ import com.coffeeshop.database.FoodDaoImp;
 import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Food;
 import com.coffeeshop.model.Subcategory;
+import com.coffeeshop.wrapper.FoodOrderWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -36,9 +38,39 @@ public class SubCategoryPage {
         subcategories = subcategoryDaoImp.getSubCategoriesByCategoryId(categoryId);
     }
 
-    public void loadFoodBySubCategory(long subCategoryId,int index){
+    public void loadFoodBySubCategory(long subCategoryId){
         FoodDaoImp foodDaoImp=new FoodDaoImp();
-        List<Food> foodList = foodDaoImp.getFoodsBySubCategoryId(subCategoryId);
+        foodList = foodDaoImp.getFoodsBySubCategoryId(subCategoryId);
+    }
+
+    public void addToCart(Food food){
+        FoodOrderWrapper foodOrderWrapper=new FoodOrderWrapper();
+        foodOrderWrapper.setFoodId(food.getFoodId());
+        foodOrderWrapper.setFoodName(food.getName());
+        foodOrderWrapper.setPrice(food.getPrice());
+        userSessionBean.getFoodOrderWrapperList().add(foodOrderWrapper);
+    }
+
+    public boolean checkAddedToCart(Food food){
+        Iterator<FoodOrderWrapper> iterator = userSessionBean.getFoodOrderWrapperList().iterator();
+        while (iterator.hasNext()){
+            FoodOrderWrapper next = iterator.next();
+            if(next.getFoodId()==food.getFoodId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double calTotalPriceForEveryFood(FoodOrderWrapper foodOrderWrapper){
+        double price = foodOrderWrapper.getPrice();
+        int quantity = foodOrderWrapper.getQuantity();
+        foodOrderWrapper.setTotalPrice(price*quantity);
+        return foodOrderWrapper.getTotalPrice();
+    }
+
+    public void removeFoodItem(FoodOrderWrapper foodOrderWrapper){
+        userSessionBean.getFoodOrderWrapperList().remove(foodOrderWrapper);
     }
 
     public UserSessionBean getUserSessionBean() {

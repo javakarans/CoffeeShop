@@ -29,7 +29,6 @@ body{
     height: 670px;
     width: 1280px;
     position: relative;
-
 }
 .center-content{
     margin-top: 130px;
@@ -97,11 +96,9 @@ body{
     width: 250px;
 }
 .footer{
-    /*text-align: right;*/
     margin-left: 20px;
     margin-top:40px;
     width: 1235px;
-    background-color: red;
 }
 .footer #img-1{
     position: absolute;
@@ -123,7 +120,6 @@ body{
     height: 155px;
     white-space: nowrap;
     overflow: hidden;
-    border-right:dashed 2px rgba(0, 0, 0, 0.43);
 }
 .modal-scrollable{
     text-align: center;
@@ -175,4 +171,54 @@ body{
 .up-panel img:hover{
     cursor: pointer;
     opacity: 0.95;
+}
+#foodListModal > div{
+    width: 650px;
+    background-color: rgba(121, 67, 37, 0.08);
+}
+#orderCartList > div {
+    margin: 250px 275px;
+    background-color: #542c1a;
+}
+#orderCartList{
+    z-index: 1;
+}
+#orderCartList table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, td {
+    text-align: center;
+    padding: 8px;
+    color: #acacac;
+}
+
+table tr:nth-child(even){
+    background-color: rgb(138, 75, 43);
+}
+
+table th {
+    background-color: #542c1a;
+    color: #dc2c2d;
+}
+.remove{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: rgba(167, 167, 167, 0.89);
+    margin: auto;
+    display: table;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.45);
+    text-decoration: none;
+}
+.remove span{
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    font-size: 12px;
+}
+.remove:hover{
+    opacity: 0.9;
+    cursor: pointer;
 }
