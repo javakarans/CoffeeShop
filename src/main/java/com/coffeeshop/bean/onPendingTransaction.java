@@ -17,14 +17,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.coffeeshop.PrinterService.*;
 /**
  * Created by amir on 5/3/2017.
@@ -110,20 +109,10 @@ public class onPendingTransaction {
 
     public void newOrder()
     {
+        System.out.println("gholam");
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setStatus(Status.ORDER_ONPENDING);
-        Date date = new Date();
-        String string_date = date.toString();
-
-        SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy");
-        long milliseconds = 0L;
-        try {
-            Date d = f.parse(string_date);
-            milliseconds = d.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        orderDetail.setDate(new java.sql.Date(milliseconds));
+        orderDetail.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
         orderDetail.setTrackingNumber(settingData.getTrackNumber());
         orderDetailDaoImp.createOrder(orderDetail);
 

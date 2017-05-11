@@ -25,7 +25,7 @@ import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
  * Created by H&H on 4/30/2017.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AdminEditMenu  implements Serializable {
 
     private Category category;

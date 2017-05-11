@@ -39,7 +39,8 @@ public class SettingData {
     public int getTrackNumber()
     {
         int currentTrackNumber = adminSetting.getTrackNumber();
-        adminSetting.setTrackNumber(currentTrackNumber++);
+        currentTrackNumber = currentTrackNumber + 1;
+        adminSetting.setTrackNumber(currentTrackNumber);
         adminSettingDaoImp.updateAdminSetting(adminSetting);
         return currentTrackNumber;
     }

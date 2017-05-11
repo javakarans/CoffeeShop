@@ -34,4 +34,9 @@ public class KitchenDaoImp implements KitchenDao{
         }
         return new Kitchen();
     }
+
+    public List<Kitchen> getAllKitchen()
+    {
+        return sqlService.getAllObjects(new Kitchen());
+    }
 }

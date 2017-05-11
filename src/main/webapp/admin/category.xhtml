@@ -13,47 +13,43 @@
 <ui:composition >
     <b:container id="categoryPage">
 
-        <b:growl id="messages" showDetail="true" />
-        <h:form enctype="multipart/form-data">
-            <b:row>
-                    <b:panelGrid   colSpans="3,9">
-                            <h:outputText value="New Category name :"/>
-                            <b:inputText required="true" value="#{adminEditMenu.category.name}"/>
+        <b:growl id="messages2" showDetail="true" />
+        <b:row>
+            <b:column colSm="12">
+                    <h:form enctype="multipart/form-data">
+                        <b:panel title="Add New Category" collapsible="false">
+                            <b:panelGrid   colSpans="3,9">
+                                <h:outputText value="New Category name :"/>
+                                <b:inputText required="true" value="#{adminEditMenu.category.name}"/>
 
-                    </b:panelGrid>
-            </b:row>
-            <b:row>
-                    <b:panelGrid colSpans="3,9">
-                        <h:outputText value="Image For Large Device :"/>
-                        <p:fileUpload style="width: auto"  fileUploadListener="#{adminEditMenu.uploadLargeImage}" mode="advanced" dragDropSupport="false"
-                                      multiple="true"  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                    </b:panelGrid>
-            </b:row>
-            <b:row>
-                <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
-                    <h:outputText value="Image For small Device :"/>
-                    <p:fileUpload style="width: auto"  fileUploadListener="#{adminEditMenu.uploadSmallImage}" mode="advanced" dragDropSupport="false"
-                                  multiple="true"  sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-                </b:panelGrid>
-            </b:row>
-            <b:row>
-                <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
-                    <b:commandButton update="@(.f)" value="save" ajax="true" actionListener="#{adminEditMenu.saveCategory()}"/>
-                </b:panelGrid>
-            </b:row>
-        </h:form>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
+                                <h:outputText value="Image For Large Device :"/>
+                                <p:fileUpload style="width: auto"  fileUploadListener="#{adminEditMenu.uploadLargeImage}" mode="advanced" dragDropSupport="false"
+                                              multiple="true"  sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
+                                <b:commandButton update="@(.f)" value="save" ajax="true" actionListener="#{adminEditMenu.saveCategory()}"/>
+                            </b:panelGrid>
+                        </b:panel>
+                    </h:form>
+            </b:column>
+        </b:row>
 
             <b:row class="f" id="categoryTable">
-                <b:form>
-                <b:panel title="Category List" collapsible="false">
-                    <b:dataTable class="editableCarTable1" value="#{adminEditMenu.categoryList}" var="category">
-                        <b:dataTableColumn value="#{category.name}"/>
-                        <b:dataTableColumn label="remove">
-                            <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
-                        </b:dataTableColumn>
-                    </b:dataTable>
-                </b:panel>
-                </b:form>
+                <b:column colSm="12">
+                    <b:form>
+                        <b:panel title="Category List" collapsible="false">
+                            <b:dataTable class="editableCarTable1" value="#{adminEditMenu.categoryList}" var="category">
+                                <b:dataTableColumn value="#{category.name}"/>
+                                <b:dataTableColumn label="remove">
+                                    <b:commandButton update="@(.editableCarTable1)" ajax="true"  value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label=""
+                            </b:dataTable>
+                        </b:panel>
+                    </b:form>
+                </b:column>
             </b:row>
     </b:container>
 </ui:composition>
