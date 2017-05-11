@@ -73,7 +73,7 @@ public class AdminSettingPage {
 
     public String addStaff(){
         adminDaoImp.createAdmin(admin);
-        return "AdminSetting.xhtml?faces-redirect=true";
+        return "adminSetting.xhtml?faces-redirect=true";
     }
 
     public void showUpdateAdminModal(){
@@ -83,7 +83,7 @@ public class AdminSettingPage {
 
     public String updateAdmin(){
         adminDaoImp.updateAdmin(admin);
-        return "AdminSetting.xhtml?faces-redirect=true";
+        return "adminSetting.xhtml?faces-redirect=true";
     }
 
     public void showDeleteAdminModal(){
