@@ -24,7 +24,7 @@
                     <img src="../lib/img/shopping-cart.png" alt="shopping-cart" width="45"></img>
                     <h:panelGroup id="badge">
                         <span class="badge">
-                        <span>#{dtUserSessionBean.selectedFoods.size()}</span>
+                        <span>#{dtUserSessionBean.foodOrderWrapperList.size()}</span>
                     </span>
                     </h:panelGroup>
                 </a>
@@ -69,42 +69,53 @@
             <div>
                 <a href="#close" class="close">X</a>
                 <h:panelGroup id="orderCart" layout="block">
-                    <table>
-                        <tr>
-                            <th>Food Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
-                        </tr>
-                        <ui:repeat value="#{dtUserSessionBean.selectedFoods}" var="selectedFoodItem">
+                    <h:form>
+                        <table>
                             <tr>
-                                <td>#{selectedFoodItem.name}</td>
-                                <td>#{selectedFoodItem.price}</td>
-                                <td>
-                                    <h:selectOneMenu>
-                                        <f:selectItem itemValue="1"></f:selectItem>
-                                        <f:selectItem itemValue="2"></f:selectItem>
-                                        <f:selectItem itemValue="3"></f:selectItem>
-                                        <f:selectItem itemValue="4"></f:selectItem>
-                                        <f:selectItem itemValue="5"></f:selectItem>
-                                        <f:selectItem itemValue="6"></f:selectItem>
-                                        <f:selectItem itemValue="7"></f:selectItem>
-                                        <f:selectItem itemValue="8"></f:selectItem>
-                                        <f:selectItem itemValue="9"></f:selectItem>
-                                        <f:selectItem itemValue="10"></f:selectItem>
-                                    </h:selectOneMenu>
-                                </td>
-                                <td>14000</td>
-                                <td>
-                                    <p:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}"
-                                                   update="orderCart badge" styleClass="remove">
-                                        <span>x</span>
-                                    </p:commandLink>
-                                </td>
+                                <th>Food Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
                             </tr>
-                        </ui:repeat>
-                    </table>
+                            <ui:repeat value="#{dtUserSessionBean.foodOrderWrapperList}" var="selectedFoodItem">
+                                <tr>
+                                    <td>#{selectedFoodItem.foodName}</td>
+                                    <td>#{selectedFoodItem.price}</td>
+                                    <td>
+
+                                        <h:selectOneMenu value="#{selectedFoodItem.quantity}">
+                                            <f:selectItem itemValue="1"></f:selectItem>
+                                            <f:selectItem itemValue="2"></f:selectItem>
+                                            <f:selectItem itemValue="3"></f:selectItem>
+                                            <f:selectItem itemValue="4"></f:selectItem>
+                                            <f:selectItem itemValue="5"></f:selectItem>
+                                            <f:selectItem itemValue="6"></f:selectItem>
+                                            <f:selectItem itemValue="7"></f:selectItem>
+                                            <f:selectItem itemValue="8"></f:selectItem>
+                                            <f:selectItem itemValue="9"></f:selectItem>
+                                            <f:selectItem itemValue="10"></f:selectItem>
+                                            <f:ajax execute="@form" render="@form"></f:ajax>
+                                        </h:selectOneMenu>
+
+                                    </td>
+                                    <td>#{selectedFoodItem.calTotalPrice()}</td>
+                                    <td>
+                                        <p:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}"
+                                                       update="orderCart badge" styleClass="remove">
+                                            <span>x</span>
+                                        </p:commandLink>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                        <div class="bottom">
+                            <br></br>
+                            <span>Total Price : #{dtUserSessionBean.calTotalPrice()}</span>
+                            <p:commandLink styleClass="btn" value="Make Order"
+                                           action="#{dtUserSessionBean.makeOrder()}"></p:commandLink>
+                        </div>
+                    </h:form>
                 </h:panelGroup>
             </div>
         </div>

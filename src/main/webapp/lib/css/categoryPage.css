@@ -145,6 +145,7 @@ body {
 }
 #orderCartList > div {
     margin: 250px 275px;
+    border: 3px double rgba(121, 67, 37, 0.41);
     background-color: #542c1a;
 }
 #orderCartList table {
@@ -188,4 +189,26 @@ table th {
     opacity: 0.9;
     cursor: pointer;
 }
-
+#orderCartList .bottom{
+    border-top: 2px dashed rgba(121, 67, 37, 0.41);
+    margin-top: 10px;
+    text-align: center;
+    color: #dc2c2d;
+}
+#orderCartList .bottom .btn{
+    margin: 10px auto;
+    width: 100px;
+    padding: 10px;
+    /*background-color: rgb(138, 75, 43);*/
+    display: block;
+    text-decoration: none;
+    color: white;
+    border: 4px double rgb(138, 75, 43);
+    border-radius: 20px;
+    font-size: 15px;
+    transition: 0.5s;
+}
+#orderCartList .bottom .btn:hover{
+    transition: 0.5s;
+    background-color: rgba(138, 75, 43, 0.48);
+}

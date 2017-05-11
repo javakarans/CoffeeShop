@@ -1,8 +1,13 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.data.SettingData;
 import com.coffeeshop.database.FoodDaoImp;
+import com.coffeeshop.database.FoodOrderDaoImp;
+import com.coffeeshop.database.OrderDetailDaoImp;
 import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Food;
+import com.coffeeshop.model.OrderDetail;
+import com.coffeeshop.model.Status;
 import com.coffeeshop.model.Subcategory;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
 
@@ -12,10 +17,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by H&H on 4/30/2017.
@@ -48,6 +50,7 @@ public class SubCategoryPage {
         foodOrderWrapper.setFoodId(food.getFoodId());
         foodOrderWrapper.setFoodName(food.getName());
         foodOrderWrapper.setPrice(food.getPrice());
+        foodOrderWrapper.setQuantity(1);
         userSessionBean.getFoodOrderWrapperList().add(foodOrderWrapper);
     }
 
@@ -60,13 +63,6 @@ public class SubCategoryPage {
             }
         }
         return false;
-    }
-
-    public double calTotalPriceForEveryFood(FoodOrderWrapper foodOrderWrapper){
-        double price = foodOrderWrapper.getPrice();
-        int quantity = foodOrderWrapper.getQuantity();
-        foodOrderWrapper.setTotalPrice(price*quantity);
-        return foodOrderWrapper.getTotalPrice();
     }
 
     public void removeFoodItem(FoodOrderWrapper foodOrderWrapper){

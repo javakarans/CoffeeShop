@@ -3,12 +3,16 @@ package com.coffeeshop.wrapper;
 import com.coffeeshop.model.FoodOrder;
 import com.coffeeshop.model.Status;
 
+import javax.faces.event.ValueChangeEvent;
+
 /**
  * Created by amir on 5/7/2017.
  */
 public class FoodOrderWrapper {
+
     private long foodOrderWrapperId;
     private long foodId;
+    private long orderDetailId;
     private String foodName;
     private int quantity;
     private double price;
@@ -25,13 +29,21 @@ public class FoodOrderWrapper {
 
     }
 
-    public FoodOrder convertToOriginalClass(FoodOrderWrapper foodOrderWrapper)
+    public double calTotalPrice(){
+        totalPrice=price*quantity;
+        System.out.println(totalPrice);
+        return totalPrice;
+    }
+
+    public FoodOrder convertToOriginalClass()
     {
         FoodOrder foodOrder = new FoodOrder();
-        foodOrder.setFoodId(foodOrderWrapper.getFoodId());
-        foodOrder.setQuantity(foodOrderWrapper.getQuantity());
-        foodOrder.setOrderId(foodOrderWrapper.foodOrderWrapperId);
+        foodOrder.setFoodId(this.foodId);
+        foodOrder.setQuantity(this.quantity);
+        foodOrder.setOrderId(this.foodOrderWrapperId);
         foodOrder.setStatus(Status.FOODORDER_NOT_READY);
+        foodOrder.setOrderId(this.orderDetailId);
+        foodOrder.setTotalPrice(calTotalPrice());
         return foodOrder;
     }
 
@@ -59,7 +71,6 @@ public class FoodOrderWrapper {
         this.quantity = quantity;
     }
 
-
     public double getPrice() {
         return price;
     }
@@ -82,5 +93,13 @@ public class FoodOrderWrapper {
 
     public void setFoodId(long foodId) {
         this.foodId = foodId;
+    }
+
+    public long getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(long orderDetailId) {
+        this.orderDetailId = orderDetailId;
     }
 }

@@ -2,14 +2,22 @@ package com.coffeeshop.bean;
 
 
 import com.coffeeshop.database.CategoryDaoImp;
+import com.coffeeshop.database.FoodOrderDaoImp;
+import com.coffeeshop.database.OrderDetailDaoImp;
 import com.coffeeshop.model.Category;
+import com.coffeeshop.model.OrderDetail;
+import com.coffeeshop.model.Status;
+import com.coffeeshop.wrapper.FoodOrderWrapper;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 @ManagedBean(name = "dtCategoryBean")
@@ -36,6 +44,10 @@ public class CategoryBean {
         } catch (IOException e) {
             System.out.println("can not redirect");
         }
+    }
+
+    public void removeFoodItem(FoodOrderWrapper foodOrderWrapper){
+        userSessionBean.getFoodOrderWrapperList().remove(foodOrderWrapper);
     }
 
     public List<Category> getCategoryList() {
