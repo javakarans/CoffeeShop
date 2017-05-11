@@ -19,15 +19,15 @@
                         <b:panel title="AdminSetting" collapsible="false">
                             <b:panelGrid colSpans="6,6">
                                 <h:outputText value="Track Number : "/>
-                                <b:inputText value="#{adminSettingPage.adminSetting.trackNumber}"/>
-                                <h:outputText value="receiptNumber : "/>
-                                <b:inputText value="#{adminSettingPage.adminSetting.receiptNumber}"/>
+                                <b:inputText required="true" requiredMessage="Track number is required" value="#{adminSettingPage.adminSetting.trackNumber}"/>
+                                <h:outputText rendered="false" value="receiptNumber : "/>
+                                <b:inputText rendered="false" value="#{adminSettingPage.adminSetting.receiptNumber}"/>
                                 <h:outputText value="receiptAddress : "/>
-                                <b:inputText value="#{adminSettingPage.adminSetting.receiptAddress}"/>
+                                <b:inputText required="true" requiredMessage="Receipt Address is required" value="#{adminSettingPage.adminSetting.receiptAddress}"/>
                                 <h:outputText value="firstPhoneNumber : "/>
-                                <b:inputText value="#{adminSettingPage.adminSetting.firstPhoneNumber}"/>
+                                <b:inputText required="true" requiredMessage="First phone number is required" value="#{adminSettingPage.adminSetting.firstPhoneNumber}"/>
                                 <h:outputText value="secondPhoneNumber : "/>
-                                <b:inputText value="#{adminSettingPage.adminSetting.secondPhoneNumber}"/>
+                                <b:inputText required="true" requiredMessage="Second phone number is required" value="#{adminSettingPage.adminSetting.secondPhoneNumber}"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;">
                                 <b:commandButton value="Save Changes" action="#{adminSettingPage.EditAdminSetting}"/>
@@ -40,20 +40,20 @@
                 <b:row>
                     <b:column colSm="12">
                         <b:panel title="Staff" collapsible="false">
-                            <b:dataTable value="#{adminSettingPage.staf}" var="staf">
-                                <b:dataTableColumn value="#{staf.adminId}" label="AdminId"/>
-                                <b:dataTableColumn value="#{staf.username}" label="UserName"/>
-                                <b:dataTableColumn value="#{staf.password}" label="Password"/>
-                                <b:dataTableColumn value="#{staf.role}" label="Role"/>
+                            <b:dataTable value="#{adminSettingPage.staf}" var="staff">
+                                <b:dataTableColumn value="#{staff.adminId}" label="AdminId"/>
+                                <b:dataTableColumn value="#{staff.username}" label="UserName"/>
+                                <b:dataTableColumn value="#{staff.password}" label="Password"/>
+                                <b:dataTableColumn value="#{staff.role}" label="Role"/>
                                 <b:dataTableColumn label="DeleteStaff" style="text-align:center;">
-                                    <b:commandButton value="Delete" actionListener="#{adminSettingPage.showDeleteAdminModal}"/>
+                                    <b:commandButton value="Delete" actionListener="#{adminSettingPage.showDeleteAdminModal(staff)}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="UpdateStaff" style="text-align:center;">
-                                    <b:commandButton value="update" ajax="true"
-                                                     actionListener="#{adminSettingPage.showUpdateAdminModal}"/>
+                                    <b:commandButton value="update"
+                                                     actionListener="#{adminSettingPage.showUpdateAdminModal(staff)}"/>
                                 </b:dataTableColumn>
                             </b:dataTable>
-                            <b:commandButton value="Add" ajax="true"
+                            <b:commandButton value="Add"
                                              actionListener="#{adminSettingPage.showCreateAdminModal}"/>
                         </b:panel>
                     </b:column>
@@ -89,7 +89,7 @@
                 <b:row>
                     <b:column colSm="12">
                         <b:form>
-                            <b:panel title="Add Staff" collapsible="false">
+                            <b:panel title="Update Staff" collapsible="false">
                                 <b:panelGrid colSpans="3,9">
                                     <h:outputText value="Staff Username : "/>
                                     <b:inputText required="true" requiredMessage="Username is required"
@@ -102,7 +102,7 @@
                                                  value="#{adminSettingPage.admin.role}"/>
                                 </b:panelGrid>
                                 <b:panelGrid colSpans="12" style="text-align:center;">
-                                    <b:commandButton value="Add Staff" action="#{adminSettingPage.updateAdmin}"/>
+                                    <b:commandButton value="Update Staff" action="#{adminSettingPage.updateAdmin}"/>
                                 </b:panelGrid>
                             </b:panel>
                         </b:form>
@@ -110,8 +110,23 @@
                 </b:row>
             </b:modal>
 
-            <b:modal id="deleteStaff" title="DeleteStaff" closable="false" styleClass="deleteStaff">
-
+            <b:modal id="deleteStaff" title="Delete Staff" closable="false" styleClass="deleteStaff">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panel title="Delete Staff" collapsible="false">
+                                <b:panelGrid colSpans="12">
+                                    <br />
+                                    Are you sure?
+                                    <br />
+                                </b:panelGrid>
+                                <b:panelGrid colSpans="12" style="text-align:center;">
+                                    <b:commandButton value="Delete Staff" action="#{adminSettingPage.deleteAdmin}"/>
+                                </b:panelGrid>
+                            </b:panel>
+                        </b:form>
+                    </b:column>
+                </b:row>
             </b:modal>
 
         </b:container>

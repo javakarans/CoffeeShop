@@ -76,7 +76,8 @@ public class AdminSettingPage {
         return "adminSetting.xhtml?faces-redirect=true";
     }
 
-    public void showUpdateAdminModal(){
+    public void showUpdateAdminModal(Admin staff){
+        admin = staff;
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('#updateStaff').modal()");
     }
@@ -86,13 +87,15 @@ public class AdminSettingPage {
         return "adminSetting.xhtml?faces-redirect=true";
     }
 
-    public void showDeleteAdminModal(){
+    public void showDeleteAdminModal(Admin staff){
+        admin = staff;
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('.deleteStaff').modal()");
     }
 
-    public boolean deleteAdmin(){
-        return adminDaoImp.updateAdmin(admin);
+    public String deleteAdmin(){
+        adminDaoImp.deleteAdmin(admin);
+        return "adminSetting.xhtml?faces-redirect=true";
     }
 
 
