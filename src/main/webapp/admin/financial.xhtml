@@ -11,25 +11,11 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
-            <!--<b:panelGrid colSpans="3,9">-->
-            <!--<b:form>-->
-
-            <!--<p:outputLabel for="inline" value="Inline:" />-->
-            <!--<p:calendar id="inline" value="#{financialBean.from}" mode="inline" />-->
-
-            <!--<b:dateTimePicker mode="inline" value="#{financialBean.from}" />-->
-
-            <!--</b:form>-->
-            <!--</b:panelGrid>-->
-
-            <h:form id="form">
-
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel for="inline" value="Inline:"/>
-                    <p:calendar id="inline" value="#{financialBean.from}" mode="inline"/>
-                </h:panelGrid>
-            </h:form>
-
+            <b:panelGrid colSpans="3,9">
+                <b:form>
+                    <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.from}"/>
+                </b:form>
+            </b:panelGrid>
         </b:container>
     </ui:define>
 </ui:composition>
