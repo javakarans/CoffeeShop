@@ -131,6 +131,8 @@ public class AdminEditMenu  implements Serializable {
 
     public String deleteSubCategory(){
         boolean result = subcategoryDaoImp.deleteSubcategory(subcategory);
+        System.out.println(subcategory.getName());
+        System.out.println(result);
         return "subCategory.xhtml?faces-redirect=true";
     }
 
