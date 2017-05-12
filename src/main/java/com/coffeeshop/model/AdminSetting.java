@@ -17,6 +17,7 @@ public class AdminSetting implements Serializable
     private String receiptAddress;
     private String firstPhoneNumber;
     private String secondPhoneNumber;
+    private String receiptTitle;
     //for background
     private String imageUrl;
 //    private String password;
@@ -89,8 +90,16 @@ public class AdminSetting implements Serializable
         this.secondPhoneNumber = secondPhoneNumber;
     }
 
+    @Column
+    public String getReceiptTitle() {
+        return receiptTitle;
+    }
 
-//    @Column
+    public void setReceiptTitle(String receiptTitle) {
+        this.receiptTitle = receiptTitle;
+    }
+
+    //    @Column
 //    public String getPassword() {
 //        return password;
 //    }

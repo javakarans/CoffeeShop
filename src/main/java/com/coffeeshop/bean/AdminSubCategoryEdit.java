@@ -29,7 +29,7 @@ import java.util.UUID;
 @ViewScoped
 public class AdminSubCategoryEdit implements Serializable{
 
-    private static String image_location = "C:\\Users\\H&H\\Desktop\\coffeeshop\\image";
+    private static String image_location = StaticSettings.imageUrl;
 
     private List<Category> categories;
     private List<Subcategory> subcategories;
@@ -60,7 +60,7 @@ public class AdminSubCategoryEdit implements Serializable{
     }
 
     public void save() {
-
+        System.out.println("gholam");
         FacesMessage msg = null;
         if (uploadedImage== null){
 

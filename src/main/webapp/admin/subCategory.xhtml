@@ -13,7 +13,7 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
-            <b:growl id="growl" showDetail="true"/>
+            <b:growl id="growl" showDetail="false"/>
             <b:form>
                 <b:row>
                     <b:column colSm="12">
@@ -33,10 +33,7 @@
                     </b:column>
                 </b:row>
             </b:form>
-
-
-            <h:form id="addSubCategory" enctype="multipart/form-data">
-
+            <h:form id="addSubCategory" >
                 <b:row>
                     <b:column colSm="12">
                         <b:panel title="New Sub Category " collapsible="false">
@@ -46,31 +43,31 @@
                                 <h:outputText value="Category Name"/>
                                 <h:outputText value="#{adminSubCategoryEdit.selectedCategory.name}"/>
                                 <h:outputText value="SubCat Image"/>
-                                <p:fileUpload id="hg" style="width: auto"
+                                <p:fileUpload id="hg"
                                               fileUploadListener="#{adminSubCategoryEdit.uploadImageHandler}"
                                               mode="advanced" dragDropSupport="true"
                                               multiple="false" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;">
-                                <b:commandButton ajax="true" value="save" actionListener="#{adminSubCategoryEdit.save}"
+                                <b:commandButton ajax="true" value="save" actionListener="#{adminSubCategoryEdit.save()}"
                                                  update="growl,subcattable"/>
-
                             </b:panelGrid>
                         </b:panel>
                     </b:column>
                 </b:row>
             </h:form>
-
-            <b:row id="subcattable">
-                <b:column colSm="12">
-                    <b:panel title="Sub Category list Of #{adminSubCategoryEdit.selectedCategory.name}"
-                             collapsible="false">
-                        <b:dataTable value="#{adminSubCategoryEdit.subcategories}" var="subcat">
-                            <b:dataTableColumn value="#{subcat.name}"/>
-                        </b:dataTable>
-                    </b:panel>
-                </b:column>
-            </b:row>
+            <b:form id="subcattable">
+                <b:row >
+                    <b:column colSm="12">
+                        <b:panel title="Sub Category list Of #{adminSubCategoryEdit.selectedCategory.name}"
+                                 collapsible="false">
+                            <b:dataTable value="#{adminSubCategoryEdit.subcategories}" var="subcat">
+                                <b:dataTableColumn value="#{subcat.name}"/>
+                            </b:dataTable>
+                        </b:panel>
+                    </b:column>
+                </b:row>
+            </b:form>
         </b:container>
     </ui:define>
 </ui:composition>
