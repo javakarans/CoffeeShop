@@ -1,5 +1,6 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.PrinterService.PrintReceipt;
 import com.coffeeshop.data.SettingData;
 import com.coffeeshop.database.FoodOrderDaoImp;
 import com.coffeeshop.database.OrderDetailDaoImp;
@@ -7,6 +8,7 @@ import com.coffeeshop.model.Food;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
+import com.coffeeshop.wrapper.UserReceipt;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -60,8 +62,25 @@ public class UserSessionBean {
             next.setOrderDetailId(orderDetail.getOrderDetailId());
             foodOrderDaoImp.createFoodOrder(next.convertToOriginalClass());
         }
+        printReceipt(orderDetail);
         invalidSession();
         return "/user/categoryPage.xhtml?faces-redirect=true";
+    }
+
+    private boolean printReceipt(OrderDetail orderDetail){
+        PrintReceipt printReceipt=new PrintReceipt();
+        UserReceipt userReceipt=new UserReceipt();
+        userReceipt.setFoodOrderWrapperList(foodOrderWrapperList);
+        userReceipt.setTotalprice(calTotalPrice());
+        userReceipt.setTrackNumber(orderDetail.getTrackingNumber());
+        return printReceipt.printUserReceipt("",userReceipt);
+    }
+
+    public boolean canMakeOrder(){
+        if(!foodOrderWrapperList.isEmpty()){
+            return true;
+        }
+        return false;
     }
 
     public long getSelectedCategory() {
