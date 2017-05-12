@@ -35,6 +35,14 @@ public class KitchenDaoImp implements KitchenDao{
         return new Kitchen();
     }
 
+    public Kitchen getKitchenById(long id) {
+        List result = sqlService.getObjectsBySpecialColumn(new Kitchen(), "kitchenId", id);
+        if(!result.isEmpty()){
+            return (Kitchen) result.get(0);
+        }
+        return new Kitchen();
+    }
+
     public List<Kitchen> getAllKitchen()
     {
         return sqlService.getAllObjects(new Kitchen());

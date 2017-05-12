@@ -9,6 +9,7 @@ import com.coffeeshop.model.FoodOrder;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
+import com.coffeeshop.wrapper.KitchenReceipt;
 import com.coffeeshop.wrapper.SubCategoryWrapper;
 import com.coffeeshop.wrapper.UserReceipt;
 import org.primefaces.context.RequestContext;
@@ -150,26 +151,34 @@ public class onPendingTransaction {
 
     }
 
-    public void print()
+    public void print(OrderDetail orderDetail)
     {
-        UserReceipt userReceipt = new UserReceipt();
-        userReceipt.setDate(new Date());
-        userReceipt.setOrderDetailIdWrapper(123);
-        userReceipt.setTrackNumber(1234);
-        userReceipt.setTotalprice(1200);
-        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
-        for (int i=0 ; i<12;i++)
-        {
-            FoodOrderWrapper foodOrderWrapper = new FoodOrderWrapper();
-            foodOrderWrapper.setFoodName("غذل".concat(String.valueOf(i)));
-            foodOrderWrapper.setFoodOrderWrapperId(i);
-            foodOrderWrapper.setPrice(i);
-            foodOrderWrapper.setQuantity(i);
-            foodOrderWrapper.setTotalPrice(i*i);
-            foodOrderWrappers.add(foodOrderWrapper);
+        selectedOrder = orderDetail;
+        foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(orderDetail.getOrderDetailId());
+        List<FoodOrderWrapper> foodOrderWrappers = null;
+
+        for (FoodOrder f : foodOrderList){
+            foodOrderWrappers.add(new FoodOrderWrapper(f.getFoodId(),f.getQuantity()));
         }
-        userReceipt.setFoodOrderWrapperList(foodOrderWrappers);
-         printReceipt.printUserReceipt("noori",userReceipt);
+        Set<String> printersName = new HashSet<String>();
+
+        for (FoodOrderWrapper foodOrderWrapper : foodOrderWrappers){
+            printersName.add(foodOrderWrapper.getKitchenPrinterName());
+        }
+        for (String pname : printersName){
+            ArrayList<FoodOrderWrapper> temper = new ArrayList<FoodOrderWrapper>();
+            for (FoodOrderWrapper fw : foodOrderWrappers){
+                if (pname.equals(fw.getKitchenPrinterName())){
+                    temper.add(fw);
+                }
+            }
+            KitchenReceipt kitchenReceipt = new KitchenReceipt();
+            kitchenReceipt.setFoodOrderWrapperList(temper);
+            kitchenReceipt.setTrackNumber(orderDetail.getTrackingNumber());
+            kitchenReceipt.setPrinterName(pname);
+            printReceipt.printKitchenReceipt(kitchenReceipt);
+        }
+        System.out.println("golam:) "+foodOrderList.get(0).getFoodId());
     }
 
     public void updatePendingOrderOrderTable()

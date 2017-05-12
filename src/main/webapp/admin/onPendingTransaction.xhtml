@@ -141,7 +141,7 @@
                             <b:commandButton update="@(.editableCarTable)" icon="edit" action="#{onPendingTransaction.editOrder(orderItem)}" value="edit"  />
                         </b:dataTableColumn>
                         <b:dataTableColumn label="Paid">
-                            <b:commandButton value="Paid" iconAwesome="thumbs-up"/>
+                            <b:commandButton value="Paid" iconAwesome="thumbs-up" action="#{onPendingTransaction.print(orderItem)}"/>
                         </b:dataTableColumn>
                         <b:dataTableColumn label="Remove">
                             <b:commandButton value="Remove" iconAwesome="remove"/>

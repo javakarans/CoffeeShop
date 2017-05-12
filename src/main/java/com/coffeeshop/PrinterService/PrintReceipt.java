@@ -62,7 +62,7 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
     return service.print(jasperPrint,printerName);
 }
 
-    public boolean printKitchenReceipt(String printerName, KitchenReceipt kitchenReceipt){
+    public boolean printKitchenReceipt(KitchenReceipt kitchenReceipt){
 
         PrinterService service = new PrinterService();
 
@@ -88,7 +88,7 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
             return false;
         }
 
-        return service.print(jasperPrint,printerName);
+        return service.print(jasperPrint,kitchenReceipt.getPrinterName());
     }
 
 //    public static void main(String[] args) {
