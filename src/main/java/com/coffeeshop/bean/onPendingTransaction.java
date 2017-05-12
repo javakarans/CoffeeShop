@@ -70,8 +70,7 @@ public class onPendingTransaction {
 
     public void updateFoodOederList(){
         pendingOrders = orderDetailDaoImp.getAllPendingOrder();
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("motherfucketr");
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("motherfucketr");
     }
 
     public String getAuthority(){
