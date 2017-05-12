@@ -31,7 +31,7 @@
 
                 </b:row>
             </b:form>
-            <h:form id="AddFood" enctype="multipart/form-data">
+            <h:form id="AddFood">
                 <b:row>
                     <b:column colSm="12">
                         <b:panel title="Add Food Sub Category List" collapsible="false">
@@ -45,6 +45,9 @@
                                 <h:outputText value="Food Image"/>
                                 <p:fileUpload style="width: auto"  fileUploadListener="#{addFoodsBean.processFileUpload}" mode="advanced" dragDropSupport="false"
                                               multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            </b:panelGrid>
+                            <b:panelGrid>
+
                             </b:panelGrid>
                         </b:panel>
                     </b:column>

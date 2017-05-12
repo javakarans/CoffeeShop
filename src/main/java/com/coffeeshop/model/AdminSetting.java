@@ -18,6 +18,8 @@ public class AdminSetting implements Serializable
     private String firstPhoneNumber;
     private String secondPhoneNumber;
     private String receiptTitle;
+    private String casherPrinterName;
+    private String toucherPrinterName;
     //for background
     private String imageUrl;
 //    private String password;
@@ -97,6 +99,24 @@ public class AdminSetting implements Serializable
 
     public void setReceiptTitle(String receiptTitle) {
         this.receiptTitle = receiptTitle;
+    }
+
+    @Column
+    public String getCasherPrinterName() {
+        return casherPrinterName;
+    }
+
+    public void setCasherPrinterName(String casherPrinterName) {
+        this.casherPrinterName = casherPrinterName;
+    }
+
+    @Column
+    public String getToucherPrinterName() {
+        return toucherPrinterName;
+    }
+
+    public void setToucherPrinterName(String toucherPrinterName) {
+        this.toucherPrinterName = toucherPrinterName;
     }
 
     //    @Column
