@@ -52,6 +52,7 @@ public class onPendingTransaction {
     private List<FoodOrder> newFoodOrderList;
     private int qntForNewFoodOrder;
     private SettingData settingData;
+    private boolean addOrder=false;
 
     @PostConstruct
     public void init(){
@@ -69,9 +70,10 @@ public class onPendingTransaction {
     }
 
     public void updateFoodOederList(){
-//        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
-//        System.out.println("fuck u");
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(":motherfucketr");
+        if(addOrder==true){
+            pendingOrders = orderDetailDaoImp.getAllPendingOrder();
+            addOrder=false;
+        }
     }
 
     public String getAuthority(){
@@ -291,5 +293,13 @@ public class onPendingTransaction {
 
     public void setQntForNewFoodOrder(int qntForNewFoodOrder) {
         this.qntForNewFoodOrder = qntForNewFoodOrder;
+    }
+
+    public boolean isAddOrder() {
+        return addOrder;
+    }
+
+    public void setAddOrder(boolean addOrder) {
+        this.addOrder = addOrder;
     }
 }

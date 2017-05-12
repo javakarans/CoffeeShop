@@ -66,7 +66,7 @@ public class UserSessionBean {
             foodOrderDaoImp.createFoodOrder(next.convertToOriginalClass());
         }
         if(printReceipt(orderDetail)){
-            onPendingTransaction.updateFoodOederList();
+            onPendingTransaction.setAddOrder(true);
         }
         invalidSession();
         return "/user/categoryPage.xhtml?faces-redirect=true";
