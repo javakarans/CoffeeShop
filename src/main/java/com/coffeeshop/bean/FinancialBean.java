@@ -33,28 +33,36 @@ public class FinancialBean {
     @PostConstruct
     public void init(){
         orderDetails = new ArrayList<OrderDetail>();
+        orderDetailDaoImp = new OrderDetailDaoImp();
         today = new Date();
         from = new Date();
         to = new Date();
         orderDetails = orderDetailDaoImp.getAllOrders();
     }
 
-    public void calculateTodaysSales(){
-        for(int i = 0; i < orderDetails.size(); i++){
-            if (orderDetails.get(i).getDate().compareTo(today) == 0){
-                totalPrice += orderDetails.get(i).getTotalPrice();
-            }
-        }
-    }
-
     public void calculateDurationSales(){
+        totalPrice = 0;
         for (int i = 0; i <orderDetails.size(); i++){
             if(orderDetails.get(i).getDate().compareTo(from) >= 0 &&
                     orderDetails.get(i).getDate().compareTo(to) <= 0){
                 totalPrice += orderDetails.get(i).getTotalPrice();
             }
         }
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#result').modal()");
     }
+
+    public void calculateTodaySales(){
+        totalPrice = 0;
+        for(int i = 0; i < orderDetails.size(); i++){
+            if (orderDetails.get(i).getDate().compareTo(today) == 0){
+                totalPrice += orderDetails.get(i).getTotalPrice();
+            }
+        }
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#todayResult').modal()");
+    }
+
 
     public Date getToday() {
         return today;

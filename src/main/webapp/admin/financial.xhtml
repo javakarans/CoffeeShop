@@ -11,11 +11,64 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
-            <b:panelGrid colSpans="3,9">
-                <b:form>
-                    <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.from}"/>
-                </b:form>
-            </b:panelGrid>
+
+
+            <b:row>
+                <b:column colSm="12">
+                    <b:form>
+                        <b:panel title="PointToPointFinancial">
+                            <b:panelGrid colSpans="4,8">
+                                <h:outputText value="From : "/>
+                                <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.from}"/>
+                                <b:column/>
+                                <b:column/>
+                                <h:outputText value="TO : "/>
+                                <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.to}"/>
+                            </b:panelGrid>
+                            <br/>
+                            <b:panelGrid colSpans="12" style="text-align:center;">
+                                <b:commandButton value="Calculate"
+                                                 actionListener="#{financialBean.calculateDurationSales}"/>
+                            </b:panelGrid>
+                        </b:panel>
+                    </b:form>
+                </b:column>
+            </b:row>
+
+            <b:row>
+                <b:column colSm="12">
+                    <b:form>
+                        <b:panel title="TodaysFinancial">
+                            <b:panelGrid colSpans="12" style="text-align:center;">
+                                <b:commandButton value="Calculate"
+                                                 actionListener="#{financialBean.calculateTodaySales}"/>
+                            </b:panelGrid>
+                        </b:panel>
+                    </b:form>
+                </b:column>
+            </b:row>
+
+            <b:modal id="result" title="Result" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panelGrid colSpans="12">
+                            <h:outputText value="#{financialBean.totalPrice}"/>
+                        </b:panelGrid>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
+            <b:modal id="todayResult" title="Result" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panelGrid colSpans="12">
+                            <h:outputText value="#{financialBean.totalPrice}"/>
+                        </b:panelGrid>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
+
         </b:container>
     </ui:define>
 </ui:composition>
