@@ -111,4 +111,12 @@ public class UserSessionBean {
     public void setFoodOrderWrapperList(List<FoodOrderWrapper> foodOrderWrapperList) {
         this.foodOrderWrapperList = foodOrderWrapperList;
     }
+
+    public com.coffeeshop.bean.onPendingTransaction getOnPendingTransaction() {
+        return onPendingTransaction;
+    }
+
+    public void setOnPendingTransaction(com.coffeeshop.bean.onPendingTransaction onPendingTransaction) {
+        this.onPendingTransaction = onPendingTransaction;
+    }
 }

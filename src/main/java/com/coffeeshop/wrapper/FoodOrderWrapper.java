@@ -19,6 +19,7 @@ public class FoodOrderWrapper {
     private double price;
     private double totalPrice;
     private String kitchenPrinterName;
+    private long kitchenId;
 
     public FoodOrderWrapper() {
     }
@@ -37,8 +38,8 @@ public class FoodOrderWrapper {
         this.foodName = food.getName();
         this.quantity = quantity;
         KitchenDaoImp kitchenDaoImp = new KitchenDaoImp();
-        this.kitchenPrinterName=kitchenDaoImp.getKitchenById(food.getKitchenId()).getName();
-
+        this.kitchenPrinterName=kitchenDaoImp.getKitchenById(food.getKitchenId()).getKitchenPrinterName();
+        this.kitchenId=kitchenDaoImp.getKitchenById(food.getKitchenId()).getKitchenId();
     }
 
 
@@ -122,5 +123,13 @@ public class FoodOrderWrapper {
 
     public void setKitchenPrinterName(String kitchenPrinterName) {
         this.kitchenPrinterName = kitchenPrinterName;
+    }
+
+    public long getKitchenId() {
+        return kitchenId;
+    }
+
+    public void setKitchenId(long kitchenId) {
+        this.kitchenId = kitchenId;
     }
 }

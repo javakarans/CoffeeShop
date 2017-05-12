@@ -69,8 +69,9 @@ public class onPendingTransaction {
     }
 
     public void updateFoodOederList(){
-        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("motherfucketr");
+//        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
+//        System.out.println("fuck u");
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(":motherfucketr");
     }
 
     public String getAuthority(){
@@ -160,30 +161,35 @@ public class onPendingTransaction {
     {
         selectedOrder = orderDetail;
         foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(orderDetail.getOrderDetailId());
-        List<FoodOrderWrapper> foodOrderWrappers = null;
+        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
 
         for (FoodOrder f : foodOrderList){
             foodOrderWrappers.add(new FoodOrderWrapper(f.getFoodId(),f.getQuantity()));
         }
         Set<String> printersName = new HashSet<String>();
+        Set<Long> kitchenId = new HashSet<Long>();
 
         for (FoodOrderWrapper foodOrderWrapper : foodOrderWrappers){
             printersName.add(foodOrderWrapper.getKitchenPrinterName());
+            kitchenId.add(foodOrderWrapper.getKitchenId());
         }
-        for (String pname : printersName){
+        for (Long kId : kitchenId){
             ArrayList<FoodOrderWrapper> temper = new ArrayList<FoodOrderWrapper>();
             for (FoodOrderWrapper fw : foodOrderWrappers){
-                if (pname.equals(fw.getKitchenPrinterName())){
+                if (kId==fw.getKitchenId()){
                     temper.add(fw);
                 }
             }
             KitchenReceipt kitchenReceipt = new KitchenReceipt();
             kitchenReceipt.setFoodOrderWrapperList(temper);
             kitchenReceipt.setTrackNumber(orderDetail.getTrackingNumber());
-            kitchenReceipt.setPrinterName(pname);
-            printReceipt.printKitchenReceipt(kitchenReceipt);
+            kitchenReceipt.setPrinterName(temper.get(0).getKitchenPrinterName());
+            if (printReceipt.printKitchenReceipt(kitchenReceipt)){
+                orderDetail.setStatus(Status.ORDER_PAID);
+                orderDetailDaoImp.updateOrder(orderDetail);
+                pendingOrders = orderDetailDaoImp.getAllPendingOrder();
+            }
         }
-        System.out.println("golam:) "+foodOrderList.get(0).getFoodId());
     }
 
     public void updatePendingOrderOrderTable()

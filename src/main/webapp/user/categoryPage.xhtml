@@ -42,7 +42,7 @@
                         <h:form>
                             <ui:repeat value="#{dtCategoryBean.categoryList}" var="categoryItem">
                                 <h:commandLink action="#{dtCategoryBean.redirectToSubCtegoryPage(categoryItem.categoryId)}">
-                                    <img alt="coffee" src="../lib/img/coffee.jpg" class="img-panel"/>
+                                    <img alt="coffee" src="#{categoryItem.largeDeviceImageUrl}" class="img-panel"/>
                                 </h:commandLink>
                             </ui:repeat>
                         </h:form>

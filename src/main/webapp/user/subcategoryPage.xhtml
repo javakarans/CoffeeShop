@@ -47,7 +47,7 @@
                                        varStatus="statusItem">
                                 <p:commandLink update="foodList" onclick="openFoodListModal('#{statusItem.index}')"
                                                action="#{subCategoryPage.loadFoodBySubCategory(subcategoryItem.subCategoryId)}">
-                                    <img src="../lib/img/coffee.jpg" alt="img"
+                                    <img src="#{subcategoryItem.imageLocation}" alt="img"
                                          class="img-panel" id="#{'img'.concat(statusItem.index)}"/>
                                 </p:commandLink>
                             </ui:repeat>
@@ -86,7 +86,7 @@
                                     <p:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
                                                    update="orderCart badge foodList"
                                                    disabled="#{subCategoryPage.checkAddedToCart(foodItem)}">
-                                        <img src="../lib/img/coffee.jpg" alt="img" class="modal-img"/>
+                                        <img src="#{foodItem.imageUrl}" alt="img" class="modal-img"/>
                                     </p:commandLink>
                                 </ui:repeat>
                             </h:form>

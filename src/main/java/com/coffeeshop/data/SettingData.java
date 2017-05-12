@@ -16,32 +16,36 @@ public class SettingData {
     private AdminSetting adminSetting;
 
 
-    private SettingData()
-    {
+    private SettingData() {
         adminSettingDaoImp = new AdminSettingDaoImp();
         List<AdminSetting> result = adminSettingDaoImp.getAdminSettingById(1);
         if (!result.isEmpty())
-            adminSetting=result.get(0);
+            adminSetting = result.get(0);
         else
             adminSetting = new AdminSetting();
     }
 
-    public static SettingData getInstance()
-    {
-        synchronized (SettingData.class){
-            if(settingData==null){
-                settingData=new SettingData();
+    public static SettingData getInstance() {
+        synchronized (SettingData.class) {
+            if (settingData == null) {
+                settingData = new SettingData();
             }
         }
         return settingData;
     }
 
-    public int getTrackNumber()
-    {
+    public int getTrackNumber() {
+        List<AdminSetting> result = adminSettingDaoImp.getAdminSettingById(1);
+        if (!result.isEmpty()) {
+            adminSetting = result.get(0);
+        } else {
+            adminSetting = new AdminSetting();
+        }
         int currentTrackNumber = adminSetting.getTrackNumber();
         currentTrackNumber = currentTrackNumber + 1;
         adminSetting.setTrackNumber(currentTrackNumber);
         adminSettingDaoImp.updateAdminSetting(adminSetting);
         return currentTrackNumber;
     }
+
 }

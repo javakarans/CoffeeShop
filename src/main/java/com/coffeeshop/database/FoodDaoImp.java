@@ -36,7 +36,7 @@ public class FoodDaoImp implements FoodDao{
     }
 
     public Food getFoodByFoodId(long foodId){
-        Food food = (Food) sqlService.getObjectsBySpecialColumn(new Food(), "foodId", foodId);
+        Food food = (Food) sqlService.getObjectsBySpecialColumn(new Food(), "foodId", foodId).get(0);
         return food;
     }
 
