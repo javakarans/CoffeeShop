@@ -4,6 +4,7 @@ import com.coffeeshop.database.CategoryDaoImp;
 import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.Category;
 import com.coffeeshop.model.Subcategory;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -98,8 +99,42 @@ public class AdminEditMenu  implements Serializable {
         }
     }
 
-    public void saveSubCategory() {
+    //cat
+    public void showCategoryUpdateModal(Category category){
+        this.category = category;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#updateCategory').modal()");
+    }
 
+    public String updateCategory(){
+        boolean result = categoryDaoImp.updateCategory(category);
+        return "category.xhtml?faces-redirect=true";
+    }
+
+    //subcat
+    public void showSubCategoryUpdateModal(Subcategory subcategory){
+        this.subcategory = subcategory;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#updateSubCategory').modal()");
+    }
+
+    public String updateSubCategory(){
+        boolean result = subcategoryDaoImp.updateSubcategory(subcategory);
+        return "subCategory.xhtml?faces-redirect=true";
+    }
+
+    public void showSubCategoryDeleteModal(Subcategory subcategory){
+        this.subcategory = subcategory;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#deleteSubCategory').modal()");
+    }
+
+    public String deleteSubCategory(){
+        boolean result = subcategoryDaoImp.deleteSubcategory(subcategory);
+        return "subCategory.xhtml?faces-redirect=true";
+    }
+
+    public void saveSubCategory() {
         boolean result = subcategoryDaoImp.createSubcategory(subcategory);
         subcategory = new Subcategory();
     }
@@ -143,4 +178,6 @@ public class AdminEditMenu  implements Serializable {
     public void setSelectedCategoryid(long selectedCategoryid) {
         selectedCategoryid = selectedCategoryid;
     }
+
+
 }

@@ -41,11 +41,36 @@
                                 <b:dataTableColumn label="remove" style="text-align:center;">
                                     <b:commandButton ajax="true" value="remove" icon="remove" action="#{adminEditMenu.removeCategory(category)}"/>
                                 </b:dataTableColumn>
+                                <b:dataTableColumn label="update" style="text-align:center;">
+                                    <b:commandButton ajax="true" value="update" icon="update" action="#{adminEditMenu.showCategoryUpdateModal(category)}"/>
+                                </b:dataTableColumn>
                             </b:dataTable>
                         </b:panel>
                     </b:column>
                 </b:row>
             </b:form>
+
+            <b:modal id="updateCategory" title="Update Category" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panelGrid   colSpans="3,9">
+                                <h:outputText value="New Category name :"/>
+                                <b:inputText required="true" requiredMessage="Please Write Category Name"  value="#{adminEditMenu.category.name}"/>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
+                                <h:outputText value="Image For Large Device :"/>
+                                <p:fileUpload  required="true" requiredMessage="Please Upload Image"  style="width: auto"  fileUploadListener="#{adminEditMenu.processFileUpload}" dragDropSupport="false"
+                                              sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
+                                <b:commandButton value="Update" action="#{adminEditMenu.updateCategory}"/>
+                            </b:panelGrid>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
         </b:container>
     </ui:define>
 </ui:composition>

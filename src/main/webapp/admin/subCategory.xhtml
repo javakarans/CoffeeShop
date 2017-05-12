@@ -63,11 +63,58 @@
                                  collapsible="false">
                             <b:dataTable value="#{adminSubCategoryEdit.subcategories}" var="subcat">
                                 <b:dataTableColumn value="#{subcat.name}"/>
+                                <b:dataTableColumn label="remove" style="text-align:center;">
+                                    <b:commandButton ajax="true" value="remove" icon="remove" action="#{adminEditMenu.showSubCategoryDeleteModal(subcat)}"/>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="update" style="text-align:center;">
+                                    <b:commandButton ajax="true" value="update" icon="update" action="#{adminEditMenu.showSubCategoryUpdateModal(subcat)}"/>
+                                </b:dataTableColumn>
                             </b:dataTable>
                         </b:panel>
                     </b:column>
                 </b:row>
             </b:form>
+
+            <b:modal id="updateSubCategory" title="Update Subcategory" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panelGrid   colSpans="3,9">
+                                <h:outputText value="Update Subcategory name :"/>
+                                <b:inputText required="true" requiredMessage="Please Write Subcategory Name"  value="#{adminEditMenu.subcategory.name}"/>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
+                                <h:outputText value="Image For Large Device :"/>
+                                <p:fileUpload  required="true" requiredMessage="Please Upload Image"  style="width: auto"  fileUploadListener="#{adminEditMenu.processFileUpload}" dragDropSupport="false"
+                                               sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
+                                <b:commandButton value="Update" action="#{adminEditMenu.updateSubCategory}"/>
+                            </b:panelGrid>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
+            <b:modal id="deleteSubCategory" title="Delete SubCategory" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panel title="Delete SubCategory" collapsible="false">
+                                <b:panelGrid colSpans="12">
+                                    <br />
+                                    Are you sure?
+                                    <br />
+                                </b:panelGrid>
+                                <b:panelGrid colSpans="12" style="text-align:center;">
+                                    <b:commandButton value="Delete SubCategory" action="#{adminEditMenu.deleteSubCategory}"/>
+                                </b:panelGrid>
+                            </b:panel>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
         </b:container>
     </ui:define>
 </ui:composition>
