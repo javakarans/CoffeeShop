@@ -18,6 +18,7 @@ public class AdminSetting implements Serializable
     private String firstPhoneNumber;
     private String secondPhoneNumber;
     private String receiptTitle;
+    private String receiptTitle;
     private String casherPrinterName;
     private String toucherPrinterName;
     //for background
@@ -90,6 +91,14 @@ public class AdminSetting implements Serializable
 
     public void setSecondPhoneNumber(String secondPhoneNumber) {
         this.secondPhoneNumber = secondPhoneNumber;
+    }
+
+    public String getReceiptTitle() {
+        return receiptTitle;
+    }
+
+    public void setReceiptTitle(String receiptTitle) {
+        this.receiptTitle = receiptTitle;
     }
 
     @Column

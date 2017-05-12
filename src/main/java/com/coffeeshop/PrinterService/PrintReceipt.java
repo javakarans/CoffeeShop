@@ -1,9 +1,13 @@
 package com.coffeeshop.PrinterService;
 
+import com.coffeeshop.database.AdminDaoImp;
+import com.coffeeshop.database.AdminSettingDaoImp;
+import com.coffeeshop.model.AdminSetting;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
 import com.coffeeshop.wrapper.KitchenReceipt;
 import com.coffeeshop.wrapper.UserReceipt;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -37,10 +41,15 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
 
     JRBeanCollectionDataSource beanColDataSource = new
             JRBeanCollectionDataSource(foodOrderWrappers);
+
+    AdminSettingDaoImp adminSettingDaoImp = new AdminSettingDaoImp();
+    List<AdminSetting> adminSettings = adminSettingDaoImp.getAdminSettingById(1);
+
     Map parameters = new HashMap();
     parameters.put("info", beanColDataSource);
     parameters.put("trackingNumber", userReceipt.getTrackNumber());
     parameters.put("tprice", userReceipt.getTotalprice());
+    parameters.put("AdminSetting",adminSettings.get(0));
     JasperPrint jasperPrint = null;
     try {
         jasperPrint = JasperFillManager.fillReport(
@@ -102,8 +111,8 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
 //        kitchenReceipt.setTrackNumber(85);
 //        kitchenReceipt.setFoodOrderWrapperList(foodOrderWrappers);
 //        PrintReceipt printReceipt = new PrintReceipt();
-//        printReceipt.printUserReceipt("AB-88H",userReceipt);
-//        printReceipt.printKitchenReceipt("AB-88H",kitchenReceipt);
+//        printReceipt.printUserReceipt("Foxit Reader PDF Printer",userReceipt);
+//        printReceipt.printKitchenReceipt("Foxit Reader PDF Printer",kitchenReceipt);
 //
 //    }
 }
