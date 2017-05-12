@@ -29,7 +29,7 @@ import com.coffeeshop.PrinterService.*;
  * Created by amir on 5/3/2017.
  */
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 public class onPendingTransaction {
 
     private List<OrderDetail> pendingOrders;
@@ -73,6 +73,7 @@ public class onPendingTransaction {
 
     public void checkAdminIsLogin(){
         String authority = getAuthority();
+        System.out.println(authority);
         if(authority==null){
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/AdminLogin.xhtml");

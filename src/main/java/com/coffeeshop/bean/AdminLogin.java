@@ -37,7 +37,6 @@ public class AdminLogin {
 
     public void getURLParam(){
         urlParam = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        System.out.println(urlParam.get("login"));
     }
 
     public void checkLogin(){
