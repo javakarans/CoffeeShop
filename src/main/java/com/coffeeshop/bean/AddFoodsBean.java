@@ -52,6 +52,11 @@ public class AddFoodsBean implements Serializable{
         foodList = foodDaoImp.getAllFoods();
     }
 
+    public void addFood()
+    {
+
+    }
+
     public void processFileUpload(FileUploadEvent event) throws IOException {
         uploadedFile = event.getFile();
         InputStream inputStream = uploadedFile.getInputstream();

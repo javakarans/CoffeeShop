@@ -14,7 +14,6 @@ public class Category implements Serializable{
     private long categoryId;
     private String name;
     private String largeDeviceImageUrl;
-    private String smallDeviceImageUrl;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,13 +41,5 @@ public class Category implements Serializable{
 
     public void setLargeDeviceImageUrl(String largeDeviceImageUrl) {
         this.largeDeviceImageUrl = largeDeviceImageUrl;
-    }
-
-    public String getSmallDeviceImageUrl() {
-        return smallDeviceImageUrl;
-    }
-
-    public void setSmallDeviceImageUrl(String smallDeviceImageUrl) {
-        this.smallDeviceImageUrl = smallDeviceImageUrl;
     }
 }
