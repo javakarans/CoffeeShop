@@ -6,9 +6,11 @@ import com.coffeeshop.model.Kitchen;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class AddKitchenBean {
     @PostConstruct
     public void init()
     {
+        checkAdminIsLogin();
         kitchenDaoImp = new KitchenDaoImp();
         kitchenList = kitchenDaoImp.getAllKitchen();
         kitchen = new Kitchen();
@@ -31,6 +34,22 @@ public class AddKitchenBean {
         System.out.println(printServices.length);
         for (PrintService printer : printServices) {
                 printerNameList.add(printer.getName());
+        }
+    }
+
+    public String getAuthority(){
+        return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authority");
+    }
+
+    public void checkAdminIsLogin(){
+        String authority = getAuthority();
+        System.out.println(authority);
+        if(authority==null){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/AdminLogin.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
