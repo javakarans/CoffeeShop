@@ -12,6 +12,7 @@ import com.coffeeshop.wrapper.UserReceipt;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import java.util.List;
 @ManagedBean(name = "dtUserSessionBean")
 @SessionScoped
 public class UserSessionBean {
+    @ManagedProperty(value="#{onPendingTransaction}")
+    private onPendingTransaction onPendingTransaction;
     private long selectedCategory;
     private long selectedSubCategory;
     private List<FoodOrderWrapper> foodOrderWrapperList;
@@ -62,7 +65,9 @@ public class UserSessionBean {
             next.setOrderDetailId(orderDetail.getOrderDetailId());
             foodOrderDaoImp.createFoodOrder(next.convertToOriginalClass());
         }
-        printReceipt(orderDetail);
+        if(printReceipt(orderDetail)){
+            onPendingTransaction.updateFoodOederList();
+        }
         invalidSession();
         return "/user/categoryPage.xhtml?faces-redirect=true";
     }

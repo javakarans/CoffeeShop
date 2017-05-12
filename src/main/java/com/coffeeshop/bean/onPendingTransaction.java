@@ -30,7 +30,7 @@ import com.coffeeshop.PrinterService.*;
  * Created by amir on 5/3/2017.
  */
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 public class onPendingTransaction {
 
     private List<OrderDetail> pendingOrders;
@@ -66,6 +66,12 @@ public class onPendingTransaction {
         foodList = new ArrayList<Food>();
         subCategoryWrapperList = SubCategoryWrapper.getAll();
         settingData = SettingData.getInstance();
+    }
+
+    public void updateFoodOederList(){
+        pendingOrders = orderDetailDaoImp.getAllPendingOrder();
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("motherfucketr");
     }
 
     public String getAuthority(){

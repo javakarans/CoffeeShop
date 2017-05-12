@@ -129,8 +129,8 @@
             <b:row id="pendingOrderRow">
                 <b:column colSm="12">
                     <b:panel title="Pending Order" collapsible="false">
-                    <b:form>
-                    <b:dataTable value="#{onPendingTransaction.pendingOrders}" var="orderItem">
+                    <b:form id="motherfucketr">
+                    <b:dataTable  value="#{onPendingTransaction.pendingOrders}" var="orderItem">
                         <b:dataTableColumn value="#{orderItem.orderDetailId}">
                         </b:dataTableColumn>
                         <b:dataTableColumn value="#{orderItem.trackingNumber}"/>
