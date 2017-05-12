@@ -23,11 +23,11 @@ import java.util.List;
 @ManagedBean(name = "dtCategoryBean")
 @ViewScoped
 public class CategoryBean {
+
     private CategoryDaoImp categoryDaoImp;
     private List<Category> categoryList;
     @ManagedProperty(value = "#{dtUserSessionBean}")
     private UserSessionBean userSessionBean;
-
 
     @PostConstruct
     public void init()
