@@ -28,6 +28,20 @@
                                 <b:inputText required="true" requiredMessage="First phone number is required" value="#{adminSettingPage.adminSetting.firstPhoneNumber}"/>
                                 <h:outputText value="secondPhoneNumber : "/>
                                 <b:inputText required="true" requiredMessage="Second phone number is required" value="#{adminSettingPage.adminSetting.secondPhoneNumber}"/>
+                                <h:outputText value="receiptTitle : "/>
+                                <b:inputText required="true" requiredMessage="Second phone number is required" value="#{adminSettingPage.adminSetting.receiptTitle}"/>
+                                <h:outputText value="Casher PrinterName : "/>
+                                <b:selectOneMenu value="#{adminSettingPage.adminSetting.casherPrinterName}">
+                                    <f:selectItem itemLabel="(Please select Printer Name)" itemValue="" />
+                                    <f:selectItems value="#{adminSettingPage.printerNameList}" itemValue="#{printerName}" var="printerName"
+                                                   itemLabel="#{printerName}"/>
+                                </b:selectOneMenu>
+                                <h:outputText value="Toucher PrinterName : "/>
+                                <b:selectOneMenu value="#{adminSettingPage.adminSetting.toucherPrinterName}">
+                                    <f:selectItem itemLabel="(Please select Printer Name)" itemValue="" />
+                                    <f:selectItems value="#{adminSettingPage.printerNameList}" itemValue="#{printerName}" var="printerName"
+                                                   itemLabel="#{printerName}"/>
+                                </b:selectOneMenu>
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;">
                                 <b:commandButton value="Save Changes" action="#{adminSettingPage.EditAdminSetting}"/>

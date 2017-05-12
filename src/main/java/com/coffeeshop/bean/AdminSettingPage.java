@@ -10,6 +10,8 @@ import org.primefaces.context.RequestContext;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +29,18 @@ public class AdminSettingPage {
     private List<AdminSetting> adminSettings;
     private Admin admin;
     private AdminSetting adminSetting;
+    private List<String> printerNameList;
 
     @PostConstruct
     public void init(){
         adminSettingDaoImp = new AdminSettingDaoImp();
         adminDaoImp = new AdminDaoImp();
         admins = adminDaoImp.getAllAdmins();
+        printerNameList = new ArrayList<String>();
+        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+        for (PrintService printer : printServices) {
+            printerNameList.add(printer.getName());
+        }
         admin = new Admin();
         settingData();
         showStaf();
@@ -156,4 +164,11 @@ public class AdminSettingPage {
         this.adminSettings = adminSettings;
     }
 
+    public List<String> getPrinterNameList() {
+        return printerNameList;
+    }
+
+    public void setPrinterNameList(List<String> printerNameList) {
+        this.printerNameList = printerNameList;
+    }
 }
