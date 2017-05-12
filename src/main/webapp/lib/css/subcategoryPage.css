@@ -116,10 +116,12 @@ body{
 }
 .modal-slide-panel{
     margin-top: 15px;
-    width: 650px;
+    width: 645px;
     height: 155px;
     white-space: nowrap;
     overflow: hidden;
+    border-right: 1.9px dashed rgb(55, 29, 17);
+    border-left: 1.9px dashed rgb(55, 29, 17);
 }
 .modal-scrollable{
     text-align: center;
@@ -130,7 +132,7 @@ body{
 }
 .modal-img{
     position: relative;
-    border: 2px solid #191919;
+    border: 2px solid rgb(55, 29, 17);
     width: 140px;
     height: 140px;
     border-radius: 100%;
@@ -174,7 +176,10 @@ body{
 }
 #foodListModal > div{
     width: 650px;
-    background-color: rgba(121, 67, 37, 0.08);
+    border: 5px solid rgba(121, 67, 37, 0.41);
+    background: url("../img/FoodBackground.jpg") ;
+    background-size: cover;
+
 }
 #orderCartList > div {
     margin: 250px 275px;
