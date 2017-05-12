@@ -10,7 +10,11 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
@@ -21,7 +25,7 @@ import java.io.*;
 import java.nio.file.*;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class AddFoodsBean implements Serializable{
     private FoodDaoImp foodDaoImp;
     private Food food;
@@ -33,7 +37,6 @@ public class AddFoodsBean implements Serializable{
     private boolean editTable;
     private KitchenDaoImp kitchenDaoImp;
     private List<com.coffeeshop.model.Kitchen> kitchenList;
-
 
     @PostConstruct
     public void init()

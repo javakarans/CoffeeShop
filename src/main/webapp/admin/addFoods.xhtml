@@ -46,8 +46,9 @@
                                 <p:fileUpload style="width: auto"  fileUploadListener="#{addFoodsBean.processFileUpload}" mode="advanced" dragDropSupport="false"
                                               multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                             </b:panelGrid>
-                            <b:panelGrid>
-
+                            <b:panelGrid colSpans="12">
+                                <b:commandButton ajax="true" value="save" actionListener="#{addFoodsBean.save()}"
+                                                 update="messages4,m"/>
                             </b:panelGrid>
                         </b:panel>
                     </b:column>
@@ -60,11 +61,9 @@
                     <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
                         <b:dataTableColumn label="Food Name">
                             <b:inputText value="#{food.name}" rendered="#{addFoodsBean.editTable}" />
-                            <h:outputText value="#{food.name}" rendered="#{!addFoodsBean.editTable}" />
                         </b:dataTableColumn>
                         <b:dataTableColumn label="Food Price">
                             <b:inputText value="#{food.price}" rendered="#{addFoodsBean.editTable}" />
-                            <h:outputText value="#{food.price}" rendered="#{!addFoodsBean.editTable}" />
                         </b:dataTableColumn>
                         <b:dataTableColumn label="edit">
                             <b:commandButton value="" icon="edit" ajax="true" update="@(.editableFoodTable)" onclick="ajax:addFoodsBean.editTable()"></b:commandButton>

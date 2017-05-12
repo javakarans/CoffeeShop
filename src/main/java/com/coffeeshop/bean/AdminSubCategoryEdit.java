@@ -12,6 +12,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.*;
@@ -26,7 +27,7 @@ import java.util.UUID;
  * Created by H&H on 5/1/2017.
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class AdminSubCategoryEdit implements Serializable{
 
     private static String image_location = StaticSettings.imageUrl;
