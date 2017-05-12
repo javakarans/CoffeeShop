@@ -32,6 +32,7 @@ import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
 @SessionScoped
 public class AdminEditMenu  implements Serializable {
 
+    private static String image_location = StaticSettings.imageUrl;
     private Category category;
     private Subcategory subcategory;
     private List<Category> categoryList;
@@ -41,6 +42,8 @@ public class AdminEditMenu  implements Serializable {
     private long selectedCategoryid;
     private UploadedFile uploadedFile;
     private String categoryImageLocation;
+    private UploadedFile uploadedImage;
+    private String uniqueID ;
 
     @PostConstruct
     public void init() {
@@ -49,37 +52,57 @@ public class AdminEditMenu  implements Serializable {
         category = new Category();
         subcategory = new Subcategory();
         categoryList = categoryDaoImp.getAllCategories();
-
+        uniqueID = UUID.randomUUID().toString();
     }
 
     public void processFileUpload(FileUploadEvent event) throws IOException {
-        uploadedFile = event.getFile();
-        InputStream inputStream = uploadedFile.getInputstream();
-        String uniqueID = UUID.randomUUID().toString();
-        categoryImageLocation = uniqueID.concat(uniqueID).concat(uploadedFile.getFileName());
-        Path des = Paths.get(StaticSettings.imageUrl.concat(categoryImageLocation));
-        //if directory exists?
+        this.uploadedImage = event.getFile();
+        String[] tokens = uploadedImage.getFileName().split("\\.(?=[^\\.]+$)");
+        String fileExtention = tokens[1];
         try {
+            InputStream inputStream = event.getFile().getInputstream();
+            String filename = image_location+uniqueID+"."+fileExtention;
+            System.out.println(filename);
+            Path des = Paths.get(filename);
             Files.copy(inputStream,des);
-        } catch (IOException e) {
+            category.setLargeDeviceImageUrl(filename);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("done");
     }
 
     public void saveCategory() {
-        category.setLargeDeviceImageUrl(categoryImageLocation);
-        boolean result = categoryDaoImp.createCategory(category);
-        if (result) {
-            categoryList.add(category);
-            FacesMessage msg = new FacesMessage("Succesful", category.getName()
-                    + " is saves.");
+//        category.setLargeDeviceImageUrl(categoryImageLocation);
+//        boolean result = categoryDaoImp.createCategory(category);
+//        if (result) {
+//            categoryList.add(category);
+//            FacesMessage msg = new FacesMessage("Succesful", category.getName()
+//                    + " is saves.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//        } else {
+//            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//                    "can not save the category with name : ", category.getName());
+//            FacesContext.getCurrentInstance().addMessage(null, error);
+//        }
+//        category = new Category();
+        FacesMessage msg = null;
+        if (uploadedImage== null){
+
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Image is empty", "Image must be uploaded!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
-            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "can not save the category with name : ", category.getName());
-            FacesContext.getCurrentInstance().addMessage(null, error);
         }
-        category = new Category();
+        if(category.getName()==null || category.getName().equals("")){
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Name is empty", "Pleas enter subcategory name!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
+        if(uploadedImage != null && category.getName()!=null && !category.getName().equals("")
+                && categoryDaoImp.createCategory(category)){
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     public void removeCategory(Category category)

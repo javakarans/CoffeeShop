@@ -18,11 +18,11 @@
                         <h:form>
                             <b:panelGrid   colSpans="3,9">
                                 <h:outputText value="New Category name :"/>
-                                <b:inputText required="true" requiredMessage="Please Write Category Name"  value="#{adminEditMenu.category.name}"/>
+                                <b:inputText value="#{adminEditMenu.category.name}"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
                                 <h:outputText value="Image For Large Device :"/>
-                                <p:fileUpload update="messages" required="true" requiredMessage="Please Upload Image"  style="width: auto"  fileUploadListener="#{adminEditMenu.processFileUpload}" mode="advanced" dragDropSupport="false"
+                                <p:fileUpload update="messages" style="width: auto"  fileUploadListener="#{adminEditMenu.processFileUpload}" mode="advanced" dragDropSupport="false"
                                                sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;margin-bottom:20px;">
