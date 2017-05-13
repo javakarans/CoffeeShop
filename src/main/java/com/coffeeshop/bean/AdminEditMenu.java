@@ -12,8 +12,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.servlet.http.HttpServlet;
 import java.io.*;
 import java.nio.file.Files;
@@ -29,7 +29,7 @@ import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
  * Created by H&H on 4/30/2017.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AdminEditMenu  implements Serializable {
 
     private static String image_location = StaticSettings.imageUrl;
@@ -53,6 +53,7 @@ public class AdminEditMenu  implements Serializable {
         subcategory = new Subcategory();
         categoryList = categoryDaoImp.getAllCategories();
         uniqueID = UUID.randomUUID().toString();
+        System.out.println("init");
     }
 
     public void processFileUpload(FileUploadEvent event) throws IOException {
@@ -62,7 +63,6 @@ public class AdminEditMenu  implements Serializable {
         try {
             InputStream inputStream = event.getFile().getInputstream();
             String filename = image_location+uniqueID+"."+fileExtention;
-            System.out.println(filename);
             Path des = Paths.get(filename);
             Files.copy(inputStream,des);
             category.setLargeDeviceImageUrl(filename);
@@ -74,19 +74,6 @@ public class AdminEditMenu  implements Serializable {
     }
 
     public void saveCategory() {
-//        category.setLargeDeviceImageUrl(categoryImageLocation);
-//        boolean result = categoryDaoImp.createCategory(category);
-//        if (result) {
-//            categoryList.add(category);
-//            FacesMessage msg = new FacesMessage("Succesful", category.getName()
-//                    + " is saves.");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//        } else {
-//            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//                    "can not save the category with name : ", category.getName());
-//            FacesContext.getCurrentInstance().addMessage(null, error);
-//        }
-//        category = new Category();
         FacesMessage msg = null;
         if (uploadedImage== null){
 
@@ -102,6 +89,7 @@ public class AdminEditMenu  implements Serializable {
                 && categoryDaoImp.createCategory(category)){
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            categoryList = categoryDaoImp.getAllCategories();
         }
     }
 

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui">
  
@@ -13,24 +13,23 @@
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
-            <b:growl id="messages4" showDetail="true" />
-            <b:form>
-                <b:row>
-                    <b:column colSm="12">
-                        <b:panel title="Select Sub Category" collapsible="false">
-                        <b:panelGrid colSpans="3,9">
-                            <h:outputText value="Select The SubCategory"/>
-                            <b:selectOneMenu update="m,AddFood" onchange="ajax:addFoodsBean.onChange()" value="#{addFoodsBean.selectedSubCategoryWrapper}">
-
-                                <f:selectItems value="#{addFoodsBean.subCategoryWrapperList}" itemValue="#{selecteSubCategory}" var="selecteSubCategory"
-                                               itemLabel="#{selecteSubCategory.toString()}"/>
-                            </b:selectOneMenu>
-                        </b:panelGrid>
-                        </b:panel>
-                    </b:column>
-
-                </b:row>
-            </b:form>
+            <b:growl id="messages4" showDetail="true"/>
+            <b:row>
+                <b:column colSm="12">
+                    <b:panel title="Select Sub Category" collapsible="false">
+                        <b:form>
+                            <b:panelGrid colSpans="3,9">
+                                <h:outputText value="Select The SubCategory"/>
+                                <b:selectOneMenu update="@form AddFood" value="#{addFoodsBean.selectedSubCategoryWrapper}">
+                                    <f:selectItem itemLabel="(Select SubCategory)" itemValue=""></f:selectItem>
+                                    <f:selectItems value="#{addFoodsBean.subCategoryWrapperList}" var="selecteSubCategory" itemValue="#{selecteSubCategory}"
+                                    itemLabel="#{selecteSubCategory.toString()}"/>
+                                </b:selectOneMenu>
+                            </b:panelGrid>
+                        </b:form>
+                    </b:panel>
+                </b:column>
+            </b:row>
             <h:form id="AddFood">
                 <b:row>
                     <b:column colSm="12">
@@ -43,32 +42,33 @@
                                 <h:outputText value="Food Price"/>
                                 <b:inputText value="#{addFoodsBean.food.price}"/>
                                 <h:outputText value="Food Image"/>
-                                <p:fileUpload style="width: auto"  fileUploadListener="#{addFoodsBean.processFileUpload}" mode="advanced" dragDropSupport="false"
-                                              multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                <p:fileUpload style="width: auto" fileUploadListener="#{addFoodsBean.processFileUpload}"
+                                              mode="advanced" dragDropSupport="false"
+                                              multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="12">
-                                <b:commandButton ajax="true" value="save" actionListener="#{addFoodsBean.save()}"
-                                                 update="messages4,m"/>
+                                <b:commandButton value="save" actionListener="#{addFoodsBean.saveFood()}"/>
                             </b:panelGrid>
                         </b:panel>
                     </b:column>
                 </b:row>
             </h:form>
             <b:form id="m">
-                <b:row >
+                <b:row>
                     <b:column colSm="12">
                         <b:panel title="Foods List Of #{addFoodsBean.selectedSubCategoryWrapper}" collapsible="false">
-                    <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
-                        <b:dataTableColumn label="Food Name">
-                            <b:inputText value="#{food.name}" rendered="#{addFoodsBean.editTable}" />
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="Food Price">
-                            <b:inputText value="#{food.price}" rendered="#{addFoodsBean.editTable}" />
-                        </b:dataTableColumn>
-                        <b:dataTableColumn label="edit">
-                            <b:commandButton value="" icon="edit" ajax="true" update="@(.editableFoodTable)" onclick="ajax:addFoodsBean.editTable()"></b:commandButton>
-                        </b:dataTableColumn>
-                    </b:dataTable>
+                            <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
+                                <b:dataTableColumn label="Food Name">
+                                    <h:outputText value="#{food.name}"></h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Food Price">
+                                    <h:outputText value="#{food.price}"></h:outputText>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="edit">
+                                    <b:commandButton value="" icon="edit" ajax="true" update="@(.editableFoodTable)"
+                                                     onclick="ajax:addFoodsBean.editTable()"></b:commandButton>
+                                </b:dataTableColumn>
+                            </b:dataTable>
                         </b:panel>
                     </b:column>
                 </b:row>

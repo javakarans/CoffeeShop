@@ -12,21 +12,21 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.UUID;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AddFoodsBean implements Serializable{
+    private static String image_location = StaticSettings.imageUrl;
     private FoodDaoImp foodDaoImp;
     private Food food;
     private SubcategoryDaoImp subcategoryDaoImp;
@@ -34,9 +34,10 @@ public class AddFoodsBean implements Serializable{
     private List<SubCategoryWrapper> subCategoryWrapperList;
     private UploadedFile uploadedFile;
     private List<Food> foodList;
-    private boolean editTable;
+    private boolean editTable=true;
     private KitchenDaoImp kitchenDaoImp;
     private List<com.coffeeshop.model.Kitchen> kitchenList;
+    private String uniqueID ;
 
     @PostConstruct
     public void init()
@@ -46,7 +47,8 @@ public class AddFoodsBean implements Serializable{
         editTable=false;
         foodDaoImp = new FoodDaoImp();
         food = new Food();
-        subCategoryWrapperList = new ArrayList<SubCategoryWrapper>();
+        uniqueID = UUID.randomUUID().toString();
+        subCategoryWrapperList = new ArrayList<>();
         subcategoryDaoImp = new SubcategoryDaoImp();
         List<Subcategory> subcategories = subcategoryDaoImp.getAllSubCategory();
         for (Subcategory subcategory : subcategories) {
@@ -61,16 +63,21 @@ public class AddFoodsBean implements Serializable{
     }
 
     public void processFileUpload(FileUploadEvent event) throws IOException {
-        uploadedFile = event.getFile();
-        InputStream inputStream = uploadedFile.getInputstream();
-
-        Path des = Paths.get("C:/image/".concat(uploadedFile.getFileName()));
-        //if directory exists?
+        this.uploadedFile = event.getFile();
+        String[] tokens = uploadedFile.getFileName().split("\\.(?=[^\\.]+$)");
+        String fileExtention = tokens[1];
         try {
+            InputStream inputStream = event.getFile().getInputstream();
+            String filename = image_location+uniqueID+"."+fileExtention;
+            Path des = Paths.get(filename);
             Files.copy(inputStream,des);
-        } catch (IOException e) {
+            food.setImageUrl(filename);
+            food.setSubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("done");
     }
 
     public void updateFoodList(ValueChangeEvent event)
@@ -90,7 +97,23 @@ public class AddFoodsBean implements Serializable{
 
     public void saveFood()
     {
+        FacesMessage msg = null;
+        if (uploadedFile== null){
 
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Image is empty", "Image must be uploaded!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        if(food.getName()==null || food.getName().equals("")){
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Name is empty", "Pleas enter subcategory name!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
+        if(uploadedFile != null && food.getName()!=null && !food.getName().equals("")
+                && foodDaoImp.createFood(food)){
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            foodList = foodDaoImp.getAllFoods();
+        }
     }
 
     public Food getFood() {

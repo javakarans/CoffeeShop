@@ -27,7 +27,7 @@ import java.util.UUID;
  * Created by H&H on 5/1/2017.
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AdminSubCategoryEdit implements Serializable{
 
     private static String image_location = StaticSettings.imageUrl;
@@ -61,7 +61,6 @@ public class AdminSubCategoryEdit implements Serializable{
     }
 
     public void save() {
-        System.out.println("gholam");
         FacesMessage msg = null;
         if (uploadedImage== null){
 
@@ -77,6 +76,7 @@ public class AdminSubCategoryEdit implements Serializable{
                 && subcategoryDaoImp.createSubcategory(newSubcategory)){
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            subcategories = subcategoryDaoImp.getAllSubCategory();
         }
     }
 
