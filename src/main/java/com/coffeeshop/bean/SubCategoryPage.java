@@ -52,9 +52,11 @@ public class SubCategoryPage {
         foodOrderWrapper.setPrice(food.getPrice());
         foodOrderWrapper.setQuantity(1);
         userSessionBean.getFoodOrderWrapperList().add(foodOrderWrapper);
+        System.out.println("FoodAdded");
     }
 
     public boolean checkAddedToCart(Food food){
+        System.out.println("Repeat");
         Iterator<FoodOrderWrapper> iterator = userSessionBean.getFoodOrderWrapperList().iterator();
         while (iterator.hasNext()){
             FoodOrderWrapper next = iterator.next();

@@ -41,7 +41,7 @@ body {
     display: inline-flex;
 }
 .slide-panel{
-    width: 750px;
+    width: 760px;
     height: 231px;
     white-space: nowrap;
     overflow: hidden;

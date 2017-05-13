@@ -38,7 +38,7 @@ body{
     display: inline-flex;
 }
 .slide-panel{
-    width: 750px;
+    width: 760px;
     height: 231px;
     white-space: nowrap;
     overflow: hidden;
@@ -117,11 +117,12 @@ body{
 .modal-slide-panel{
     margin-top: 15px;
     width: 645px;
-    height: 155px;
+    height: 190px;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 1.9px dashed rgb(55, 29, 17);
-    border-left: 1.9px dashed rgb(55, 29, 17);
+    /*border-right: 1.9px dashed rgb(55, 29, 17);*/
+    /*border-left: 1.9px dashed rgb(55, 29, 17);*/
+
 }
 .modal-scrollable{
     text-align: center;
@@ -133,12 +134,12 @@ body{
 .modal-img{
     position: relative;
     border: 2px solid rgb(55, 29, 17);
-    width: 140px;
-    height: 140px;
+    width: 170px;
+    height: 170px;
     border-radius: 100%;
     display: inline-flex;
-    margin: 7px;
-    box-shadow: 0px 0px 9px #1b1b1b;
+    margin: 8px;
+    box-shadow: 0px 0px 7px 1px #1b1b1b;
 }
 .up-panel{
     position: absolute;
@@ -176,7 +177,6 @@ body{
 }
 #foodListModal > div{
     width: 650px;
-    border: 5px solid rgba(121, 67, 37, 0.41);
     background: url("../img/FoodBackground.jpg") ;
     background-size: cover;
 
@@ -238,7 +238,6 @@ table th {
     margin: 10px auto;
     width: 100px;
     padding: 10px;
-    /*background-color: rgb(138, 75, 43);*/
     display: block;
     text-decoration: none;
     color: white;

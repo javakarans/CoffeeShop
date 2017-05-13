@@ -45,11 +45,12 @@
                         <h:form>
                             <ui:repeat value="#{subCategoryPage.subcategories}" var="subcategoryItem"
                                        varStatus="statusItem">
-                                <p:commandLink update="foodList" onclick="openFoodListModal('#{statusItem.index}')"
+                                <h:commandLink onclick="openFoodListModal('#{statusItem.index}')"
                                                action="#{subCategoryPage.loadFoodBySubCategory(subcategoryItem.subCategoryId)}">
                                     <img src="#{subcategoryItem.imageLocation}" alt="img"
                                          class="img-panel" id="#{'img'.concat(statusItem.index)}"/>
-                                </p:commandLink>
+                                    <f:ajax render="foodList form1"></f:ajax>
+                                </h:commandLink>
                             </ui:repeat>
                         </h:form>
                     </div>
@@ -81,13 +82,13 @@
                 <div class="modal-slide-panel">
                     <div class="modal-scrollable">
                         <h:panelGroup layout="block" id="foodList">
-                            <h:form>
+                            <h:form id="form1">
                                 <ui:repeat value="#{subCategoryPage.foodList}" var="foodItem">
-                                    <p:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
-                                                   update="orderCart badge foodList"
+                                    <h:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
                                                    disabled="#{subCategoryPage.checkAddedToCart(foodItem)}">
                                         <img src="#{foodItem.imageUrl}" alt="img" class="modal-img"/>
-                                    </p:commandLink>
+                                        <f:ajax render="orderCart form2 badge"></f:ajax>
+                                    </h:commandLink>
                                 </ui:repeat>
                             </h:form>
                         </h:panelGroup>
@@ -100,7 +101,7 @@
             <div>
                 <a href="#close" class="close">X</a>
                 <h:panelGroup id="orderCart" layout="block">
-                    <h:form>
+                    <h:form id="form2">
                         <table>
                             <tr>
                                 <th>Food Name</th>
