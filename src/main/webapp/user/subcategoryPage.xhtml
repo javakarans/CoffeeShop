@@ -133,10 +133,10 @@
                                     </td>
                                     <td>#{selectedFoodItem.calTotalPrice()}</td>
                                     <td>
-                                        <p:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}"
-                                                       update="orderCart badge" styleClass="remove">
+                                        <h:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}" styleClass="remove">
                                             <span>x</span>
-                                        </p:commandLink>
+                                            <f:ajax render="@form badge"></f:ajax>
+                                        </h:commandLink>
                                     </td>
                                 </tr>
                             </ui:repeat>
@@ -144,8 +144,8 @@
                         <div class="bottom">
                             <br></br>
                             <span>Total Price : #{dtUserSessionBean.calTotalPrice()}</span>
-                            <p:commandLink styleClass="btn" value="Make Order"
-                                           action="#{dtUserSessionBean.makeOrder()}"></p:commandLink>
+                            <h:commandLink styleClass="btn" value="Make Order"
+                                           action="#{dtUserSessionBean.makeOrder()}"></h:commandLink>
                         </div>
                     </h:form>
                 </h:panelGroup>
