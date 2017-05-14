@@ -42,4 +42,16 @@ public class FoodOrderDaoImp implements FoodOrderDao{
     {
         return sqlService.getObjectsBySpecialColumn(new FoodOrder(),"orderId",id);
     }
+
+    public boolean insertFoodOrdersOfNewOrder(List<FoodOrder> foodOrderList,Long orderId)
+    {
+        for (FoodOrder foodOrder : foodOrderList)
+        {
+            foodOrder.setOrderId(orderId);
+            boolean result = sqlService.create(foodOrder);
+            if (!result)
+                return false;
+        }
+        return true;
+    }
 }
