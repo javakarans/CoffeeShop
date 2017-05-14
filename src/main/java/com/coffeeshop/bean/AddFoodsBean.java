@@ -163,7 +163,12 @@ public class AddFoodsBean implements Serializable{
     public void removeFood(Food food)
     {
         foodDaoImp.deleteFood(food);
-        foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+        if(selectedSubCategoryWrapper!=null){
+            foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+        }
+        else {
+            foodList=foodDaoImp.getAllFoods();
+        }
     }
 
     public Food getFood() {
