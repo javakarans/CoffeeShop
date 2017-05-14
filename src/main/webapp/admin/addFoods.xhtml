@@ -8,22 +8,55 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui">
  
-
-
 <ui:composition template="../templates/common/adminTemplate.xhtml">
     <ui:define name="content">
         <b:container>
-            <b:growl id="messages4" showDetail="true"/>
+            <b:growl id="messages4" showDetail="false"/>
+            <b:modal id="foodModal" title="Edit Food" closable="false" styleClass="modalFoodClass">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:panel title="Edit Food" collapsible="false">
+                            <b:form>
+                                    <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
+                                        <h:outputText value="Food name"/>
+                                        <b:inputText update="messages4" required="true" requiredMessage="Please write Food Name" value="#{addFoodsBean.selectedFood.name}"/>
+                                        <h:outputText value="Food Price"/>
+                                        <b:inputText required="true" requiredMessage="Please write Food Price" value="#{addFoodsBean.selectedFood.price}"/>
+                                        <h:outputText value="Status"/>
+                                        <b:selectOneMenu required="true" requiredMessage="Please Select Food Status" value="#{addFoodsBean.selectedFood.status}">
+                                            <f:selectItem itemLabel="avalable" itemValue="avalable"/>
+                                            <f:selectItem itemLabel="not_avalable" itemValue="not_avalable"/>
+                                        </b:selectOneMenu>
+                                        <h:outputText value="Kitchen"/>
+                                        <b:selectOneMenu required="true" requiredMessage="Please select Kitchen" update="messages4" value="#{addFoodsBean.selectedFood.kitchenId}">
+                                            <f:selectItem itemValue="" itemLabel="(Please Select Kitchen)"/>
+                                            <f:selectItems value="#{addFoodsBean.kitchenList}" var="kitchen" itemLabel="#{kitchen.name}"
+                                                           itemValue="#{kitchen.kitchenId}"/>
+                                        </b:selectOneMenu>
+                                        <h:outputText value="Food Image"/>
+                                        <p:fileUpload update="messages4" required="true" requiredMessage="Please Upload Food Image" style="width: auto" fileUploadListener="#{addFoodsBean.processFileUploadEdit}"
+                                                      mode="advanced" dragDropSupport="false"
+                                                       allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                    </b:panelGrid>
+                                    <b:panelGrid colSpans="12" style="text-align:center;">
+                                        <b:commandButton update="m,@form"  value="save" action="#{addFoodsBean.editFood()}"/>
+                                    </b:panelGrid>
+                            </b:form>
+                        </b:panel>
+                    </b:column>
+                </b:row>
+            </b:modal>
             <b:row>
                 <b:column colSm="12">
                     <b:panel title="Select Sub Category" collapsible="false">
                         <b:form>
                             <b:panelGrid colSpans="3,9">
                                 <h:outputText value="Select The SubCategory"/>
-                                <b:selectOneMenu update="@form AddFood" value="#{addFoodsBean.selectedSubCategoryWrapper}">
-                                    <f:selectItem itemLabel="(Select SubCategory)" itemValue=""></f:selectItem>
+                                <b:selectOneMenu update="@form AddFood,m" value="#{addFoodsBean.selectedSubCategoryWrapper}">
+                                    <f:selectItem itemLabel="(Select SubCategory)" itemValue=""/>
                                     <f:selectItems value="#{addFoodsBean.subCategoryWrapperList}" var="selecteSubCategory" itemValue="#{selecteSubCategory}"
                                     itemLabel="#{selecteSubCategory.toString()}"/>
+                                    <f:ajax listener="#{addFoodsBean.updateFoodList()}"/>
                                 </b:selectOneMenu>
                             </b:panelGrid>
                         </b:form>
@@ -34,19 +67,30 @@
                 <b:row>
                     <b:column colSm="12">
                         <b:panel title="Add Food Sub Category List" collapsible="false">
-                            <b:panelGrid colSpans="3,9">
+                            <b:panelGrid colSpans="3,9" style="margin-bottom:20px;">
                                 <h:outputText value="Food name"/>
-                                <b:inputText value="#{addFoodsBean.food.name}"/>
+                                <b:inputText update="messages4" required="true" requiredMessage="Please write Food Name" value="#{addFoodsBean.food.name}"/>
                                 <h:outputText value="Sub Category Of Food"/>
                                 <h:outputText value="#{addFoodsBean.selectedSubCategoryWrapper.toString()}"/>
                                 <h:outputText value="Food Price"/>
-                                <b:inputText value="#{addFoodsBean.food.price}"/>
+                                <b:inputText update="messages4" required="true" requiredMessage="Please Write Food Price" value="#{addFoodsBean.food.price}"/>
+                                <h:outputText value="Status"/>
+                                <b:selectOneMenu update="messages4" required="true" requiredMessage="Please Select Food Status" value="#{addFoodsBean.food.status}">
+                                    <f:selectItem itemLabel="avalable" itemValue="avalable"/>
+                                    <f:selectItem itemLabel="not_avalable" itemValue="not_avalable"/>
+                                </b:selectOneMenu>
+                                <h:outputText value="Kitchen"/>
+                                <b:selectOneMenu required="true" requiredMessage="Please select Kitchen" update="messages4" value="#{addFoodsBean.food.kitchenId}">
+                                    <f:selectItem itemValue="" itemLabel="(Please Select Kitchen)"/>
+                                    <f:selectItems value="#{addFoodsBean.kitchenList}" var="kitchen" itemLabel="#{kitchen.name}"
+                                                   itemValue="#{kitchen.kitchenId}"/>
+                                </b:selectOneMenu>
                                 <h:outputText value="Food Image"/>
-                                <p:fileUpload style="width: auto" fileUploadListener="#{addFoodsBean.processFileUpload}"
+                                <p:fileUpload update="messages4" required="true" requiredMessage="Please Upload Food Image" style="width: auto" fileUploadListener="#{addFoodsBean.processFileUpload}"
                                               mode="advanced" dragDropSupport="false"
-                                              multiple="true" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                                allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
                             </b:panelGrid>
-                            <b:panelGrid colSpans="12">
+                            <b:panelGrid colSpans="12" style="text-align:center;">
                                 <b:commandButton value="save" actionListener="#{addFoodsBean.saveFood()}"/>
                             </b:panelGrid>
                         </b:panel>
@@ -59,14 +103,18 @@
                         <b:panel title="Foods List Of #{addFoodsBean.selectedSubCategoryWrapper}" collapsible="false">
                             <b:dataTable value="#{addFoodsBean.foodList}" var="food" class="editableFoodTable">
                                 <b:dataTableColumn label="Food Name">
-                                    <h:outputText value="#{food.name}"></h:outputText>
+                                    <h:outputText value="#{food.name}"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="Food Price">
-                                    <h:outputText value="#{food.price}"></h:outputText>
+                                    <h:outputText value="#{food.price}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn label="edit">
-                                    <b:commandButton value="" icon="edit" ajax="true" update="@(.editableFoodTable)"
-                                                     onclick="ajax:addFoodsBean.editTable()"></b:commandButton>
+                                <b:dataTableColumn style="text-align:center;" label="edit">
+                                    <b:commandButton id="editButton" oncomplete="$('.modalFoodClass').modal()" value="edit" icon="edit" update="foodModal">
+                                        <f:setPropertyActionListener value="#{food}" target="#{addFoodsBean.selectedFood}" for="editButton"/>
+                                    </b:commandButton>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn style="text-align:center;" label="remove">
+                                    <b:commandButton value="remove" icon="remove" update="@form" actionListener="#{addFoodsBean.removeFood(food)}"/>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:panel>

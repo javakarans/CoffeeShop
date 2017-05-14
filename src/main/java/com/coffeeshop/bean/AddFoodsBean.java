@@ -38,10 +38,12 @@ public class AddFoodsBean implements Serializable{
     private KitchenDaoImp kitchenDaoImp;
     private List<com.coffeeshop.model.Kitchen> kitchenList;
     private String uniqueID ;
+    private Food selectedFood;
 
     @PostConstruct
     public void init()
     {
+        selectedFood = new Food();
         kitchenDaoImp = new KitchenDaoImp();
         kitchenList = kitchenDaoImp.getAllKitchen();
         editTable=false;
@@ -63,6 +65,7 @@ public class AddFoodsBean implements Serializable{
     }
 
     public void processFileUpload(FileUploadEvent event) throws IOException {
+        uniqueID = UUID.randomUUID().toString();
         this.uploadedFile = event.getFile();
         String[] tokens = uploadedFile.getFileName().split("\\.(?=[^\\.]+$)");
         String fileExtention = tokens[1];
@@ -80,10 +83,13 @@ public class AddFoodsBean implements Serializable{
         System.out.println("done");
     }
 
-    public void updateFoodList(ValueChangeEvent event)
+    public void updateFoodList()
     {
+        if (selectedSubCategoryWrapper!=null)
         foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper
                 .getSubCategoryId());
+        else
+            foodList = foodDaoImp.getAllFoods();
     }
 
     public void editTable(){
@@ -112,8 +118,52 @@ public class AddFoodsBean implements Serializable{
                 && foodDaoImp.createFood(food)){
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            foodList = foodDaoImp.getAllFoods();
+            foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
         }
+    }
+
+    public void processFileUploadEdit(FileUploadEvent event) throws IOException {
+        uniqueID = UUID.randomUUID().toString();
+        this.uploadedFile = event.getFile();
+        String[] tokens = uploadedFile.getFileName().split("\\.(?=[^\\.]+$)");
+        String fileExtention = tokens[1];
+        try {
+            InputStream inputStream = event.getFile().getInputstream();
+            String filename = image_location+uniqueID+"."+fileExtention;
+            Path des = Paths.get(filename);
+            Files.copy(inputStream,des);
+            selectedFood.setImageUrl(filename);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("done");
+    }
+
+    public void editFood()
+    {
+        FacesMessage facesMessage;
+        System.out.println("salam");
+        boolean result = foodDaoImp.updateFood(selectedFood);
+        if (result)
+        {
+            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data update successfully!");
+            foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+            System.out.println("1111111111111111111111111111111111111111");
+        }
+        else
+        {
+            facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR, "UnSuccessFully", "Pleas enter subcategory name!");
+        }
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+
+    }
+
+    public void removeFood(Food food)
+    {
+        foodDaoImp.deleteFood(food);
+        foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
     }
 
     public Food getFood() {
@@ -170,5 +220,13 @@ public class AddFoodsBean implements Serializable{
 
     public void setKitchenList(List<Kitchen> kitchenList) {
         this.kitchenList = kitchenList;
+    }
+
+    public Food getSelectedFood() {
+        return selectedFood;
+    }
+
+    public void setSelectedFood(Food selectedFood) {
+        this.selectedFood = selectedFood;
     }
 }

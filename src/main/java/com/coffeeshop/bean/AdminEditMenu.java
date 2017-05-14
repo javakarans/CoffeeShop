@@ -57,6 +57,7 @@ public class AdminEditMenu  implements Serializable {
     }
 
     public void processFileUpload(FileUploadEvent event) throws IOException {
+        uniqueID = UUID.randomUUID().toString();
         this.uploadedImage = event.getFile();
         String[] tokens = uploadedImage.getFileName().split("\\.(?=[^\\.]+$)");
         String fileExtention = tokens[1];
