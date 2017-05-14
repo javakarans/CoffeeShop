@@ -69,6 +69,7 @@
             <div>
                 <a href="#close" class="close">X</a>
                 <h:panelGroup id="orderCart" layout="block">
+                    <div style="text-align: center;margin-bottom: 20px"><img src="../lib/img/nuttellaLogo.png" alt="img" width="180"/></div>
                     <h:form>
                         <table>
                             <tr>
@@ -101,10 +102,10 @@
                                     </td>
                                     <td>#{selectedFoodItem.calTotalPrice()}</td>
                                     <td>
-                                        <p:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}"
-                                                       update="orderCart badge" styleClass="remove">
+                                        <h:commandLink action="#{subCategoryPage.removeFoodItem(selectedFoodItem)}" styleClass="remove">
                                             <span>x</span>
-                                        </p:commandLink>
+                                            <f:ajax render="@form badge"></f:ajax>
+                                        </h:commandLink>
                                     </td>
                                 </tr>
                             </ui:repeat>

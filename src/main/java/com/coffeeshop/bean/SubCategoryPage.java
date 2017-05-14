@@ -56,7 +56,6 @@ public class SubCategoryPage {
     }
 
     public boolean checkAddedToCart(Food food){
-        System.out.println("Repeat");
         Iterator<FoodOrderWrapper> iterator = userSessionBean.getFoodOrderWrapperList().iterator();
         while (iterator.hasNext()){
             FoodOrderWrapper next = iterator.next();

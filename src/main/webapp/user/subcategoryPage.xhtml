@@ -84,11 +84,10 @@
                         <h:panelGroup layout="block" id="foodList">
                             <h:form id="form1">
                                 <ui:repeat value="#{subCategoryPage.foodList}" var="foodItem">
-                                    <h:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
-                                                   disabled="#{subCategoryPage.checkAddedToCart(foodItem)}">
+                                    <p:commandLink action="#{subCategoryPage.addToCart(foodItem)}"
+                                                   update="@form orderCart form2 badge" disabled="#{subCategoryPage.checkAddedToCart(foodItem)}">
                                         <img src="#{foodItem.imageUrl}" alt="img" class="modal-img"/>
-                                        <f:ajax render="orderCart form2 badge"></f:ajax>
-                                    </h:commandLink>
+                                    </p:commandLink>
                                 </ui:repeat>
                             </h:form>
                         </h:panelGroup>
@@ -101,6 +100,7 @@
             <div>
                 <a href="#close" class="close">X</a>
                 <h:panelGroup id="orderCart" layout="block">
+                    <div style="text-align: center;margin-bottom: 20px"><img src="../lib/img/nuttellaLogo.png" alt="img" width="180"/></div>
                     <h:form id="form2">
                         <table>
                             <tr>
@@ -144,8 +144,8 @@
                         <div class="bottom">
                             <br></br>
                             <span>Total Price : #{dtUserSessionBean.calTotalPrice()}</span>
-                            <h:commandLink styleClass="btn" value="Make Order"
-                                           action="#{dtUserSessionBean.makeOrder()}"></h:commandLink>
+                            <p:commandLink styleClass="btn" value="Make Order"
+                                           action="#{dtUserSessionBean.makeOrder()}" disabled="#{!dtUserSessionBean.canMakeOrder()}"></p:commandLink>
                         </div>
                     </h:form>
                 </h:panelGroup>

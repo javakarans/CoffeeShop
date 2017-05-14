@@ -43,7 +43,7 @@
                                 <b:dataTableColumn value="#{category.name}"/>
                                 <b:dataTableColumn label="remove" style="text-align:center;">
                                     <b:commandButton ajax="true" value="remove" icon="remove"
-                                                     action="#{adminEditMenu.removeCategory(category)}"/>
+                                                     action="#{adminEditMenu.removeCategory(category)}" update="@form"/>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="update" style="text-align:center;">
                                     <b:commandButton ajax="true" value="update" icon="update"
