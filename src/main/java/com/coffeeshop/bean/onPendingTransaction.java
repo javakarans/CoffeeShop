@@ -171,7 +171,7 @@ public class onPendingTransaction {
         {}
     }
 
-    public void print(OrderDetail orderDetail)
+    public void paid(OrderDetail orderDetail)
     {
         selectedOrder = orderDetail;
         foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(orderDetail.getOrderDetailId());

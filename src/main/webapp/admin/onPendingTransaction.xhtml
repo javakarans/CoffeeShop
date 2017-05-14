@@ -159,7 +159,7 @@
                                     </b:dataTableColumn>
                                     <b:dataTableColumn label="Paid">
                                         <b:commandButton value="Paid" iconAwesome="thumbs-up"
-                                                         action="#{onPendingTransaction.print(orderItem)}"/>
+                                                         action="#{onPendingTransaction.paid(orderItem)}"/>
                                     </b:dataTableColumn>
                                     <b:dataTableColumn label="Remove">
                                         <b:commandButton actionListener="#{onPendingTransaction.removeOrder(orderItem)}" value="Remove" iconAwesome="remove"/>

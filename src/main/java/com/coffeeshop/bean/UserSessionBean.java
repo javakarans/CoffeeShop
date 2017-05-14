@@ -78,7 +78,7 @@ public class UserSessionBean {
         userReceipt.setFoodOrderWrapperList(foodOrderWrapperList);
         userReceipt.setTotalprice(calTotalPrice());
         userReceipt.setTrackNumber(orderDetail.getTrackingNumber());
-        return printReceipt.printUserReceipt("AB-88H (Copy 1)",userReceipt);
+        return printReceipt.printUserReceipt(settingData.getToucherPrinterName(),userReceipt);
     }
 
     public boolean canMakeOrder(){

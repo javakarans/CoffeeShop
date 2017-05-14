@@ -48,4 +48,15 @@ public class SettingData {
         return currentTrackNumber;
     }
 
+    public void updateAdminSetting(){
+        List<AdminSetting> result = adminSettingDaoImp.getAdminSettingById(1);
+        if (!result.isEmpty())
+            adminSetting = result.get(0);
+        else
+            adminSetting = new AdminSetting();
+    }
+
+    public String getToucherPrinterName(){
+        return adminSetting.getToucherPrinterName();
+    }
 }

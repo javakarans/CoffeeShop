@@ -1,5 +1,6 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.data.SettingData;
 import com.coffeeshop.database.AdminDaoImp;
 import com.coffeeshop.database.AdminSettingDaoImp;
 import com.coffeeshop.model.Admin;
@@ -30,9 +31,11 @@ public class AdminSettingPage {
     private Admin admin;
     private AdminSetting adminSetting;
     private List<String> printerNameList;
+    private SettingData settingData;
 
     @PostConstruct
     public void init(){
+        settingData=SettingData.getInstance();
         adminSettingDaoImp = new AdminSettingDaoImp();
         adminDaoImp = new AdminDaoImp();
         admins = adminDaoImp.getAllAdmins();
@@ -63,6 +66,7 @@ public class AdminSettingPage {
         else {
             adminSettingDaoImp.createAdminSetting(adminSetting);
         }
+        settingData.updateAdminSetting();
     }
 
     public void settingData()
