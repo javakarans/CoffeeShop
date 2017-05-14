@@ -114,18 +114,18 @@ public class onPendingTransaction {
         newFoodOrder.setFoodId(selectedFood.getFoodId());
         boolean result = foodOrderDaoImp.createFoodOrder(newFoodOrder);
         //show message
+        foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(selectedOrder.getOrderDetailId());
         newFoodOrder = new FoodOrder();
     }
 
     public void newOrder()
     {
-        System.out.println("gholam");
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setStatus(Status.ORDER_ONPENDING);
         orderDetail.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
         orderDetail.setTrackingNumber(settingData.getTrackNumber());
         orderDetailDaoImp.createOrder(orderDetail);
-
+        foodOrderDaoImp.insertFoodOrdersOfNewOrder(newFoodOrderList,orderDetail.getOrderDetailId());
         updatePendingOrderOrderTable();
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("pendingOrderRow");
     }
@@ -157,6 +157,18 @@ public class onPendingTransaction {
             FacesContext.getCurrentInstance().addMessage(null, error);
         }
 
+    }
+
+    public void removeOrder(OrderDetail orderDetail)
+    {
+        boolean result = orderDetailDaoImp.deleteOrder(orderDetail);
+        if (result)
+        {
+            updatePendingOrderOrderTable();
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("pendingOrderRow");
+        }
+        else
+        {}
     }
 
     public void print(OrderDetail orderDetail)
@@ -192,6 +204,17 @@ public class onPendingTransaction {
                 pendingOrders = orderDetailDaoImp.getAllPendingOrder();
             }
         }
+    }
+
+    public void removeFoodOrderFromSelectedOrder(FoodOrder foodOrder)
+    {
+        foodOrderDaoImp.deleteFoodOrder(foodOrder);
+        foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(selectedOrder.getOrderDetailId());
+    }
+
+    public String nameOfFood(long fooodId)
+    {
+        return foodDaoImp.getFoodByFoodId(fooodId).getName();
     }
 
     public void updatePendingOrderOrderTable()

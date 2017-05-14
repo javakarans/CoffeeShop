@@ -7,13 +7,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
- 
-
-
 <ui:composition template="../templates/common/adminTemplate.xhtml">
-
     <ui:define name="content">
-
         <b:container>
             <p:growl id="messages1" showDetail="true"/>
             <b:modal id="amodal" title="Edit Order" closable="false" styleClass="modalPseudoClass">
@@ -39,44 +34,47 @@
                                     </b:selectOneMenu>
                                 </b:panelGrid>
                                 <b:panelGrid colSpans="6,6">
-                                    <b:inputText value="#{onPendingTransaction.qntForNewFoodOrder}"
+                                    <b:inputText value="#{onPendingTransaction.newFoodOrder.quantity}"
                                                  placeholder="Write The Quantity Nummber"/>
-                                    <b:commandButton value="Add" icon="plus-sign"/>
+                                    <b:commandButton actionListener="#{onPendingTransaction.addFoodOrderToSelectedOrder}" update="ListOfFoodOrders" value="Add" icon="plus-sign"/>
                                 </b:panelGrid>
                             </b:panel>
                         </b:form>
                     </b:column>
                 </b:row>
-                <b:row>
+                <b:row id="ListOfFoodOrders">
                     <b:column colSm="12">
-                        <b:panelGrid colSpans="12">
-                            <b:form>
-                                <b:dataTable class="editableCarTable" id="table" widgetVar="foodOrderDatataible"
-                                             value="#{onPendingTransaction.foodOrderList}" var="foodOrder">
-                                    <b:dataTableColumn value="#{foodOrder.foodId}"/>
-                                    <b:dataTableColumn value="#{foodOrder.quantity}"/>
-                                    <b:dataTableColumn label="Edit">
-                                        <b:commandButton value="Edit" icon="edit"/>
-                                    </b:dataTableColumn>
-                                    <b:dataTableColumn label="Remove">
-                                        <b:commandButton value="Remove" icon="remove"/>
-                                    </b:dataTableColumn>
-                                </b:dataTable>
-                                <f:facet name="footer">
-                                    <b:button value="Ok" look="primary" dismiss="modal"/>
-                                </f:facet>
-                            </b:form>
-                        </b:panelGrid>
+                        <b:panel title="Food Orders List" collapsible="false">
+                            <b:panelGrid colSpans="12">
+                                <b:form>
+                                    <b:dataTable class="editableCarTable" id="table" widgetVar="foodOrderDatataible"
+                                                 value="#{onPendingTransaction.foodOrderList}" var="foodOrder">
+                                        <b:dataTableColumn label="Food Name">
+                                            <h:outputText value="#{onPendingTransaction.nameOfFood(foodOrder.foodId)}"/>
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn value="#{foodOrder.quantity}"/>
+                                        <b:dataTableColumn label="Edit">
+                                            <b:commandButton value="Edit" icon="edit"/>
+                                        </b:dataTableColumn>
+                                        <b:dataTableColumn label="Remove">
+                                            <b:commandButton update="@form" action="#{onPendingTransaction.removeFoodOrderFromSelectedOrder(foodOrder)}" value="Remove" icon="remove"/>
+                                        </b:dataTableColumn>
+                                    </b:dataTable>
+                                    <f:facet name="footer">
+                                        <b:button value="Ok" look="primary" dismiss="modal"/>
+                                    </f:facet>
+                                </b:form>
+                            </b:panelGrid>
+                        </b:panel>
                     </b:column>
                 </b:row>
             </b:modal>
-
             <b:row>
                 <b:column colSm="12">
                     <b:panel title="Add New Order" collapsible="false">
                         <b:form>
                             <b:panelGrid colSpans="12">
-                                <b:commandButton action="#{onPendingTransaction.prepareDataForNewOrder()}" id="atrigger"
+                                <b:commandButton  action="#{onPendingTransaction.prepareDataForNewOrder()}" id="atrigger"
                                                  style="font-size: 20px">
                                     <b:icon name="plus-sign">
                                         New Order
@@ -126,7 +124,6 @@
                 <b:form id="foodOrderListForNewOrder">
                     <b:row>
                         <b:column colSm="12">
-
                             <b:panel title="Food Order List For New Order" collapsible="false">
                                 <b:dataTable id="table" value="#{onPendingTransaction.newFoodOrderList}"
                                              var="newFoodOrder">
@@ -139,7 +136,6 @@
                                     </b:panelGrid>
                                 </f:facet>
                             </b:panel>
-
                         </b:column>
                     </b:row>
                 </b:form>
@@ -166,18 +162,15 @@
                                                          action="#{onPendingTransaction.print(orderItem)}"/>
                                     </b:dataTableColumn>
                                     <b:dataTableColumn label="Remove">
-                                        <b:commandButton value="Remove" iconAwesome="remove"/>
+                                        <b:commandButton actionListener="#{onPendingTransaction.removeOrder(orderItem)}" value="Remove" iconAwesome="remove"/>
                                     </b:dataTableColumn>
                                 </b:dataTable>
                             </b:panel>
                         </b:column>
                     </b:row>
-                <p:poll interval="1" listener="#{onPendingTransaction.updateFoodOederList()}" update="@form"></p:poll>
+                <p:poll interval="15" listener="#{onPendingTransaction.updateFoodOederList()}" update="form"></p:poll>
             </h:form>
         </b:container>
     </ui:define>
-
-
 </ui:composition>
-
 </html>
