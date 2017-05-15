@@ -145,7 +145,7 @@
                         <b:column colSm="12">
                             <b:panel title="Pending Order" collapsible="false">
 
-                                <b:dataTable value="#{onPendingTransaction.pendingOrders}" var="orderItem">
+                                <b:dataTable value="#{onPendingTransaction.pendingOrders}" var="orderItem" id="dataTable">
                                     <b:dataTableColumn value="#{orderItem.orderDetailId}">
                                     </b:dataTableColumn>
                                     <b:dataTableColumn value="#{orderItem.trackingNumber}"/>
@@ -168,7 +168,7 @@
                             </b:panel>
                         </b:column>
                     </b:row>
-                <p:poll interval="15" listener="#{onPendingTransaction.updateFoodOederList()}" update="form"></p:poll>
+                <p:poll interval="1" listener="#{onPendingTransaction.updateFoodOederList()}"></p:poll>
             </h:form>
         </b:container>
     </ui:define>

@@ -72,6 +72,7 @@ public class onPendingTransaction {
     public void updateFoodOederList(){
         if(addOrder==true){
             pendingOrders = orderDetailDaoImp.getAllPendingOrder();
+            RequestContext.getCurrentInstance().update("form");
             addOrder=false;
         }
     }
