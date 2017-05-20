@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(203, 226, 255, 0);
+}
+body{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /*zoom: 150%;*/
+    zoom: 50%;
+}

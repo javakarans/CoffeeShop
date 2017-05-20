@@ -1,28 +1,3 @@
-*{
-    margin: 0;
-
-}
-body{
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-    zoom: 150%;
-}
-/*!*For Screen 42Inch*!*/
-/*@media only screen and (device-width: 1280px) {*/
-    /*body{*/
-        /*zoom: 100%;*/
-    /*}*/
-/*}*/
-/*!*For Screen 17Inch*!*/
-/*@media only screen and (device-width: 1536px) {*/
-    /*body{*/
-        /*zoom: 120%;*/
-    /*}*/
-/*}*/
 .container-page{
     background: url("../img/background.jpg") no-repeat;
     background-size: cover;
@@ -179,7 +154,6 @@ body{
     width: 650px;
     background: url("../img/foodBackgroundPanel.jpg") ;
     background-size: cover;
-
 }
 #orderCartList > div {
     margin: 250px 275px;
