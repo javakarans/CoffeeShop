@@ -177,7 +177,7 @@ body{
 }
 #foodListModal > div{
     width: 650px;
-    background: url("../img/foodBackground.jpg") ;
+    background: url("../img/FoodBackground.jpg") ;
     background-size: cover;
 
 }
