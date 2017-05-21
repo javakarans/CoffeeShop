@@ -9,6 +9,5 @@ body{
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-    /*zoom: 150%;*/
-    zoom: 50%;
+    zoom: 150%;
 }
