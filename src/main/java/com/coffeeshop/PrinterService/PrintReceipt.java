@@ -11,7 +11,10 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.hibernate.internal.util.ClassLoaderHelper;
+import org.hibernate.internal.util.ConfigHelper;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +34,8 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
 
     PrinterService service = new PrinterService();
 
-    String sourceFileName =
-            this.getClass().getClassLoader().getResource("usertemp.jasper").getPath();
+    String sourceFileName ="/imageNutella/usertemp.jasper";
+
 
 
     List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
@@ -60,14 +63,37 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
     }
 
     return service.print(jasperPrint,printerName);
-}
+    }
+
+    public static URL findAsResource(final String path) {
+        URL url = null;
+
+        // First, try to locate this resource through the current
+        // context classloader.
+        ClassLoader contextClassLoader = ClassLoaderHelper.getContextClassLoader();
+        if (contextClassLoader!=null) {
+            url = contextClassLoader.getResource(path);
+        }
+        if (url != null)
+            return url;
+
+        // Next, try to locate this resource through this class's classloader
+        url = ConfigHelper.class.getClassLoader().getResource(path);
+        if (url != null)
+            return url;
+
+        // Next, try to locate this resource through the system classloader
+        url = ClassLoader.getSystemClassLoader().getResource(path);
+
+        // Anywhere else we should look?
+        return url;
+    }
 
     public boolean printKitchenReceipt(KitchenReceipt kitchenReceipt){
 
         PrinterService service = new PrinterService();
 
-        String sourceFileName =
-                this.getClass().getClassLoader().getResource("kitchentemp.jasper").getPath();
+        String sourceFileName ="/imageNutella/kitchentemp.jasper";
 
 
         List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
