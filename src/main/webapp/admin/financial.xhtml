@@ -39,6 +39,11 @@
                 <b:column colSm="12">
                     <b:form>
                         <b:panel title="TodaysFinancial">
+                            <!--<b:panelGrid colSpans="4,8">-->
+                                <!--<h:outputText value="Today : "/>-->
+                                <!--<b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.today}"/>-->
+                            <!--</b:panelGrid>-->
+                            <br />
                             <b:panelGrid colSpans="12" style="text-align:center;">
                                 <b:commandButton value="Calculate"
                                                  actionListener="#{financialBean.calculateTodaySales}"/>

@@ -10,6 +10,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,12 +34,29 @@ public class FinancialBean {
 
     @PostConstruct
     public void init(){
+        checkAdminIsLogin();
         orderDetails = new ArrayList<OrderDetail>();
         orderDetailDaoImp = new OrderDetailDaoImp();
         today = new Date();
         from = new Date();
         to = new Date();
         orderDetails = orderDetailDaoImp.getAllOrders();
+    }
+
+    public String getAuthority(){
+        return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("authority");
+    }
+
+    public void checkAdminIsLogin(){
+        String authority = getAuthority();
+        System.out.println(authority);
+        if(authority==null){
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/AdminLogin.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void calculateDurationSales(){
@@ -53,9 +72,18 @@ public class FinancialBean {
     }
 
     public void calculateTodaySales(){
+        SimpleDateFormat sm = new SimpleDateFormat("yyyyMMdd");
+        String strDate = sm.format(today);
+        try {
+            today = sm.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date tDate = new java.sql.Date(today.getTime());
+        System.out.println(tDate);
         totalPrice = 0;
         for(int i = 0; i < orderDetails.size(); i++){
-            if (orderDetails.get(i).getDate().compareTo(today) == 0){
+            if (orderDetails.get(i).getDate().compareTo(tDate) == 0){
                 totalPrice += orderDetails.get(i).getTotalPrice();
             }
         }
