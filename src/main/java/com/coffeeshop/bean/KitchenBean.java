@@ -19,7 +19,7 @@ import java.util.List;
  */
 @ManagedBean
 @SessionScoped
-public class Kitchen implements Serializable{
+public class KitchenBean implements Serializable{
 
     private KitchenOrderTempDao kitchenOrderTempDaoImp;
     private List<KitchenOrderTemp> kitchenOrderTemps;

@@ -3,23 +3,27 @@ package com.coffeeshop.bean;
 import com.coffeeshop.database.KitchenDaoImp;
 import com.coffeeshop.model.*;
 import com.coffeeshop.model.Kitchen;
+import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class AddKitchenBean {
+public class AddKitchenBean implements Serializable{
+
     private KitchenDaoImp kitchenDaoImp;
-    private com.coffeeshop.model.Kitchen kitchen;
-    private List<com.coffeeshop.model.Kitchen> kitchenList;
+    private Kitchen kitchen;
+    private List<Kitchen> kitchenList;
     private List<String> printerNameList;
 
     @PostConstruct
@@ -80,7 +84,18 @@ public class AddKitchenBean {
         }
     }
 
-    public com.coffeeshop.model.Kitchen getKitchen() {
+    public void showKitchenEditModal(Kitchen kitchen){
+        this.kitchen = kitchen;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#editKitchen').modal()");
+    }
+
+    public void editKitchen(){
+        kitchenDaoImp.updateKitchen(kitchen);
+//        return "addKitchen.xhtml?faces-redirect=true";
+    }
+
+    public Kitchen getKitchen() {
         return kitchen;
     }
 

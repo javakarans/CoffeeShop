@@ -32,7 +32,7 @@
                                 <b:inputText disabled="true" value="#{addKitchenBean.kitchen.staticIp}"/>
                             </b:panelGrid>
                             <b:panelGrid colSpans="12" style="text-align:center;">
-                                <b:commandButton update="kitchenTable" ajax="true" value="Add" icon="plus-sign" actionListener="#{addKitchenBean.addKitchen()}"/>
+                                <b:commandButton update="kitchenTable" ajax="true" value="Add" icon="plus-sign" action="#{addKitchenBean.addKitchen()}"/>
                             </b:panelGrid>
                         </b:form>
                     </b:panel>
@@ -52,17 +52,44 @@
                                 <b:dataTableColumn label="Printer Name">
                                     <h:outputText value="#{kitchen.kitchenPrinterName}"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn label="remove">
-                                    <b:commandButton ajax="true" action="#{addKitchenBean.removeKitchen(kitchen)}" value="remove" iconAwesome="remove"/>
+                                <b:dataTableColumn label="remove" style="text-align:center;">
+                                    <b:commandButton update="kitchenTable" ajax="true" action="#{addKitchenBean.removeKitchen(kitchen)}" value="remove" iconAwesome="remove"/>
                                 </b:dataTableColumn>
-                                <b:dataTableColumn label="edit">
-                                    <b:commandButton value="edit" iconAwesome="edit"/>
+                                <b:dataTableColumn label="edit" style="text-align:center;">
+                                    <b:commandButton value="edit"  actionListener="#{addKitchenBean.showKitchenEditModal(kitchen)}" iconAwesome="edit"/>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:panel>
                     </b:column>
                 </b:row>
             </b:form>
+
+            <b:modal id="editKitchen" title="Edit Kitchen" closable="false">
+                <b:row>
+                    <b:column colSm="12">
+                        <b:form>
+                            <b:panelGrid colSpans="3,9">
+                                <h:outputText value="Name"/>
+                                <b:inputText required="true" value="#{addKitchenBean.kitchen.name}"/>
+                                <h:outputText value="Printer Name"/>
+                                <b:selectOneMenu value="#{addKitchenBean.kitchen.kitchenPrinterName}">
+                                    <f:selectItem itemLabel="(Please select Printer Name)" itemValue="" />
+                                    <f:selectItems value="#{addKitchenBean.printerNameList}" itemValue="#{printerName}" var="printerName"
+                                                   itemLabel="#{printerName}"/>
+                                </b:selectOneMenu>
+                                <h:outputText value="Printer Mac Address"/>
+                                <b:inputText disabled="true" value="#{addKitchenBean.kitchen.macAddress}"/>
+                                <h:outputText value="Printer Static Ip"/>
+                                <b:inputText disabled="true" value="#{addKitchenBean.kitchen.staticIp}"/>
+                            </b:panelGrid>
+                            <b:panelGrid colSpans="12" style="text-align:center;">
+                                <b:commandButton value="Edit"  action="#{addKitchenBean.editKitchen}"/>
+                            </b:panelGrid>
+                        </b:form>
+                    </b:column>
+                </b:row>
+            </b:modal>
+
         </b:container>
     </ui:define>
 </ui:composition>
