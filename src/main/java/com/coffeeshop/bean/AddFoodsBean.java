@@ -143,7 +143,8 @@ public class AddFoodsBean implements Serializable{
     public void editFood()
     {
         FacesMessage facesMessage;
-        System.out.println("salam");
+        selectedFood.setIngredients("");
+        System.out.println(selectedFood.getFoodId());
         boolean result = foodDaoImp.updateFood(selectedFood);
         if (result)
         {
@@ -156,7 +157,12 @@ public class AddFoodsBean implements Serializable{
             facesMessage= new FacesMessage(FacesMessage.SEVERITY_ERROR, "UnSuccessFully", "Pleas enter subcategory name!");
         }
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-        foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+        if(selectedSubCategoryWrapper!=null){
+            foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+        }
+        else {
+            foodList=foodDaoImp.getAllFoods();
+        }
 
     }
 
@@ -169,6 +175,13 @@ public class AddFoodsBean implements Serializable{
         else {
             foodList=foodDaoImp.getAllFoods();
         }
+    }
+
+    public List<Food> filterFoodBySubCategory()
+    {
+        if (selectedSubCategoryWrapper==null)
+            return foodDaoImp.getAllFoods();
+        else return foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
     }
 
     public Food getFood() {
