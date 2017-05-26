@@ -125,6 +125,11 @@ public class onPendingTransaction {
         orderDetail.setStatus(Status.ORDER_ONPENDING);
         orderDetail.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
         orderDetail.setTrackingNumber(settingData.getTrackNumber());
+        long totalPrice=0;
+        for (FoodOrder foodOrder: newFoodOrderList) {
+            totalPrice = (long) (totalPrice + foodOrder.getTotalPrice());
+        }
+        orderDetail.setTotalPrice(totalPrice);
         orderDetailDaoImp.createOrder(orderDetail);
         foodOrderDaoImp.insertFoodOrdersOfNewOrder(newFoodOrderList,orderDetail.getOrderDetailId());
         updatePendingOrderOrderTable();
@@ -136,9 +141,6 @@ public class onPendingTransaction {
         newOrderDetail = new OrderDetail();
         newFoodOrderList = new ArrayList<FoodOrder>();
         newFoodOrderForNewOrder = new FoodOrder();
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("newOrder");
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.execute("$('.modalNewOrder').modal()");
     }
 
     public void addNewFoodOrderToNewOrder()
@@ -147,6 +149,7 @@ public class onPendingTransaction {
         {
             newFoodOrderForNewOrder = new FoodOrder();
             newFoodOrderForNewOrder.setStatus(Status.FOODORDER_NOT_READY);
+            newFoodOrderForNewOrder.setTotalPrice(selectedFood.getPrice()*qntForNewFoodOrder);
             newFoodOrderForNewOrder.setQuantity(qntForNewFoodOrder);
             newFoodOrderForNewOrder.setFoodId(selectedFood.getFoodId());
             newFoodOrderList.add(newFoodOrderForNewOrder);
@@ -211,6 +214,13 @@ public class onPendingTransaction {
     {
         foodOrderDaoImp.deleteFoodOrder(foodOrder);
         foodOrderList = foodOrderDaoImp.getFoodOrderWithOrderId(selectedOrder.getOrderDetailId());
+    }
+
+    public List<Food> filterFoodBySubCategory()
+    {
+        if (selectedSubCategoryWrapper==null)
+            return foodDaoImp.getAllFoods();
+        else return foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
     }
 
     public String nameOfFood(long fooodId)

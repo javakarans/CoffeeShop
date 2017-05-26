@@ -13,6 +13,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -40,6 +41,8 @@ public class AddFoodsBean implements Serializable{
     private List<com.coffeeshop.model.Kitchen> kitchenList;
     private String uniqueID ;
     private Food selectedFood;
+    @ManagedProperty(value = "#{onPendingTransaction}")
+    private onPendingTransaction onPendingTransaction;
 
     @PostConstruct
     public void init()
@@ -120,6 +123,7 @@ public class AddFoodsBean implements Serializable{
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done", "data saved successfully!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             foodList = foodDaoImp.getFoodsBySubCategoryId(selectedSubCategoryWrapper.getSubCategoryId());
+            onPendingTransaction.init();
         }
     }
 
@@ -253,5 +257,13 @@ public class AddFoodsBean implements Serializable{
 
     public void setSelectedFood(Food selectedFood) {
         this.selectedFood = selectedFood;
+    }
+
+    public com.coffeeshop.bean.onPendingTransaction getOnPendingTransaction() {
+        return onPendingTransaction;
+    }
+
+    public void setOnPendingTransaction(com.coffeeshop.bean.onPendingTransaction onPendingTransaction) {
+        this.onPendingTransaction = onPendingTransaction;
     }
 }
