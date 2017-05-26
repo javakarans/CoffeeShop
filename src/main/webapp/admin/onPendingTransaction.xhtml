@@ -17,7 +17,7 @@
                         <h:form>
                             <b:panel title="Add Order" collapsible="false">
                                 <b:panelGrid colSpans="6,6">
-                                    <b:selectOneMenu label="Select your Sub Category:" update="@form"
+                                    <b:selectOneMenu label="Select your Sub Category:"
                                                      value="#{onPendingTransaction.selectedSubCategoryWrapper}">
                                         <f:selectItem itemLabel="(Please select)" itemValue=""/>
                                         <f:selectItems value="#{onPendingTransaction.subCategoryWrapperList}"
@@ -36,7 +36,6 @@
                                     <b:inputText value="#{onPendingTransaction.newFoodOrder.quantity}"
                                                  placeholder="Write The Quantity Nummber"/>
                                     <b:commandButton
-                                            disabled="#{onPendingTransaction.selectedFood eq null}"
                                             actionListener="#{onPendingTransaction.addFoodOrderToSelectedOrder}"
                                             update="ListOfFoodOrders" value="Add" icon="plus-sign"/>
                                 </b:panelGrid>
