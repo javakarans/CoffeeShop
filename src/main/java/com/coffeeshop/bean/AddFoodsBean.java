@@ -6,6 +6,7 @@ import com.coffeeshop.database.SubcategoryDaoImp;
 import com.coffeeshop.model.*;
 import com.coffeeshop.model.Kitchen;
 import com.coffeeshop.wrapper.SubCategoryWrapper;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -138,6 +139,12 @@ public class AddFoodsBean implements Serializable{
             e.printStackTrace();
         }
         System.out.println("done");
+    }
+
+    public void showFoodEditModal(Food food){
+        this.selectedFood = food;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("$('#foodModal').modal()");
     }
 
     public void editFood()

@@ -110,9 +110,7 @@
                                         <h:outputText value="#{food.price}"/>
                                     </b:dataTableColumn>
                                     <b:dataTableColumn style="text-align:center;" label="edit">
-                                        <b:commandButton id="editButton" oncomplete="$('.modalFoodClass').modal()" value="edit" icon="edit" update="foodModal">
-                                            <f:setPropertyActionListener value="#{food}" target="#{addFoodsBean.selectedFood}" for="editButton"/>
-                                        </b:commandButton>
+                                        <b:commandButton value="Edit" actionListener="#{addFoodsBean.showFoodEditModal(food)}"/>
                                     </b:dataTableColumn>
                                     <b:dataTableColumn style="text-align:center;" label="remove">
                                         <b:commandButton  value="remove" icon="remove" update="@form" actionListener="#{addFoodsBean.removeFood(food)}"/>

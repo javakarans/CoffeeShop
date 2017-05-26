@@ -23,7 +23,7 @@ import java.util.List;
 @ManagedBean(name = "dtUserSessionBean")
 @SessionScoped
 public class UserSessionBean {
-    @ManagedProperty(value="#{onPendingTransaction}")
+    @ManagedProperty(value = "#{onPendingTransaction}")
     private onPendingTransaction onPendingTransaction;
     private long selectedCategory;
     private long selectedSubCategory;
@@ -31,63 +31,57 @@ public class UserSessionBean {
     private SettingData settingData;
 
     @PostConstruct
-    public void init()
-    {
-        foodOrderWrapperList=new ArrayList<FoodOrderWrapper>();
-        settingData=SettingData.getInstance();
+    public void init() {
+        foodOrderWrapperList = new ArrayList<FoodOrderWrapper>();
+        settingData = SettingData.getInstance();
     }
 
-    public void invalidSession(){
+    public void invalidSession() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
-    public double calTotalPrice(){
+    public double calTotalPrice() {
         Iterator<FoodOrderWrapper> iterator = foodOrderWrapperList.iterator();
-        double totalFoodsPrice=0;
-        while (iterator.hasNext()){
-            totalFoodsPrice = totalFoodsPrice+iterator.next().getTotalPrice();
+        double totalFoodsPrice = 0;
+        while (iterator.hasNext()) {
+            totalFoodsPrice = totalFoodsPrice + iterator.next().getTotalPrice();
         }
         return totalFoodsPrice;
     }
 
-    public String makeOrder(){
-        FoodOrderDaoImp foodOrderDaoImp=new FoodOrderDaoImp();
-        OrderDetail orderDetail=new OrderDetail();
+    public String makeOrder() {
+        FoodOrderDaoImp foodOrderDaoImp = new FoodOrderDaoImp();
+        OrderDetail orderDetail = new OrderDetail();
         orderDetail.setTotalPrice(calTotalPrice());
         orderDetail.setTrackingNumber(settingData.getTrackNumber());
         orderDetail.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
         orderDetail.setStatus(Status.ORDER_ONPENDING);
-        OrderDetailDaoImp orderDetailDaoImp=new OrderDetailDaoImp();
+        OrderDetailDaoImp orderDetailDaoImp = new OrderDetailDaoImp();
         orderDetailDaoImp.createOrder(orderDetail);
         Iterator<FoodOrderWrapper> iterator = foodOrderWrapperList.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             FoodOrderWrapper next = iterator.next();
             next.setOrderDetailId(orderDetail.getOrderDetailId());
             foodOrderDaoImp.createFoodOrder(next.convertToOriginalClass());
         }
-        try{
-            if(printReceipt(orderDetail)){
-                onPendingTransaction.setAddOrder(true);
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
+        if (printReceipt(orderDetail)) {
+            onPendingTransaction.setAddOrder(true);
         }
         invalidSession();
         return "/user/categoryPage.xhtml?faces-redirect=true";
     }
 
-    private boolean printReceipt(OrderDetail orderDetail){
-        PrintReceipt printReceipt=new PrintReceipt();
-        UserReceipt userReceipt=new UserReceipt();
+    private boolean printReceipt(OrderDetail orderDetail) {
+        PrintReceipt printReceipt = new PrintReceipt();
+        UserReceipt userReceipt = new UserReceipt();
         userReceipt.setFoodOrderWrapperList(foodOrderWrapperList);
         userReceipt.setTotalprice(calTotalPrice());
         userReceipt.setTrackNumber(orderDetail.getTrackingNumber());
-        return printReceipt.printUserReceipt(settingData.getToucherPrinterName(),userReceipt);
+        return printReceipt.printUserReceipt(settingData.getToucherPrinterName(), userReceipt);
     }
 
-    public boolean canMakeOrder(){
-        if(!foodOrderWrapperList.isEmpty()){
+    public boolean canMakeOrder() {
+        if (!foodOrderWrapperList.isEmpty()) {
             return true;
         }
         return false;
