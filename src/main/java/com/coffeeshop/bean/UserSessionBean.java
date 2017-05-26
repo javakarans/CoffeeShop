@@ -64,9 +64,13 @@ public class UserSessionBean {
             next.setOrderDetailId(orderDetail.getOrderDetailId());
             foodOrderDaoImp.createFoodOrder(next.convertToOriginalClass());
         }
-        if (printReceipt(orderDetail)) {
-            onPendingTransaction.setAddOrder(true);
+        try {
+            printReceipt(orderDetail);
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        onPendingTransaction.setAddOrder(true);
         invalidSession();
         return "/user/categoryPage.xhtml?faces-redirect=true";
     }

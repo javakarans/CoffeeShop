@@ -25,44 +25,42 @@ import java.util.Map;
  */
 public class PrintReceipt {
 
-    public PrintReceipt()
-    {
+    public PrintReceipt() {
 
     }
 
-public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
+    public boolean printUserReceipt(String printerName, UserReceipt userReceipt) {
 
-    PrinterService service = new PrinterService();
+        PrinterService service = new PrinterService();
 
-    String sourceFileName ="/imageNutella/usertemp.jasper";
+        String sourceFileName = "/imageNutella/usertemp.jasper";
 
 
+        List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
+        foodOrderWrappers.add(null);
+        foodOrderWrappers.addAll(userReceipt.getFoodOrderWrapperList());
 
-    List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
-    foodOrderWrappers.add(null);
-    foodOrderWrappers.addAll(userReceipt.getFoodOrderWrapperList());
+        JRBeanCollectionDataSource beanColDataSource = new
+                JRBeanCollectionDataSource(foodOrderWrappers);
 
-    JRBeanCollectionDataSource beanColDataSource = new
-            JRBeanCollectionDataSource(foodOrderWrappers);
+        AdminSettingDaoImp adminSettingDaoImp = new AdminSettingDaoImp();
+        List<AdminSetting> adminSettings = adminSettingDaoImp.getAdminSettingById(1);
 
-    AdminSettingDaoImp adminSettingDaoImp = new AdminSettingDaoImp();
-    List<AdminSetting> adminSettings = adminSettingDaoImp.getAdminSettingById(1);
+        Map parameters = new HashMap();
+        parameters.put("info", beanColDataSource);
+        parameters.put("trackingNumber", userReceipt.getTrackNumber());
+        parameters.put("tprice", userReceipt.getTotalprice());
+        parameters.put("AdminSetting", adminSettings.get(0));
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(
+                    sourceFileName, parameters, beanColDataSource);
+        } catch (JRException e) {
+            e.printStackTrace();
+            return false;
+        }
 
-    Map parameters = new HashMap();
-    parameters.put("info", beanColDataSource);
-    parameters.put("trackingNumber", userReceipt.getTrackNumber());
-    parameters.put("tprice", userReceipt.getTotalprice());
-    parameters.put("AdminSetting",adminSettings.get(0));
-    JasperPrint jasperPrint = null;
-    try {
-        jasperPrint = JasperFillManager.fillReport(
-                sourceFileName, parameters, beanColDataSource);
-    } catch (JRException e) {
-        e.printStackTrace();
-        return false;
-    }
-
-    return service.print(jasperPrint,printerName);
+        return service.print(jasperPrint, printerName);
     }
 
     public static URL findAsResource(final String path) {
@@ -71,7 +69,7 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
         // First, try to locate this resource through the current
         // context classloader.
         ClassLoader contextClassLoader = ClassLoaderHelper.getContextClassLoader();
-        if (contextClassLoader!=null) {
+        if (contextClassLoader != null) {
             url = contextClassLoader.getResource(path);
         }
         if (url != null)
@@ -89,11 +87,11 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
         return url;
     }
 
-    public boolean printKitchenReceipt(KitchenReceipt kitchenReceipt){
+    public boolean printKitchenReceipt(KitchenReceipt kitchenReceipt) {
 
         PrinterService service = new PrinterService();
 
-        String sourceFileName ="/imageNutella/kitchentemp.jasper";
+        String sourceFileName = "/imageNutella/kitchentemp.jasper";
 
 
         List<FoodOrderWrapper> foodOrderWrappers = new ArrayList<FoodOrderWrapper>();
@@ -114,7 +112,7 @@ public boolean printUserReceipt(String printerName, UserReceipt userReceipt){
             return false;
         }
 
-        return service.print(jasperPrint,kitchenReceipt.getPrinterName());
+        return service.print(jasperPrint, kitchenReceipt.getPrinterName());
     }
 
 //    public static void main(String[] args) {
