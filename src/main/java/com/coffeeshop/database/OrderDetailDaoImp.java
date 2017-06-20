@@ -3,6 +3,9 @@ package com.coffeeshop.database;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +44,21 @@ public class OrderDetailDaoImp implements OrderDetailDao {
     public List<OrderDetail> getAllPendingOrder()
     {
         return sqlService.getObjectsBySpecialColumn(new OrderDetail(),"status", Status.ORDER_ONPENDING);
+    }
+
+    public List<OrderDetail> getTodayOrderPaid()
+    {
+        Date today =  new Date();
+        SimpleDateFormat sm = new SimpleDateFormat("yyyyMMdd");
+        String strDate = sm.format(today);
+        try {
+            today = sm.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date tDate = new java.sql.Date(today.getTime());
+        List orders = sqlService.getObjectsByTwoSpecialColumns(new OrderDetail(),"date",tDate,"status",Status.ORDER_PAID);
+        return orders;
     }
 
 }
