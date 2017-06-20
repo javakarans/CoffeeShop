@@ -60,7 +60,7 @@ public class PrintReceipt {
             return false;
         }
 
-        return service.print(jasperPrint, printerName);
+        return service.print(jasperPrint, printerName,2);
     }
 
     public static URL findAsResource(final String path) {
@@ -112,7 +112,7 @@ public class PrintReceipt {
             return false;
         }
 
-        return service.print(jasperPrint, kitchenReceipt.getPrinterName());
+        return service.print(jasperPrint, kitchenReceipt.getPrinterName(),1);
     }
 
 //    public static void main(String[] args) {

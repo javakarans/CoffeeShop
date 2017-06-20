@@ -22,7 +22,7 @@ import java.awt.print.PrinterJob;
  */
 public class PrinterService {
 
-    public boolean print(JasperPrint jasperPrint , String printerName) {
+    public boolean print(JasperPrint jasperPrint , String printerName , int copyNumber) {
 
 
         PrinterJob printerJob = PrinterJob.getPrinterJob();
@@ -52,7 +52,7 @@ public class PrinterService {
             JRPrintServiceExporter exporter;
             PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
             printRequestAttributeSet.add(MediaSizeName.NA_LETTER);
-            printRequestAttributeSet.add(new Copies(1));
+            printRequestAttributeSet.add(new Copies(copyNumber));
 
             // these are deprecated
             exporter = new JRPrintServiceExporter();
