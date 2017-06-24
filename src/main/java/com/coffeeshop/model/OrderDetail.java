@@ -1,8 +1,11 @@
 package com.coffeeshop.model;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Amirhossein on 4/28/2017.
@@ -16,6 +19,15 @@ public class OrderDetail implements Serializable{
     private String status;
     private double totalPrice;
     private Date date;
+    private Timestamp time;
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +67,6 @@ public class OrderDetail implements Serializable{
         this.totalPrice = totalPrice;
     }
 
-    @Column
     public Date getDate() {
         return date;
     }
