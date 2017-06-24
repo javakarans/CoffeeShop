@@ -55,6 +55,7 @@ public class UserSessionBean {
         orderDetail.setTotalPrice(calTotalPrice());
         orderDetail.setTrackingNumber(settingData.getTrackNumber());
         orderDetail.setDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        orderDetail.setTime(new java.sql.Timestamp(Calendar.getInstance().getTimeInMillis()));
         orderDetail.setStatus(Status.ORDER_ONPENDING);
         OrderDetailDaoImp orderDetailDaoImp = new OrderDetailDaoImp();
         orderDetailDaoImp.createOrder(orderDetail);
