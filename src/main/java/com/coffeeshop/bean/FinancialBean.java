@@ -1,9 +1,11 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.database.FoodDaoImp;
 import com.coffeeshop.database.FoodOrderDaoImp;
 import com.coffeeshop.database.OrderDetailDaoImp;
 import com.coffeeshop.model.FoodOrder;
 import com.coffeeshop.model.OrderDetail;
+import com.coffeeshop.services.GmailSMTP;
 import com.coffeeshop.wrapper.FoodExcel;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,7 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,8 +31,9 @@ import java.util.*;
 public class FinancialBean {
 
     private OrderDetailDaoImp orderDetailDaoImp;
-    List<OrderDetail> orderDetails;
-    double totalPrice;
+    private List<OrderDetail> orderDetails;
+    private double totalPrice;
+    private GmailSMTP gmailSMTP;
 
     private Date today;
     private Date from;
@@ -38,6 +41,7 @@ public class FinancialBean {
 
     @PostConstruct
     public void init(){
+        gmailSMTP = new GmailSMTP("Nutellapluserbil","nutellaplus0000");
         checkAdminIsLogin();
         orderDetails = new ArrayList<OrderDetail>();
         orderDetailDaoImp = new OrderDetailDaoImp();
@@ -79,27 +83,31 @@ public class FinancialBean {
         orderDetails = orderDetailDaoImp.getTodayOrderPaid();
         totalPrice = 0;
         for(int i = 0; i < orderDetails.size(); i++){
-                totalPrice += orderDetails.get(i).getTotalPrice();
+            totalPrice += orderDetails.get(i).getTotalPrice();
         }
-        createExcelFile();
+        String date = "" ;
+        if (!orderDetails.isEmpty())
+            date = orderDetails.get(0).getDate().toString();
+        createExcelFile(totalPrice,date);
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('#todayResult').modal()");
     }
 
-    private void createExcelFile()
+    private void createExcelFile(double totalPrice,String date)
     {
         FoodOrderDaoImp foodOrderDaoImp = new FoodOrderDaoImp();
         List<FoodOrder> foodOrderList = new ArrayList<>();
         for (OrderDetail orderDetail: orderDetails) {
             List<FoodOrder> foodOrders = foodOrderDaoImp.getFoodOrderWithOrderId(orderDetail.getOrderDetailId());
-            if (foodOrders.size()!=0)
-                foodOrderList.addAll(foodOrders);
+            foodOrderList.addAll(foodOrders);
         }
+        System.out.println(foodOrderList.size()+"@@@@@@@@@@@@@@@@@@@@2");
         Set<Long> foodIds = new HashSet<>();
         for (FoodOrder foodOrder : foodOrderList)
         {
             foodIds.add(foodOrder.getFoodId());
         }
+        System.out.println(foodIds.size()+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         List<FoodExcel> foodExcelList = new ArrayList<>();
         for(Long id : foodIds)
         {
@@ -111,13 +119,17 @@ public class FinancialBean {
                 if (foodOrder.getFoodId()==id)
                     foodExcel.setFoodCount(foodExcel.getFoodCount()+foodOrder.getQuantity());
             }
+            foodExcelList.add(foodExcel);
         }
-        fillExcel(foodExcelList);
+        fillExcel(foodExcelList,totalPrice,date);
     }
 
-    private void fillExcel(List<FoodExcel> foodExcelList)
+    private void fillExcel(List<FoodExcel> foodExcelList,double totalPrice,String date)
     {
-        String fileLocation = StaticSettings.imageUrl + "epsprocedure.xlsx";
+        FoodDaoImp foodDaoImp = new FoodDaoImp();
+        System.out.println(foodExcelList.size()+"#####################");
+        String fileLocation = StaticSettings.imageUrl + "DailyReport.xlsx";
+        InputStream stream = null;
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("DailyReport");
         Row firstHeader = sheet.createRow(0);
@@ -126,7 +138,44 @@ public class FinancialBean {
         firstHeader.createCell(2).setCellValue("Food Priceّ");
         firstHeader.createCell(3).setCellValue("Food Qntّ");
         firstHeader.createCell(4).setCellValue("Total Price");
+        int i = 1;
+        for (FoodExcel foodExcel : foodExcelList )
+        {
+            Row nextRow = sheet.createRow(i);
+            i++;
+            nextRow.createCell(0).setCellValue(foodExcel.getFoodId());
+            nextRow.createCell(1).setCellValue(foodDaoImp.getFoodByFoodId(foodExcel.getFoodId()).getName());
+            nextRow.createCell(2).setCellValue(foodDaoImp.getFoodByFoodId(foodExcel.getFoodId()).getPrice());
+            nextRow.createCell(3).setCellValue(foodExcel.getFoodCount());
+            nextRow.createCell(4).setCellValue(foodDaoImp.getFoodByFoodId(foodExcel.getFoodId()).getPrice()*foodExcel.getFoodCount());
+        }
 
+        Row nextRow = sheet.createRow(i);
+        i++;
+        Row nextRow1 = sheet.createRow(i);
+        nextRow1.createCell(0).setCellValue("Total Price od all Sales");
+        nextRow1.createCell(1).setCellValue(totalPrice);
+        nextRow1.createCell(2).setCellValue("Date");
+        nextRow1.createCell(3).setCellValue(date);
+
+        try {
+            //Write the workbook in file system
+            File excelFile = new File(fileLocation);
+            FileOutputStream out = new FileOutputStream(excelFile);
+            workbook.write(out);
+            stream = new FileInputStream(excelFile);
+            List<File> fileList = new ArrayList<>();
+            fileList.add(excelFile);
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Daily Report");
+            gmailSMTP.sendMessage("Plusnutella@gmail.com","Daily Report",stringBuilder,fileList);
+            stream.close();
+            out.close();
+            excelFile.exists();
+            workbook.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -177,4 +226,5 @@ public class FinancialBean {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
 }
