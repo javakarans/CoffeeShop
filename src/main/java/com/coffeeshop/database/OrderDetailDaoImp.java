@@ -2,7 +2,10 @@ package com.coffeeshop.database;
 
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,6 +62,16 @@ public class OrderDetailDaoImp implements OrderDetailDao {
         java.sql.Date tDate = new java.sql.Date(today.getTime());
         List orders = sqlService.getObjectsByTwoSpecialColumns(new OrderDetail(),"date",tDate,"status",Status.ORDER_PAID);
         return orders;
+    }
+
+    public List<OrderDetail> getOrderDetailListBetweenTwoTimestamp(Timestamp time1,Timestamp time2){
+        HibernateUtil.beginTransaction();
+        Criteria criteria = HibernateUtil.getSession().createCriteria(OrderDetail.class);
+        criteria.add(Restrictions.ge("time",time1));
+        criteria.add(Restrictions.le("time",time2));
+        List<OrderDetail> list = criteria.list();
+        HibernateUtil.commitTransaction();
+        return list;
     }
 
 }
