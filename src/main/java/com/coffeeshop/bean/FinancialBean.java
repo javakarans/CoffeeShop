@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.*;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,12 +44,10 @@ public class FinancialBean {
     public void init(){
         gmailSMTP = new GmailSMTP("Nutellapluserbil","nutellaplus0000");
         checkAdminIsLogin();
-        orderDetails = new ArrayList<OrderDetail>();
         orderDetailDaoImp = new OrderDetailDaoImp();
         today = new Date();
         from = new Date();
         to = new Date();
-        orderDetails = orderDetailDaoImp.getAllOrders();
     }
 
     public String getAuthority(){
@@ -68,13 +67,15 @@ public class FinancialBean {
     }
 
     public void calculateDurationSales(){
+        Timestamp firstTimestamp = new Timestamp(from.getTime());
+        Timestamp secondTimestamp = new Timestamp(to.getTime());
+        orderDetails = orderDetailDaoImp.getOrderDetailListBetweenTwoTimestamp(firstTimestamp,secondTimestamp);
+        System.out.println(orderDetails.size());
         totalPrice = 0;
         for (int i = 0; i <orderDetails.size(); i++){
-            if(orderDetails.get(i).getDate().compareTo(from) >= 0 &&
-                    orderDetails.get(i).getDate().compareTo(to) <= 0){
                 totalPrice += orderDetails.get(i).getTotalPrice();
-            }
         }
+        createExcelFile(totalPrice,from.toString(),to.toString());
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('#result').modal()");
     }
@@ -88,12 +89,12 @@ public class FinancialBean {
         String date = "" ;
         if (!orderDetails.isEmpty())
             date = orderDetails.get(0).getDate().toString();
-        createExcelFile(totalPrice,date);
+        //createExcelFile(totalPrice,date);
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("$('#todayResult').modal()");
     }
 
-    private void createExcelFile(double totalPrice,String date)
+    private void createExcelFile(double totalPrice,String dateFrom,String dateTo)
     {
         FoodOrderDaoImp foodOrderDaoImp = new FoodOrderDaoImp();
         List<FoodOrder> foodOrderList = new ArrayList<>();
@@ -121,10 +122,10 @@ public class FinancialBean {
             }
             foodExcelList.add(foodExcel);
         }
-        fillExcel(foodExcelList,totalPrice,date);
+        fillExcel(foodExcelList,totalPrice,dateFrom,dateTo);
     }
 
-    private void fillExcel(List<FoodExcel> foodExcelList,double totalPrice,String date)
+    private void fillExcel(List<FoodExcel> foodExcelList,double totalPrice,String dateFrom,String dateTo)
     {
         FoodDaoImp foodDaoImp = new FoodDaoImp();
         System.out.println(foodExcelList.size()+"#####################");
@@ -155,8 +156,10 @@ public class FinancialBean {
         Row nextRow1 = sheet.createRow(i);
         nextRow1.createCell(0).setCellValue("Total Price od all Sales");
         nextRow1.createCell(1).setCellValue(totalPrice);
-        nextRow1.createCell(2).setCellValue("Date");
-        nextRow1.createCell(3).setCellValue(date);
+        nextRow1.createCell(2).setCellValue("From");
+        nextRow1.createCell(4).setCellValue(dateFrom);
+        nextRow1.createCell(6).setCellValue("To");
+        nextRow1.createCell(8).setCellValue(dateTo);
 
         try {
             //Write the workbook in file system

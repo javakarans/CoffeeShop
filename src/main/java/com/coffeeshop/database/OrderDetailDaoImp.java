@@ -1,5 +1,6 @@
 package com.coffeeshop.database;
 
+import com.coffeeshop.bean.StaticSettings;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.model.Status;
 import org.hibernate.Criteria;
@@ -69,6 +70,7 @@ public class OrderDetailDaoImp implements OrderDetailDao {
         Criteria criteria = HibernateUtil.getSession().createCriteria(OrderDetail.class);
         criteria.add(Restrictions.ge("time",time1));
         criteria.add(Restrictions.le("time",time2));
+        criteria.add(Restrictions.eq("status", Status.ORDER_PAID));
         List<OrderDetail> list = criteria.list();
         HibernateUtil.commitTransaction();
         return list;

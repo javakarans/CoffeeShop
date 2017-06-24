@@ -16,14 +16,12 @@
             <b:row>
                 <b:column colSm="12">
                     <b:form>
-                        <b:panel title="PointToPointFinancial">
+                        <b:panel title="Point To Point Financial" collapsible="false">
                             <b:panelGrid colSpans="4,8">
                                 <h:outputText value="From : "/>
-                                <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.from}"/>
-                                <b:column/>
-                                <b:column/>
+                                <b:dateTimePicker  format="YYYY/MM/DD/hh/mm" value="#{financialBean.from}"/>
                                 <h:outputText value="TO : "/>
-                                <b:dateTimePicker showTime="false" format="YYYY/MM/DD" value="#{financialBean.to}"/>
+                                <b:dateTimePicker  format="YYYY/MM/DD/hh/mm" value="#{financialBean.to}"/>
                             </b:panelGrid>
                             <br/>
                             <b:panelGrid colSpans="12" style="text-align:center;">
@@ -35,7 +33,7 @@
                 </b:column>
             </b:row>
 
-            <b:row>
+            <b:row rendered="false">
                 <b:column colSm="12">
                     <b:form>
                         <b:panel title="TodaysFinancial">
@@ -63,7 +61,7 @@
                 </b:row>
             </b:modal>
 
-            <b:modal id="todayResult" title="Result" closable="false">
+            <b:modal rendered="false" id="todayResult" title="Result" closable="false">
                 <b:row>
                     <b:column colSm="12">
                         <b:panelGrid colSpans="12">

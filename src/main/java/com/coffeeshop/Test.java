@@ -6,16 +6,14 @@ import com.coffeeshop.model.Admin;
 import com.coffeeshop.model.AdminSetting;
 import com.coffeeshop.wrapper.FoodOrderWrapper;
 import com.coffeeshop.wrapper.UserReceipt;
+import org.bouncycastle.asn1.cms.Time;
 import org.eclipse.jdt.internal.core.SourceType;
 
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import java.util.Properties;
+import java.util.*;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -33,6 +31,16 @@ public class Test {
 
     public static void main(String [] args){
 
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2017,12,30,23,56,0);
+        System.out.println(calendar.getTime());
+        Timestamp timestamp = new Timestamp(calendar.getTime().getTime());
+        System.out.println(timestamp);
+        calendar.set(2016,1,1,1,1,0);
+        Timestamp timestamp1 = new Timestamp(calendar.getTime().getTime());
+        OrderDetailDaoImp orderDetailDaoImp = new OrderDetailDaoImp();
+        System.out.println(orderDetailDaoImp.getOrderDetailListBetweenTwoTimestamp(timestamp,timestamp1).size());
 //        Date today =  new Date();
 //        SimpleDateFormat sm = new SimpleDateFormat("yyyyMMdd");
 //        String strDate = sm.format(today);
@@ -44,8 +52,8 @@ public class Test {
 //        java.sql.Date tDate = new java.sql.Date(today.getTime());
 //        System.out.println(tDate.toString());
 
-        OrderDetailDaoImp orderDetailDaoImp = new OrderDetailDaoImp();
-        System.out.println(orderDetailDaoImp.getTodayOrderPaid().size());
+//        OrderDetailDaoImp orderDetailDaoImp = new OrderDetailDaoImp();
+//        System.out.println(orderDetailDaoImp.getTodayOrderPaid().size());
 //        String to = "2noori759@gmail.com";//change accordingly
 //        String from = "am.m.noori@gmail.com";
 //        String host = "8.8.8.8";//or IP address
