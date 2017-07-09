@@ -42,7 +42,7 @@ public class FinancialBean {
 
     @PostConstruct
     public void init(){
-        gmailSMTP = new GmailSMTP("Nutellapluserbil","nutellaplus0000");
+        gmailSMTP = new GmailSMTP("nutellapluserbil","new.baran.rawan");
         checkAdminIsLogin();
         orderDetailDaoImp = new OrderDetailDaoImp();
         today = new Date();
