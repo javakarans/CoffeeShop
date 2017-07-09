@@ -80,7 +80,7 @@ public class GmailSMTP {
     }
 
     public static void main(String[] args) {
-        GmailSMTP gmailSMTP=new GmailSMTP("nutellapluserbil","nutellaplus0000");
+        GmailSMTP gmailSMTP=new GmailSMTP("nutellapluserbil","new.baran.rawan");
         StringBuilder stringBuilder=new StringBuilder("Nutella Plus Test Gmail");
         List<File> files=new ArrayList<>();
         gmailSMTP.sendMessage("mmirzakhani1993@gmail.com","Test4",stringBuilder,files);
