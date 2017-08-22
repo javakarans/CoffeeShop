@@ -1,8 +1,10 @@
 package com.coffeeshop.bean;
 
+import com.coffeeshop.database.AdminSettingDaoImp;
 import com.coffeeshop.database.FoodDaoImp;
 import com.coffeeshop.database.FoodOrderDaoImp;
 import com.coffeeshop.database.OrderDetailDaoImp;
+import com.coffeeshop.model.AdminSetting;
 import com.coffeeshop.model.FoodOrder;
 import com.coffeeshop.model.OrderDetail;
 import com.coffeeshop.services.GmailSMTP;
@@ -35,6 +37,8 @@ public class FinancialBean {
     private List<OrderDetail> orderDetails;
     private double totalPrice;
     private GmailSMTP gmailSMTP;
+    private AdminSettingDaoImp adminSettingDaoImp;
+    private AdminSetting adminSetting;
 
     private Date today;
     private Date from;
@@ -42,12 +46,17 @@ public class FinancialBean {
 
     @PostConstruct
     public void init(){
-        gmailSMTP = new GmailSMTP("nutellapluserbil","new.baran.rawan");
         checkAdminIsLogin();
         orderDetailDaoImp = new OrderDetailDaoImp();
         today = new Date();
         from = new Date();
         to = new Date();
+        adminSettingDaoImp = new AdminSettingDaoImp();
+        List admin = adminSettingDaoImp.getAllAdminSettings();
+        if (!admin.isEmpty())
+            adminSetting = (AdminSetting) admin.get(0);
+        else adminSetting = new AdminSetting();
+        gmailSMTP = new GmailSMTP(adminSetting.getGmailUser(),adminSetting.getGmailPassWord());
     }
 
     public String getAuthority(){
@@ -133,13 +142,16 @@ public class FinancialBean {
         InputStream stream = null;
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("DailyReport");
-        Row firstHeader = sheet.createRow(0);
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("Branch Nameّ");
+        header.createCell(3).setCellValue(adminSetting.getBranchNanme());
+        Row firstHeader = sheet.createRow(1);
         firstHeader.createCell(0).setCellValue("Food IDّ");
         firstHeader.createCell(1).setCellValue("Food Nameّ");
         firstHeader.createCell(2).setCellValue("Food Priceّ");
         firstHeader.createCell(3).setCellValue("Food Qntّ");
         firstHeader.createCell(4).setCellValue("Total Price");
-        int i = 1;
+        int i = 2;
         for (FoodExcel foodExcel : foodExcelList )
         {
             Row nextRow = sheet.createRow(i);
@@ -171,7 +183,7 @@ public class FinancialBean {
             fileList.add(excelFile);
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("Daily Report");
-            gmailSMTP.sendMessage("Plusnutella@gmail.com","Daily Report",stringBuilder,fileList);
+            gmailSMTP.sendMessage(adminSetting.getReceiverEmail(),"Daily Report",stringBuilder,fileList);
             stream.close();
             out.close();
             excelFile.exists();

@@ -18,6 +18,14 @@
                     <b:form>
                         <b:panel title="AdminSetting" collapsible="false">
                             <b:panelGrid colSpans="6,6">
+                                <h:outputText value="Branch Name : "/>
+                                <b:inputText required="true" requiredMessage="Branch Name is required" value="#{adminSettingPage.adminSetting.branchNanme}"/>
+                                <h:outputText value="Receiver Email Address : "/>
+                                <b:inputText required="true" requiredMessage="Email Address is required" value="#{adminSettingPage.adminSetting.receiverEmail}"/>
+                                <h:outputText value="Gmail UserName : "/>
+                                <b:inputText required="true" requiredMessage="Gmail UserName is required" value="#{adminSettingPage.adminSetting.gmailUser}"/>
+                                <h:outputText value="Gmail PassWord : "/>
+                                <b:inputText required="true" requiredMessage="Gmail PassWord is required" value="#{adminSettingPage.adminSetting.gmailPassWord}"/>
                                 <h:outputText value="Track Number : "/>
                                 <b:inputText required="true" requiredMessage="Track number is required" value="#{adminSettingPage.adminSetting.trackNumber}"/>
                                 <h:outputText rendered="false" value="receiptNumber : "/>

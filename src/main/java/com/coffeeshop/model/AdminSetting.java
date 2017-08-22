@@ -20,6 +20,10 @@ public class AdminSetting implements Serializable
     private String receiptTitle;
     private String casherPrinterName;
     private String toucherPrinterName;
+    private String gmailUser;
+    private String gmailPassWord;
+    private String receiverEmail;
+    private String branchNanme;
     //for background
     private String imageUrl;
 //    private String password;
@@ -117,6 +121,38 @@ public class AdminSetting implements Serializable
 
     public void setToucherPrinterName(String toucherPrinterName) {
         this.toucherPrinterName = toucherPrinterName;
+    }
+
+    public String getGmailUser() {
+        return gmailUser;
+    }
+
+    public void setGmailUser(String gmailUser) {
+        this.gmailUser = gmailUser;
+    }
+
+    public String getGmailPassWord() {
+        return gmailPassWord;
+    }
+
+    public void setGmailPassWord(String gmailPassWord) {
+        this.gmailPassWord = gmailPassWord;
+    }
+
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
+    }
+
+    public String getBranchNanme() {
+        return branchNanme;
+    }
+
+    public void setBranchNanme(String branchNanme) {
+        this.branchNanme = branchNanme;
     }
 
     //    @Column
